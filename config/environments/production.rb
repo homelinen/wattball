@@ -20,6 +20,9 @@ Wattball::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Mail Settings
+  # Set to sever
+  config.action_mailer.default_url_options = { :host => '' } 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
