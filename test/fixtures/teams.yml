@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  teamname: MyString
-  string: MyString
+  User: 
+  teamName: MyString
+  badge: 
 
 two:
-  teamname: MyString
-  string: MyString
+  User: 
+  teamName: MyString
+  badge: 

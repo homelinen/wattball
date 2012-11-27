@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= "#{@team.User.first_name} #{@team.User.last_name}"  %>
+</p>
+
+<p>
+  <b>Teamname:</b>
+  <%= @team.teamName %>
+</p>
+
+<p>
+  <b>Badge:</b>
+  <%= image_tag @team.badge.url(:thumb) %>
+</p>
+
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>

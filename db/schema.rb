@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123002956) do
+ActiveRecord::Schema.define(:version => 20121127222053) do
 
   create_table "managers", :force => true do |t|
     t.string   "teamname"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(:version => 20121123002956) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "teams", :force => true do |t|
+    t.integer  "User_id"
+    t.string   "teamName"
+    t.string   "badge_file_name"
+    t.string   "badge_content_type"
+    t.integer  "badge_file_size"
+    t.datetime "badge_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "teams", ["User_id"], :name => "index_teams_on_User_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

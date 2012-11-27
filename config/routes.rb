@@ -1,5 +1,5 @@
 Wattball::Application.routes.draw do
-  resources :managers
+  resources :teams
 
   devise_for :users
 
