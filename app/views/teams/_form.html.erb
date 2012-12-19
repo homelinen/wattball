@@ -1,4 +1,4 @@
-<%= form_for(@team, :html => {:multipart => true}) do |f| %>
+<%= form_for(@team, :url => { :action => "create" }, :html => {:multipart => true}) do |f| %>
   <% if @team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -12,9 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :User_id %><br />
-    <%= f.text_field :User_id %>
+  <% @team.build_User unless @team.User %>
+    <%= f.fields_for :User do |user_details_form| %>
+      <% p "Team User: #{user_details_form}" %>
+      <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
+    <% end %>
   </div>
+
   <div class="field">
     <%= f.label :teamName %><br />
     <%= f.text_field :teamName %>
