@@ -42,16 +42,15 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     user_attrs = params[:team].delete(:User_attributes)
+    user = User.new(user_attrs)
+    if !user.save!
+      flash[:error] = user.errors
+      redirect_to new
+    end
+
     @team = Team.new(params[:team])
-    puts "User attribures:#{user_attrs}"
 
-    @team.User = User.new(user_attrs)
-    user = @team.User
-
-    p "Team: #{@team}\n params: #{params[:team]}"
-
-    user.save!
-
+    @team.User = user
     @team.User_id = user.id
 
     respond_to do |format|
