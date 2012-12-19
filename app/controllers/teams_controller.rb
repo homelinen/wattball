@@ -25,6 +25,7 @@ class TeamsController < ApplicationController
   # GET /teams/new.json
   def new
     @team = Team.new
+    #@team.User.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +41,18 @@ class TeamsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
+    user_attrs = params[:team].delete(:User_attributes)
     @team = Team.new(params[:team])
+    puts "User attribures:#{user_attrs}"
+
+    @team.User = User.new(user_attrs)
+    user = @team.User
+
+    p "Team: #{@team}\n params: #{params[:team]}"
+
+    user.save!
+
+    @team.User_id = user.id
 
     respond_to do |format|
       if @team.save
