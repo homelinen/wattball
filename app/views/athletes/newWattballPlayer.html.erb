@@ -1,0 +1,72 @@
+<h1>New athlete</h1>
+
+<%= form_for(@athlete) do |f| %>
+  <%= #render 'form', :locals => { :f => f } 
+%>
+
+  <div class="field">
+    <%= f.label :organisation_tag %><br/ >
+    <% # Nested form here %>
+    <%= f.text_field :organisationTag %>
+  </div>
+
+  <div class="field">
+    <h4><%= f.label :emergency_contact %></h4>
+    <%= f.fields_for :emergencyContact do |contact_form| %>
+
+    <div class="field">
+      <%= f.label :name %><br/ >
+      <%= contact_form.text_field :name %>
+
+      <div class="field">
+        <h5><%= f.label :address %></h5>
+        <%= f.fields_for :address do |address_form| %>
+          <div class="field">
+            <%= f.label :line1 %><br/ >
+            <%= address_form.text_field :line1 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :line2 %><br/ >
+            <%= address_form.text_field :line2 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :city %><br/ >
+            <%= address_form.text_field :city %>
+          </div>
+
+          <div class="field">
+            <%= f.label :country %><br/ >
+            <%= address_form.text_field :country %>
+          </div>
+
+          <div class="field">
+            <%= f.label :postcode %><br/ >
+            <%= address_form.text_field :postcode %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :manager %><br/ >
+
+    <% # Get this in a controller 
+    %>
+    <% managers = Team.all.map { |team| 
+      ["#{team.User.first_name} #{team.User.last_name}",
+      team.User.id]  
+    } %>
+    <%= f.select(:manager_id, managers) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', athletes_path %>

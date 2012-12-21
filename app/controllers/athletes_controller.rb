@@ -32,6 +32,16 @@ class AthletesController < ApplicationController
     end
   end
 
+  def new_wattball_player
+
+    # Should the non-required fields be set here?
+    @athlete = Athlete.new
+    respond_to do |format|
+      format.html { render "newWattballPlayer" }
+      format.json { render json: @player }
+    end
+  end
+
   # GET /athletes/1/edit
   def edit
     @athlete = Athlete.find(params[:id])
