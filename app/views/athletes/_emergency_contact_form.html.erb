@@ -1,0 +1,12 @@
+<div class="field">
+  <%= f.label :name %><br/ >
+  <%= f.text_field :name %>
+
+  <div class="field">
+    <% @athlete.emergencyContact.build_address unless @athlete.emergencyContact.address %>
+    <h5><%= f.label :address %></h5>
+    <%= f.fields_for :address do |address_form| %>
+      <%= render 'address_form.html.erb', :f => address_form %>
+    <% end %>
+  </div>
+</div>

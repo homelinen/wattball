@@ -1,8 +1,7 @@
 <h1>New athlete</h1>
 
-<%= form_for(@athlete) do |f| %>
-  <%= #render 'form', :locals => { :f => f } 
-%>
+<%= form_for(@athlete, :url => { :action => :create_wattball_player }) do |f| %>
+  <%= render 'form', :f => f %>
 
   <div class="field">
     <%= f.label :organisation_tag %><br/ >
@@ -11,44 +10,11 @@
   </div>
 
   <div class="field">
+    <% @athlete.build_emergencyContact unless @athlete.emergencyContact %>
+
     <h4><%= f.label :emergency_contact %></h4>
     <%= f.fields_for :emergencyContact do |contact_form| %>
-
-    <div class="field">
-      <%= f.label :name %><br/ >
-      <%= contact_form.text_field :name %>
-
-      <div class="field">
-        <h5><%= f.label :address %></h5>
-        <%= f.fields_for :address do |address_form| %>
-          <div class="field">
-            <%= f.label :line1 %><br/ >
-            <%= address_form.text_field :line1 %>
-          </div>
-
-          <div class="field">
-            <%= f.label :line2 %><br/ >
-            <%= address_form.text_field :line2 %>
-          </div>
-
-          <div class="field">
-            <%= f.label :city %><br/ >
-            <%= address_form.text_field :city %>
-          </div>
-
-          <div class="field">
-            <%= f.label :country %><br/ >
-            <%= address_form.text_field :country %>
-          </div>
-
-          <div class="field">
-            <%= f.label :postcode %><br/ >
-            <%= address_form.text_field :postcode %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
+      <%= render 'emergency_contact_form', :f => contact_form %>
     <% end %>
   </div>
 
