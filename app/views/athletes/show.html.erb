@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @athlete.user %>
+</p>
+
+<p>
+  <b>Dateofbirth:</b>
+  <%= @athlete.dateOfBirth %>
+</p>
+
+<p>
+  <b>Phonenumber:</b>
+  <%= @athlete.phoneNumber %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @athlete.address %>
+</p>
+
+<p>
+  <b>Nationality:</b>
+  <%= @athlete.nationality %>
+</p>
+
+<p>
+  <b>Emergencycontact:</b>
+  <%= @athlete.emergencyContact %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @athlete.type %>
+</p>
+
+<p>
+  <b>Previoustime:</b>
+  <%= @athlete.previousTime %>
+</p>
+
+<p>
+  <b>Organisationid:</b>
+  <%= @athlete.organisationID %>
+</p>
+
+<p>
+  <b>Manager:</b>
+  <%= @athlete.manager %>
+</p>
+
+
+<%= link_to 'Edit', edit_athlete_path(@athlete) %> |
+<%= link_to 'Back', athletes_path %>
