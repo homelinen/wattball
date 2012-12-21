@@ -1,4 +1,5 @@
-<%= form_for(@athlete) do |f| %>
+
+  <% puts "Hey: #{f}" %>
   <% if @athlete.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@athlete.errors.count, "error") %> prohibited this athlete from being saved:</h2>
@@ -10,7 +11,6 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :user %><br />
     <%= f.text_field :user %>
@@ -31,27 +31,3 @@
     <%= f.label :nationality %><br />
     <%= f.text_field :nationality %>
   </div>
-  <div class="field">
-    <%= f.label :emergencyContact %><br />
-    <%= f.text_field :emergencyContact %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br />
-    <%= f.text_field :type %>
-  </div>
-  <div class="field">
-    <%= f.label :previousTime %><br />
-    <%= f.number_field :previousTime %>
-  </div>
-  <div class="field">
-    <%= f.label :organisationID %><br />
-    <%= f.text_field :organisationID %>
-  </div>
-  <div class="field">
-    <%= f.label :manager %><br />
-    <%= f.text_field :manager %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
