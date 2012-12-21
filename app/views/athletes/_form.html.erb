@@ -11,10 +11,14 @@
       </ul>
     </div>
   <% end %>
+
   <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
+  <% @athlete.build_user unless @athlete.user %>
+    <%= f.fields_for :user do |user_details_form| %>
+      <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
+    <% end %>
   </div>
+
   <div class="field">
     <%= f.label :dateOfBirth %><br />
     <%= f.text_field :dateOfBirth %>
@@ -22,10 +26,6 @@
   <div class="field">
     <%= f.label :phoneNumber %><br />
     <%= f.number_field :phoneNumber %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
   </div>
   <div class="field">
     <%= f.label :nationality %><br />
