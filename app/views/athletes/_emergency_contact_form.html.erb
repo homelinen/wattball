@@ -3,10 +3,27 @@
   <%= f.text_field :name %>
 
   <div class="field">
-    <% @athlete.emergencyContact.build_address unless @athlete.emergencyContact.address %>
-    <h5><%= f.label :address %></h5>
-    <%= f.fields_for :address do |address_form| %>
-      <%= render 'address_form.html.erb', :f => address_form %>
-    <% end %>
+    <%= f.label :line1 %><br/ >
+    <%= f.text_field :line1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :line2 %><br/ >
+    <%= f.text_field :line2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %><br/ >
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %><br/ >
+    <%= f.text_field :country %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postcode %><br/ >
+    <%= f.text_field :postcode %>
   </div>
 </div>

@@ -4,16 +4,15 @@
   <%= render 'form', :f => f %>
 
   <div class="field">
-    <%= f.label :organisation_tag %><br/ >
-    <% # Nested form here %>
+    <%= f.label :wattball_ID %><br/ >
     <%= f.text_field :organisationTag %>
   </div>
 
   <div class="field">
-    <% @athlete.build_emergencyContact unless @athlete.emergencyContact %>
+    <% @athlete.build_contact unless @athlete.contact %>
 
     <h4><%= f.label :emergency_contact %></h4>
-    <%= f.fields_for :emergencyContact do |contact_form| %>
+    <%= f.fields_for :contact do |contact_form| %>
       <%= render 'emergency_contact_form', :f => contact_form %>
     <% end %>
   </div>
