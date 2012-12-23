@@ -16,23 +16,13 @@
 </p>
 
 <p>
-  <b>Address:</b>
-  <%= @athlete.address %>
-</p>
-
-<p>
   <b>Nationality:</b>
   <%= @athlete.nationality %>
 </p>
 
 <p>
   <b>Emergencycontact:</b>
-  <%= @athlete.emergencyContact %>
-</p>
-
-<p>
-  <b>Type:</b>
-  <%= @athlete.type %>
+  <%= @athlete.contact.name %>
 </p>
 
 <p>
@@ -42,12 +32,12 @@
 
 <p>
   <b>Organisationid:</b>
-  <%= @athlete.organisationID %>
+  <%= @athlete.organisationTag %>
 </p>
 
 <p>
   <b>Manager:</b>
-  <%= @athlete.manager %>
+  <%= @athlete.team.teamName %>
 </p>
 
 

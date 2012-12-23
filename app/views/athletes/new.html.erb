@@ -1,7 +1,7 @@
 <h1>New athlete</h1>
 
 <%= form_for(@athlete) do |f| %>
-  <%= render 'form', :locals => { :f => f } %>
+  <%= render 'form', :f => f %>
 
   <div class="actions">
     <%= f.submit %>

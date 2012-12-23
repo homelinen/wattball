@@ -1,6 +1,7 @@
 <h1>New athlete</h1>
 
-<%= form_for(@athlete, :url => { :action => :create_wattball_player }) do |f| %>
+
+<%= form_for(@athlete, :url => { :action => :create }) do |f| %>
   <%= render 'form', :f => f %>
 
   <div class="field">
@@ -18,16 +19,18 @@
   </div>
 
   <div class="field">
-    <%= f.label :manager %><br/ >
+    <%= f.label :team %><br/ >
 
     <% # Get this in a controller 
     %>
-    <% managers = Team.all.map { |team| 
+    <% teams = Team.all.map { |team| 
       ["#{team.User.first_name} #{team.User.last_name}",
       team.User.id]  
     } %>
-    <%= f.select(:manager_id, managers) %>
+    <%= f.select(:team_id, teams) %>
   </div>
+
+  <%= f.hidden_field :type, :value => "WattballPlayer" %>
 
   <div class="actions">
     <%= f.submit %>
