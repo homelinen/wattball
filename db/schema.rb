@@ -11,9 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221103508) do
+ActiveRecord::Schema.define(:version => 20121223161708) do
 
-  create_table "addresses", :force => true do |t|
+  create_table "athletes", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "dateOfBirth"
+    t.integer  "phoneNumber"
+    t.string   "nationality"
+    t.integer  "contact_id"
+    t.string   "type"
+    t.integer  "previousTime"
+    t.string   "organisationTag"
+    t.integer  "manager_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "athletes", ["contact_id"], :name => "index_athletes_on_contact_id"
+  add_index "athletes", ["manager_id"], :name => "index_athletes_on_manager_id"
+  add_index "athletes", ["user_id"], :name => "index_athletes_on_user_id"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "name"
     t.string   "line1"
     t.string   "line2"
     t.string   "city"
@@ -22,35 +41,6 @@ ActiveRecord::Schema.define(:version => 20121221103508) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "athletes", :force => true do |t|
-    t.integer  "user_id"
-    t.date     "dateOfBirth"
-    t.integer  "phoneNumber"
-    t.integer  "address_id"
-    t.string   "nationality"
-    t.integer  "emergencyContact_id"
-    t.string   "type"
-    t.integer  "previousTime"
-    t.string   "organisationTag"
-    t.integer  "manager_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-  end
-
-  add_index "athletes", ["address_id"], :name => "index_athletes_on_address_id"
-  add_index "athletes", ["emergencyContact_id"], :name => "index_athletes_on_emergencyContact_id"
-  add_index "athletes", ["manager_id"], :name => "index_athletes_on_manager_id"
-  add_index "athletes", ["user_id"], :name => "index_athletes_on_user_id"
-
-  create_table "emergency_contacts", :force => true do |t|
-    t.string   "name"
-    t.integer  "address_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "emergency_contacts", ["address_id"], :name => "index_emergency_contacts_on_address_id"
 
   create_table "managers", :force => true do |t|
     t.string   "teamname"

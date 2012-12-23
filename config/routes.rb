@@ -1,6 +1,7 @@
 Wattball::Application.routes.draw do
   resources :athletes do
       get 'new_wattball_player', on: :collection
+      get 'create_wattball_player', on: :collection
   end
 
   resources :teams

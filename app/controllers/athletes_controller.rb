@@ -32,6 +32,7 @@ class AthletesController < ApplicationController
     end
   end
 
+  # GET /atheletes/new_wattball_player
   def new_wattball_player
 
     # Should the non-required fields be set here?
@@ -39,6 +40,20 @@ class AthletesController < ApplicationController
     respond_to do |format|
       format.html { render "newWattballPlayer" }
       format.json { render json: @player }
+    end
+  end
+
+  # POST /atheles/creete_wattball_player
+  def create_wattball_player
+    @player = Athlete.new
+    respond_to do |format|
+      if @athlete.save
+        format.html { redirect_to @athlete, notice: 'Athlete was successfully created.' }
+        format.json { render json: @athlete, status: :created, location: @athlete }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @athlete.errors, status: :unprocessable_entity }
+      end
     end
   end
 

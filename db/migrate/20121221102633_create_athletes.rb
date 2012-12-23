@@ -4,9 +4,8 @@ class CreateAthletes < ActiveRecord::Migration
       t.references :user
       t.date :dateOfBirth
       t.integer :phoneNumber
-      t.references :address
       t.string :nationality
-      t.references :emergencyContact
+      t.references :contact
       t.string :type
       t.integer :previousTime
       t.string :organisationTag
@@ -15,8 +14,7 @@ class CreateAthletes < ActiveRecord::Migration
       t.timestamps
     end
     add_index :athletes, :user_id
-    add_index :athletes, :address_id
-    add_index :athletes, :emergencyContact_id
+    add_index :athletes, :contact_id
     add_index :athletes, :manager_id
   end
 end
