@@ -1,0 +1,3 @@
+class WattballPlayer < Athlete
+
+end

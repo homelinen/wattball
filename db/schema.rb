@@ -11,7 +11,56 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108221133) do
+ActiveRecord::Schema.define(:version => 20121223161708) do
+
+  create_table "athletes", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "dateOfBirth"
+    t.integer  "phoneNumber"
+    t.string   "nationality"
+    t.integer  "contact_id"
+    t.string   "type"
+    t.integer  "previousTime"
+    t.string   "organisationTag"
+    t.integer  "team_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "athletes", ["contact_id"], :name => "index_athletes_on_contact_id"
+  add_index "athletes", ["team_id"], :name => "index_athletes_on_team_id"
+  add_index "athletes", ["user_id"], :name => "index_athletes_on_user_id"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "name"
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "city"
+    t.string   "country"
+    t.string   "postcode"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "managers", :force => true do |t|
+    t.string   "teamname"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "teams", :force => true do |t|
+    t.integer  "User_id"
+    t.string   "teamName"
+    t.string   "badge_file_name"
+    t.string   "badge_content_type"
+    t.integer  "badge_file_size"
+    t.datetime "badge_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "teams", ["User_id"], :name => "index_teams_on_User_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

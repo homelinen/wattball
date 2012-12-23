@@ -22,6 +22,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# File uploads
+gem "paperclip", "~> 3.0"
+
 gem 'jquery-rails', '~> 2.0.1'
 
 # To use ActiveModel has_secure_password
