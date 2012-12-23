@@ -2,7 +2,7 @@
 
 <p>
   <b>User:</b>
-  <%= @athlete.user %>
+  <%= "#{@athlete.user.first_name} #{@athlete.user.last_name}" %>
 </p>
 
 <p>
@@ -20,25 +20,33 @@
   <%= @athlete.nationality %>
 </p>
 
-<p>
-  <b>Emergencycontact:</b>
-  <%= @athlete.contact.name %>
-</p>
+<% if !@athlete.contact.nil? %>
+  <p>
+    <b>Emergencycontact:</b>
+    <%= @athlete.contact.name %>
+  </p>
+<% end %>
 
-<p>
-  <b>Previoustime:</b>
-  <%= @athlete.previousTime %>
-</p>
+<% if !@athlete.previousTime.nil? %>
+  <p>
+    <b>Previoustime:</b>
+    <%= @athlete.previousTime %>
+  </p>
+<% end %>
 
-<p>
-  <b>Organisationid:</b>
-  <%= @athlete.organisationTag %>
-</p>
+<% if !@athlete.organisationTag.nil? %>
+  <p>
+    <b>Organisationid:</b>
+    <%= @athlete.organisationTag %>
+  </p>
+<% end %>
 
-<p>
-  <b>Manager:</b>
-  <%= @athlete.team.teamName %>
-</p>
+<% if !@athlete.team.nil? %>
+  <p>
+    <b>Team:</b>
+    <%= link_to @athlete.team.teamName, team_path(@athlete.team) %>
+  </p>
+<% end %>
 
 
 <%= link_to 'Edit', edit_athlete_path(@athlete) %> |
