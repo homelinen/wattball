@@ -36,7 +36,10 @@ class AthletesController < ApplicationController
   def new_wattball_player
 
     # Should the non-required fields be set here?
-    @athlete = Athlete.new
+    @athlete = WattballPlayer.new
+    @athlete.build_user
+    @athlete.build_contact
+
     respond_to do |format|
       format.html { render "newWattballPlayer" }
       format.json { render json: @player }
@@ -65,7 +68,8 @@ class AthletesController < ApplicationController
   # POST /athletes
   # POST /athletes.json
   def create
-    @athlete = Athlete.new(params[:athlete])
+ 
+    @athlete = Object.const_get(params[:athlete][:type]).new(params[:athlete])
 
     respond_to do |format|
       if @athlete.save
