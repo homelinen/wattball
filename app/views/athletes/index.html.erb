@@ -5,13 +5,12 @@
     <th>User</th>
     <th>Dateofbirth</th>
     <th>Phonenumber</th>
-    <th>Address</th>
     <th>Nationality</th>
-    <th>Emergencycontact</th>
+    <th>Emergency Contact</th>
     <th>Type</th>
     <th>Previoustime</th>
-    <th>Organisationid</th>
-    <th>Manager</th>
+    <th>Wattball ID</th>
+    <th>Team</th>
     <th></th>
     <th></th>
     <th></th>
@@ -19,16 +18,14 @@
 
 <% @athletes.each do |athlete| %>
   <tr>
-    <td><%= athlete.user %></td>
+    <td><%= "" + athlete.user.first_name + " " + athlete.user.last_name %></td>
     <td><%= athlete.dateOfBirth %></td>
     <td><%= athlete.phoneNumber %></td>
-    <td><%= athlete.address %></td>
     <td><%= athlete.nationality %></td>
-    <td><%= athlete.emergencyContact %></td>
-    <td><%= athlete.type %></td>
+    <td><%= athlete.contact.name %></td>
     <td><%= athlete.previousTime %></td>
-    <td><%= athlete.organisationID %></td>
-    <td><%= athlete.manager %></td>
+    <td><%= athlete.organisationTag %></td>
+    <td><%= athlete.team.teamName %></td>
     <td><%= link_to 'Show', athlete %></td>
     <td><%= link_to 'Edit', edit_athlete_path(athlete) %></td>
     <td><%= link_to 'Destroy', athlete, method: :delete, data: { confirm: 'Are you sure?' } %></td>
