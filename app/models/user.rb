@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name
 
   has_one :Team
+  has_one :Athlete
 end
