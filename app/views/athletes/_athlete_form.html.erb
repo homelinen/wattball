@@ -1,0 +1,31 @@
+<% if @athlete.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@athlete.errors.count, "error") %> prohibited this athlete from being saved:</h2>
+
+    <ul>
+    <% @athlete.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="field">
+<% @athlete.build_user unless @athlete.user %>
+  <%= f.fields_for :user do |user_details_form| %>
+    <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
+  <% end %>
+</div>
+
+<div class="field">
+  <%= f.label :dateOfBirth %><br />
+  <%= f.text_field :dateOfBirth %>
+</div>
+<div class="field">
+  <%= f.label :phoneNumber %><br />
+  <%= f.number_field :phoneNumber %>
+</div>
+<div class="field">
+  <%= f.label :nationality %><br />
+  <%= f.text_field :nationality %>
+</div>

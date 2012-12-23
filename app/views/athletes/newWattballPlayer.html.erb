@@ -1,0 +1,40 @@
+<h1>New athlete</h1>
+
+
+<%= form_for(@athlete, :url => { :action => :create }) do |f| %>
+  <%= render 'athlete_form', :f => f %>
+
+  <div class="field">
+    <%= f.label :wattball_ID %><br/ >
+    <%= f.text_field :organisationTag %>
+  </div>
+
+  <div class="field">
+    <% @athlete.build_contact unless @athlete.contact %>
+
+    <h4><%= f.label :emergency_contact %></h4>
+    <%= f.fields_for :contact do |contact_form| %>
+      <%= render 'emergency_contact_form', :f => contact_form %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :team %><br/ >
+
+    <% # Get this in a controller 
+    %>
+    <% teams = Team.all.map { |team| 
+      ["#{team.User.first_name} #{team.User.last_name}",
+      team.User.id]  
+    } %>
+    <%= f.select(:team_id, teams) %>
+  </div>
+
+  <%= f.hidden_field :type, :value => "WattballPlayer" %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', athletes_path %>
