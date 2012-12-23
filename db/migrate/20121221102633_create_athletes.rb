@@ -9,12 +9,12 @@ class CreateAthletes < ActiveRecord::Migration
       t.string :type
       t.integer :previousTime
       t.string :organisationTag
-      t.references :manager
+      t.references :team
 
       t.timestamps
     end
     add_index :athletes, :user_id
     add_index :athletes, :contact_id
-    add_index :athletes, :manager_id
+    add_index :athletes, :team_id
   end
 end
