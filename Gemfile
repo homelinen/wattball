@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 
-gem 'therubyracer', '~> 0.10'
+gem 'therubyracer', '~> 0.10.2'
 gem 'devise'
 
 # Gems used only for assets and not required
