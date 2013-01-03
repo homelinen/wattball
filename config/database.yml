@@ -19,7 +19,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql2
+  database: wattball
+  host: localhost
+  username: wattball
+  password: <%= begin IO.read("/home/my_deploy_user/.db") rescue "" end %>
+  encoding: utf8
   pool: 5
   timeout: 5000
