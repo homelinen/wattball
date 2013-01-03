@@ -6,8 +6,8 @@ class CreateTournaments < ActiveRecord::Migration
       t.date :endDate
       t.references :sport
       t.integer :max_competitors
-      t.integer :adult_ticket_price
-      t.integer :concession_ticket_price
+      t.decimal :adult_ticket_price, :precision => 2
+      t.decimal :concession_ticket_price, :precision => 2
 
       t.timestamps
     end
