@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @tournament.name %>
+</p>
+
+<p>
+  <b>Startdate:</b>
+  <%= @tournament.startDate %>
+</p>
+
+<p>
+  <b>Enddate:</b>
+  <%= @tournament.endDate %>
+</p>
+
+<p>
+  <b>Sport:</b>
+  <%= @tournament.sport.name %>
+</p>
+
+<p>
+  <b>Max competitors:</b>
+  <%= @tournament.max_competitors %>
+</p>
+
+<p>
+  <b>Adult ticket price:</b>
+  <%= @tournament.adult_ticket_price %>
+</p>
+
+<p>
+  <b>Concession ticket price:</b>
+  <%= @tournament.concession_ticket_price %>
+</p>
+
+
+<%= link_to 'Edit', edit_tournament_path(@tournament) %> |
+<%= link_to 'Back', tournaments_path %>

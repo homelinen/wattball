@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130103210841) do
+ActiveRecord::Schema.define(:version => 20130103214503) do
 
   create_table "athletes", :force => true do |t|
     t.integer  "user_id"
@@ -51,6 +51,13 @@ ActiveRecord::Schema.define(:version => 20130103210841) do
 
   add_index "officials", ["user_id"], :name => "index_officials_on_user_id"
 
+  create_table "sports", :force => true do |t|
+    t.string   "name"
+    t.integer  "length"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "teams", :force => true do |t|
     t.integer  "User_id"
     t.string   "teamName"
@@ -63,6 +70,20 @@ ActiveRecord::Schema.define(:version => 20130103210841) do
   end
 
   add_index "teams", ["User_id"], :name => "index_teams_on_User_id"
+
+  create_table "tournaments", :force => true do |t|
+    t.string   "name"
+    t.date     "startDate"
+    t.date     "endDate"
+    t.integer  "sport_id"
+    t.integer  "max_competitors"
+    t.integer  "adult_ticket_price"
+    t.integer  "concession_ticket_price"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "tournaments", ["sport_id"], :name => "index_tournaments_on_sport_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

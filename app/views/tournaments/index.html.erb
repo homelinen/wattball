@@ -1,0 +1,35 @@
+<h1>Listing tournaments</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Startdate</th>
+    <th>Enddate</th>
+    <th>Sport</th>
+    <th>Max competitors</th>
+    <th>Adult ticket price</th>
+    <th>Concession ticket price</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tournaments.each do |tournament| %>
+  <tr>
+    <td><%= tournament.name %></td>
+    <td><%= tournament.startDate %></td>
+    <td><%= tournament.endDate %></td>
+    <td><%= tournament.sport.name %></td>
+    <td><%= tournament.max_competitors %></td>
+    <td><%= tournament.adult_ticket_price %></td>
+    <td><%= tournament.concession_ticket_price %></td>
+    <td><%= link_to 'Show', tournament %></td>
+    <td><%= link_to 'Edit', edit_tournament_path(tournament) %></td>
+    <td><%= link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tournament', new_tournament_path %>

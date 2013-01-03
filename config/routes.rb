@@ -1,4 +1,6 @@
 Wattball::Application.routes.draw do
+  resources :tournaments
+
   resources :sports
 
   resources :officials
