@@ -12,4 +12,5 @@ class User < ActiveRecord::Base
 
   has_one :Team
   has_one :Athlete
+  has_one :Official
 end
