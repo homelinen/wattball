@@ -9,7 +9,7 @@ group :development do
   gem 'sqlite3'
 end
 
-gem 'therubyracer', '~> 0.10'
+gem 'therubyracer', '~> 0.10.2'
 gem 'devise'
 
 # Gems used only for assets and not required
