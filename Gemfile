@@ -5,7 +5,9 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+group :development do
+  gem 'sqlite3'
+end
 
 gem 'therubyracer', '~> 0.10'
 gem 'devise'
@@ -22,6 +24,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :production do
+      gem "mysql2", "~> 0.3.11"
+end
+
 # File uploads
 gem "paperclip", "~> 3.0"
 
@@ -29,6 +35,11 @@ gem 'jquery-rails', '~> 2.0.1'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+group :deploy do
+  gem "capistrano"
+  gem "rvm-capistrano"
+end
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
