@@ -1,6 +1,9 @@
 require "bundler/capistrano"
 require "rvm/capistrano"
 
+# Pre-compile assets
+load 'deploy/assets'
+
 set :application, "wattball"
 set :repository,  "git@github.com:homelinen/wattball.git"
 
