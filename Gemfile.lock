@@ -150,5 +150,5 @@ DEPENDENCIES
   rvm-capistrano
   sass-rails (~> 3.2.3)
   sqlite3
-  therubyracer (~> 0.10)
+  therubyracer (~> 0.10.2)
   uglifier (>= 1.0.3)
