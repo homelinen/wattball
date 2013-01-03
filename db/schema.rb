@@ -42,13 +42,6 @@ ActiveRecord::Schema.define(:version => 20121223161708) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "managers", :force => true do |t|
-    t.string   "teamname"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "teams", :force => true do |t|
     t.integer  "User_id"
     t.string   "teamName"
