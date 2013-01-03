@@ -23,7 +23,7 @@ production:
   database: wattball
   host: localhost
   username: wattball
-  password: <%= begin IO.read("/home/my_deploy_user/.db") rescue "" end %>
+  password: <%= begin IO.read("/home/homelinen/wattball-pass.txt") rescue "" end %>
   encoding: utf8
   pool: 5
   timeout: 5000
