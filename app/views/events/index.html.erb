@@ -1,0 +1,32 @@
+<h1>Listing events</h1>
+
+<table>
+  <tr>
+    <th>Start</th>
+    <th>End</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Official</th>
+    <th>Tournament</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr>
+    <td><%= event.start %></td>
+    <td><%= event.end %></td>
+    <td><%= event.date %></td>
+    <td><%= event.status %></td>
+    <td><%= event.official.user.first_name + " " + event.official.user.last_name %></td>
+    <td><%= event.tournament.name %></td>
+    <td><%= link_to 'Show', event %></td>
+    <td><%= link_to 'Edit', edit_event_path(event) %></td>
+    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_event_path %>

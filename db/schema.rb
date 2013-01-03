@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130103214503) do
+ActiveRecord::Schema.define(:version => 20130103220021) do
 
   create_table "athletes", :force => true do |t|
     t.integer  "user_id"
@@ -41,6 +41,20 @@ ActiveRecord::Schema.define(:version => 20130103214503) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "events", :force => true do |t|
+    t.time     "start"
+    t.time     "end"
+    t.date     "date"
+    t.string   "status"
+    t.integer  "official_id"
+    t.integer  "tournament_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "events", ["official_id"], :name => "index_events_on_official_id"
+  add_index "events", ["tournament_id"], :name => "index_events_on_tournament_id"
 
   create_table "officials", :force => true do |t|
     t.integer  "user_id"
@@ -77,10 +91,10 @@ ActiveRecord::Schema.define(:version => 20130103214503) do
     t.date     "endDate"
     t.integer  "sport_id"
     t.integer  "max_competitors"
-    t.integer  "adult_ticket_price"
-    t.integer  "concession_ticket_price"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.decimal  "adult_ticket_price",      :precision => 2, :scale => 0
+    t.decimal  "concession_ticket_price", :precision => 2, :scale => 0
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
   end
 
   add_index "tournaments", ["sport_id"], :name => "index_tournaments_on_sport_id"
