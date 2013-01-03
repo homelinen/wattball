@@ -1,0 +1,45 @@
+<%= form_for(@tournament) do |f| %>
+  <% if @tournament.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+
+      <ul>
+      <% @tournament.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :startDate %><br />
+    <%= f.date_select :startDate %>
+  </div>
+  <div class="field">
+    <%= f.label :endDate %><br />
+    <%= f.date_select :endDate %>
+  </div>
+  <div class="field">
+    <%= f.label :sport %><br />
+    <%= f.collection_select(:sport_id, Sport.all, :id, :name) %>
+  </div>
+  <div class="field">
+    <%= f.label :max_competitors %><br />
+    <%= f.number_field :max_competitors %>
+  </div>
+  <div class="field">
+    <%= f.label :adult_ticket_price %><br />
+    <%= f.number_field :adult_ticket_price %>
+  </div>
+  <div class="field">
+    <%= f.label :concession_ticket_price %><br />
+    <%= f.number_field :concession_ticket_price %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

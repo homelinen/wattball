@@ -1,4 +1,12 @@
 Wattball::Application.routes.draw do
+  resources :events
+
+  resources :tournaments
+
+  resources :sports
+
+  resources :officials
+
   resources :athletes do
       get 'new_wattball_player', on: :collection
       get 'create_wattball_player', on: :collection
