@@ -1,4 +1,6 @@
 Wattball::Application.routes.draw do
+  resources :wattball_matches
+
   resources :events
 
   resources :tournaments
