@@ -11,7 +11,7 @@ namespace :dummy do
 
   desc "Generate a fake user"
   task :user => :environment  do
-    user = FactoryGirl.create_list(:user, 3)
+    user = FactoryGirl.create(:user)
     p user
   end
 
@@ -20,8 +20,18 @@ namespace :dummy do
     p team
   end
 
+  desc "Generate 44 Players and 4 Teams"
   task :wattball_player => :team  do
     team = FactoryGirl.create_list(:wattball_player, 44)
     p team
+  end
+
+  task :tournament => :environment do
+    FactoryGirl.create(:tournament)
+  end
+
+  desc "Generate 2 Wattball Matches"
+  task :wattball_matches => :tournament do
+    FactoryGirl.create_list(:wattball_match, 2)
   end
 end
