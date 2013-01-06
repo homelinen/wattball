@@ -35,6 +35,19 @@
   <%= @tournament.concession_ticket_price %>
 </p>
 
+<p>
+  <b>Events</b>
+  <ul>
+    <% Event.where(:tournament_id => @tournament.id).each do |event| %>
+        <li>
+        <% match = WattballMatch.find(:first, :conditions => ["event_id = ?", event.id]) %>
+        <% if !match.nil? %>
+          <%= match.team1.teamName + " vs " + match.team2.teamName + " at #{event.start.strftime('%l:%M %P')} on #{event.date.strftime('%A, %d/%m/%y')}"%>
+          <% # Add more type checks here, eg: :hurdle_match %>
+        <% end %>
+        </li>
+    <% end %>
+  </ul>
 
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>

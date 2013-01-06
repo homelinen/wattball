@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Tournament:</b>
+  <%= link_to @wattball_match.event.tournament.name, tournament_path(@wattball_match.event.tournament)%>
+</p>
+
+<p>
+  <b>Team1:</b>
+  <% team1 = @wattball_match.team1 %>
+  <%= link_to team1.teamName, team_path(team1) %>
+</p>
+
+<p>
+  <b>Team2:</b>
+  <% team2 = @wattball_match.team2 %>
+  <%= link_to team2.teamName, team_path(team2) %>
+</p>
+
+
+<%= link_to 'Edit', edit_wattball_match_path(@wattball_match) %> |
+<%= link_to 'Back', wattball_matches_path %>

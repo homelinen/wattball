@@ -40,6 +40,10 @@ group :deploy do
   gem "capistrano"
   gem "rvm-capistrano"
 end
+# Dummy data generation
+
+gem "faker", "~> 1.1.2"
+gem "factory_girl_rails", "~> 4.0"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

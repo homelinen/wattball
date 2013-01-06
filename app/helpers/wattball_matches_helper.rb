@@ -1,0 +1,2 @@
+module WattballMatchesHelper
+end

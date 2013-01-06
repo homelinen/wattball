@@ -17,6 +17,10 @@ These instructions are for Linux, not sure if any relevance to Windows
 5. Run `rails server` or `rails s` to run the application.
 6. Visit localhost:3000
 
+## Dummy Data ##
+
+To generate dummy data look at the `rake -T dummy` tasks.
+
 ## Requirements ##
 
 Ruby ~> 1.9.0 for paperclip
