@@ -30,6 +30,11 @@ gem 'jquery-rails', '~> 2.0.1'
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
+# Dummy data generation
+
+gem "faker", "~> 1.1.2"
+gem "factory_girl_rails", "~> 4.0"
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
