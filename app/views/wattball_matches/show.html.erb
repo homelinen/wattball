@@ -1,18 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Event:</b>
-  <%= @wattball_match.event %>
+  <b>Tournament:</b>
+  <%= link_to @wattball_match.event.tournament.name, tournament_path(@wattball_match.event.tournament)%>
 </p>
 
 <p>
   <b>Team1:</b>
-  <%= @wattball_match.team1 %>
+  <% team1 = @wattball_match.team1 %>
+  <%= link_to team1.teamName, team_path(team1) %>
 </p>
 
 <p>
   <b>Team2:</b>
-  <%= @wattball_match.team2 %>
+  <% team2 = @wattball_match.team1 %>
+  <%= link_to team2.teamName, team_path(team2) %>
 </p>
 
 
