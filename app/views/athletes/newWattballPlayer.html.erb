@@ -24,7 +24,7 @@
     <% # Get this in a controller 
     %>
     <% teams = Team.all.map { |team| 
-      ["#{team.User.first_name} #{team.User.last_name}",
+      ["#{team.teamName}",
       team.User.id]  
     } %>
     <%= f.select(:team_id, teams) %>
