@@ -2,7 +2,7 @@
 
 <p>
   <b>User:</b>
-  <%= "#{@team.User.first_name} #{@team.User.last_name}"  %>
+  <%= join_user_name(@team.User) %>
 </p>
 
 <p>
@@ -20,7 +20,7 @@
   <ul class="playerList">
     <% WattballPlayer.where(:team_id => @team.id).each do |player| %>
         <li>
-          <%= link_to "#{player.user.first_name} #{player.user.last_name}", athlete_path(player) %>
+          <%= link_to join_user_name(player.user), athlete_path(player) %>
         </li>
     <% end %>
   </ul>

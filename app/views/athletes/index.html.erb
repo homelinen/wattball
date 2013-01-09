@@ -18,7 +18,7 @@
 
 <% @athletes.each do |athlete| %>
   <tr>
-    <td><%= "" + athlete.user.first_name + " " + athlete.user.last_name %></td>
+    <td><%= join_user_name(athlete.user)%></td>
     <td><%= athlete.dateOfBirth %></td>
     <td><%= athlete.phoneNumber %></td>
     <td><%= athlete.nationality %></td>

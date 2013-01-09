@@ -18,7 +18,7 @@
     <td><%= event.end %></td>
     <td><%= event.date %></td>
     <td><%= event.status %></td>
-    <td><%= event.official.user.first_name + " " + event.official.user.last_name %></td>
+    <td><%= join_user_name(event.official.user) %></td>
     <td><%= event.tournament.name %></td>
     <td><%= link_to 'Show', event %></td>
     <td><%= link_to 'Edit', edit_event_path(event) %></td>
