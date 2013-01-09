@@ -1,38 +1,34 @@
 <h1>Listing athletes</h1>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Dateofbirth</th>
-    <th>Phonenumber</th>
-    <th>Nationality</th>
-    <th>Emergency Contact</th>
-    <th>Type</th>
-    <th>Previoustime</th>
-    <th>Wattball ID</th>
-    <th>Team</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @athletes.each do |athlete| %>
-  <tr>
-    <td><%= join_user_name(athlete.user)%></td>
-    <td><%= athlete.dateOfBirth %></td>
-    <td><%= athlete.phoneNumber %></td>
-    <td><%= athlete.nationality %></td>
-    <td><%= athlete.contact.name %></td>
-    <td><%= athlete.previousTime %></td>
-    <td><%= athlete.organisationTag %></td>
-    <td><%= athlete.team.teamName %></td>
-    <td><%= link_to 'Show', athlete %></td>
-    <td><%= link_to 'Edit', edit_athlete_path(athlete) %></td>
-    <td><%= link_to 'Destroy', athlete, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<h3>Wattball Players</h3>
+<%= table_for @wattballPlayers do -%>
+  <% column :user, :title => "User Name" do |user|
+   join_user_name user
+  end
+  %>
+  <% column :dateOfBirth, :title => "Date of Birth" %>
+  <% column :nationality %>
+  <% column :phoneNumber, :title => "Phone Number" %>
+  <% column :contact do |contact|
+    contact.name
+  end %>
+  <% column :organisationTag, :title => "Wattball ID" %>
+  <% column :team do |team| 
+    team.teamName 
+  end %>
 <% end %>
-</table>
 
+<h3>Hurdlers</h3>
+<%= table_for @hurdlePlayers do -%>
+  <% column :user, :title => "User Name" do |user|
+   join_user_name user
+  end
+  %>
+  <% column :dateOfBirth, :title => "Date of Birth" %>
+  <% column :nationality %>
+  <% column :phoneNumber, :title => "Phone Number" %>
+  <% column :previousTime, :title => "Previous Time" %>
+<% end %>
 <br />
 <% # Possibly pass the type at this point and have one form?
 %>

@@ -1,0 +1,19 @@
+<h1>New Hurdler</h1>
+
+<%= form_for(@athlete, :url => { :action => :create }) do |f| %>
+  <%= render 'athlete_form', :f => f %>
+
+  <div class="field">
+    <%= f.label :previous_time %><br/ >
+    <%= f.time_select :previousTime %>
+  </div>
+
+
+  <%= f.hidden_field :type, :value => "HurdlePlayer" %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', athletes_path %>

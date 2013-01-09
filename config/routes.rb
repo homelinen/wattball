@@ -12,10 +12,11 @@ Wattball::Application.routes.draw do
   resources :athletes do
       get 'new_wattball_player', on: :collection
       get 'create_wattball_player', on: :collection
+      get 'new_hurdle_player', on: :collection
   end
 
-  resources :teams
 
+    resources :teams
   devise_for :users
 
   # The priority is based upon order of creation:
