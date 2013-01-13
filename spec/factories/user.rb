@@ -70,4 +70,11 @@ FactoryGirl.define do
     team { Dummy.pick_random(Team) }
   end
 
+  factory :hurdle_player do
+    user
+    dateOfBirth { Dummy.fake_time_from(18.year.ago) }
+    nationality 'British'
+    phoneNumber { Faker::PhoneNumber.phone_number }
+    previousTime { Time.at(1.minute + rand(60).seconds) }
+  end
 end
