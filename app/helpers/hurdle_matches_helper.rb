@@ -10,7 +10,7 @@ module HurdleMatchesHelper
       if time.nil?
         timestring = "0:00"
       else
-        timestring = "#{time}s"
+        timestring = "#{time.min}:#{time.strftime("%S")}s"
       end
       outlist += timestring
     end
