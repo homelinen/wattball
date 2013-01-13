@@ -1,28 +1,10 @@
 <h1>Listing hurdle_matches</h1>
 
-<table>
-  <tr>
-    <th>Event</th>
-    <th>Hurdle times</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @hurdle_matches.each do |hurdle_match| %>
-  <tr>
-    <td><%= hurdle_match.event %></td>
-    <td>
-      <ul>
-        <% hurdle_match.hurdle_times.each do |times| %>
-          <% # Need a helper to display useful info
-          %>
-          <li><%= times.athlete %></li>
-        <% end %>
-      </ul>    
-    </td>
-    <td><%= link_to 'Show', hurdle_match %></td>
-    <td><%= link_to 'Destroy', hurdle_match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<%= table_for @hurdle_matches do -%>
+  <% column :event, :title => "Details" do |event| %>
+    <% link_to "Details", event %>
+  <% end %>
+  <% column :title => "Hurdle Times" do |match| %>
+    <% print_times(match) %>
+  <% end %>
 <% end %>
-</table>
