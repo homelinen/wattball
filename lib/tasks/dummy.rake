@@ -34,4 +34,17 @@ namespace :dummy do
   task :wattball_matches => :tournament do
     FactoryGirl.create_list(:wattball_match, 2)
   end
+
+  task :hurdle_players => :environment do
+    FactoryGirl.create_list(:hurdle_player, 8)
+  end
+
+  task :hurdle_match => :hurdle_players do
+    FactoryGirl.create_list(:hurdle_match, 2)
+  end
+
+  desc "Create a Hurdle Match with Times"
+  task :hurdle_matches => :hurdle_match do
+    FactoryGirl.create_list(:hurdle_times, 8)
+  end
 end

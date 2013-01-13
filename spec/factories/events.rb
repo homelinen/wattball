@@ -3,6 +3,17 @@ require 'factory_girl'
 
 # Need to require the Dummy Generator class, or move this into a factories.rb
 
+class Dummy
+
+  # For the model get a random one
+  #
+  def self.getRandom(model)
+    models = model.all
+
+    models[rand(models.length)]
+  end
+end
+
 FactoryGirl.define do
   sequence :time do |n|
 
@@ -46,5 +57,18 @@ FactoryGirl.define do
   factory :sport do
     name 'Wattball'
     length '90'
+  end
+
+  factory :hurdle_match do
+    event
+  end
+
+  factory :hurdle_times do
+    athlete { Dummy.getRandom(HurdlePlayer) }
+   d
+    hurdle_match { Dummy.getRandom(HurdleMatch) }
+
+    time { Time.at(1.minute + rand(60).seconds) }
+    lane { rand(9) }
   end
 end
