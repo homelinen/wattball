@@ -1,5 +1,7 @@
 Wattball::Application.routes.draw do
-  resources :wattball_matches
+  resources :hurdle_matches, :only => [:index, :show]
+
+  resources :wattball_matches, :only => [:index, :show]
 
   resources :events
 
@@ -15,8 +17,7 @@ Wattball::Application.routes.draw do
       get 'new_hurdle_player', on: :collection
   end
 
-
-    resources :teams
+  resources :teams
   devise_for :users
 
   # The priority is based upon order of creation:
