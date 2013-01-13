@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Event:</b>
+  <%= @hurdle_match.event %>
+</p>
+
+<p>
+  <b>Hurdle times:</b>
+  <%= @hurdle_match.hurdle_times %>
+</p>
+
+
+<%= link_to 'Edit', edit_hurdle_match_path(@hurdle_match) %> |
+<%= link_to 'Back', hurdle_matches_path %>
