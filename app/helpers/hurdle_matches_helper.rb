@@ -8,22 +8,29 @@ module HurdleMatchesHelper
   end
 
   # Print athletes and their times
+  #
+  # Could possibly use content_tag for better reability
   def print_times(match)
-    outlist="<ul>"
+
+    list = ""
 
     match.hurdle_times.each do |times|
-      outlist += "\n<li>#{link_to join_user_name(times.athlete.user), times.athlete} - "
+      content = "#{link_to join_user_name(times.athlete.user), times.athlete} - "
+
       time = times.time
+
       if time.nil?
         # Could possibly get the athletes previous time
         timestring = "No time"
       else
         timestring = time_to_mins_and_secs time
       end
-      outlist += timestring
+
+      content += timestring
+      # Create a new li containing the tracked time
+      list += content_tag(:li, content.html_safe)
     end
 
-    outlist += "\n</ul>"
-    outlist.html_safe
+    content_tag(:ul, list.html_safe)
   end
 end
