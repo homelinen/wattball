@@ -44,13 +44,13 @@ FactoryGirl.define do
 
     # This will create a new official for every event
     official
-    tournament { Tournament.first }
+    tournament { Tournament.all.sample }
   end
 
   factory :wattball_match do
     event
-    team1 { Team.first }
-    team2 { Team.last }
+    team1 { Team.all.sample }
+    team2 { Team.all.sample }
   end
 
   factory :tournament do
@@ -75,7 +75,6 @@ FactoryGirl.define do
 
   factory :hurdle_times do
     athlete { Dummy.getRandom(HurdlePlayer) }
-   d
     hurdle_match { Dummy.getRandom(HurdleMatch) }
 
     time { Time.at(1.minute + rand(60).seconds) }
