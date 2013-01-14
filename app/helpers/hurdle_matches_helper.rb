@@ -8,8 +8,6 @@ module HurdleMatchesHelper
   end
 
   # Print athletes and their times
-  #
-  # Could possibly use content_tag for better reability
   def print_times(match)
 
     list = ""
