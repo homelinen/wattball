@@ -7,4 +7,13 @@ class Event < ActiveRecord::Base
   has_many :hurdle_times, :through => :hurdle_match
 
   attr_accessible :date, :end, :start, :status, :official_id, :tournament_id
+
+  # Find the Current Running order of an event in a tournament
+  #
+  # Returns: An int for the position in the event 1 - first, n - last
+  def number_of_event
+    tournament = Event.where(:tournament_id => self.tournament.id).order :date
+
+    tournament.index( self ) + 1
+  end
 end
