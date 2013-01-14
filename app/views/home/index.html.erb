@@ -1,16 +1,26 @@
-<h2>Home</h2>
-
-<%= link_to('Login', new_user_session_path) %>
-
-<h3><%= link_to("Teams", teams_path) %></h3>
-
-<p><%= link_to("Athletes", athletes_path) %></p>
-
-<p><%= link_to("Officials", officials_path) %></p>
-
-<p><%= link_to("Tournaments", tournaments_path) %></p>
-
-<p><%= link_to("Wattball Matches", wattball_matches_path) %></p>
-
-<p><%= link_to("Hurdle Races", hurdle_matches_path) %></p>
+  <div class="row">
+    <div class="span4">
+      <h2>Results</h2>
+      <p>WED 2 JAN 2013 - WattBall</p>
+      <p>Aberdeen   1-0   Dundee</p>
+      <p>Edinburgh  2-0   Aberdeen</p>
+      <p>Dundee     2-2   Inverness</p>
+      <p>Edinburgh  3-1  Inverness</p>
+      <hr>
+      <p><%= link_to("View all Results", events_path) %></p>
+    </div>
+    <div class="span4">
+      <h2>News Feed</h2>
+      <p></p>
+   </div>
+    <div class="span4">
+      <h2>Upcoming Events</h2>
+      <div class="home-events">
+	      <h3>Wattball:</h3>
+	      <p>Saturday, November 3<br/>
+			Team 1 vs Team 2 <br/>
+			2:30 pm to 5:30 pm</p>
+	  </div>
+    </div>
+  </div>
 

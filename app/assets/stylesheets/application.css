@@ -11,3 +11,7 @@
  *= require_self
  *= require_tree .
  */
+.main-menu{
+	padding: 0px 20px;
+	margin-bottom: 20px;
+}
