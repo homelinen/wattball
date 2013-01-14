@@ -1,4 +1,7 @@
 Wattball::Application.routes.draw do
+  resources :venues
+
+
   resources :sport_centers
 
 
