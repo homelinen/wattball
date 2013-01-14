@@ -1,0 +1,35 @@
+<h1>Listing tickets</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Tournament</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Adult</th>
+    <th>Concess</th>
+    <th>Type</th>
+    <th>Price</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tickets.each do |ticket| %>
+  <tr>
+    <td><%= join_user_name(ticket.user) %></td>
+    <td><%= join_tournament_name(ticket.tournament) %></td>
+    <td><%= ticket.start %></td>
+    <td><%= ticket.end %></td>
+    <td><%= ticket.adults %></td>
+    <td><%= ticket.concess %></td>
+    <td><%= ticket.type %></td>
+    <td><%= link_to 'Show', ticket %></td>
+    <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ticket', new_ticket_path %>
