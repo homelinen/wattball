@@ -1,4 +1,7 @@
 Wattball::Application.routes.draw do
+  resources :sport_centers
+
+
   resources :hurdle_matches, :only => [:index, :show]
 
   resources :wattball_matches, :only => [:index, :show]

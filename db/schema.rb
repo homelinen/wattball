@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113184407) do
+ActiveRecord::Schema.define(:version => 20130114213415) do
 
   create_table "athletes", :force => true do |t|
     t.integer  "user_id"
@@ -84,6 +84,21 @@ ActiveRecord::Schema.define(:version => 20130113184407) do
   end
 
   add_index "officials", ["user_id"], :name => "index_officials_on_user_id"
+
+  create_table "sport_centers", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "address_line1"
+    t.string   "address_line2"
+    t.string   "address_town"
+    t.string   "address_city"
+    t.string   "address_postcode"
+    t.integer  "contact_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "sport_centers", ["contact_id"], :name => "index_sport_centers_on_contact_id"
 
   create_table "sports", :force => true do |t|
     t.string   "name"
