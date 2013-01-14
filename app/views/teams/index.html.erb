@@ -1,25 +1,31 @@
-<h1>Listing teams</h1>
+<h1>WattBall Teams</h1>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Teamname</th>
-    <th>Badge</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<hr>
 
-<% @teams.each do |team| %>
-  <tr>
-    <td><%= join_user_name(team.User) %></td>
-    <td><%= team.teamName %></td>
-    <td><%= image_tag team.badge.url(:thumb) %></td>
-    <td><%= link_to 'Show', team %></td>
-    <td><%= link_to 'Edit', edit_team_path(team) %></td>
-    <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table class="table table-bordered table-striped">
+	<thead>
+	  <tr>
+	    <th>User</th>
+	    <th>Teamname</th>
+	    <th>Badge</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>  
+	
+	<% @teams.each do |team| %>
+	  <tr>
+	    <td><%= join_user_name(team.User) %></td>
+	    <td><%= team.teamName %></td>
+	    <td><%= image_tag team.badge.url(:thumb) %></td>
+	    <td><%= link_to 'Show', team %></td>
+	    <td><%= link_to 'Edit', edit_team_path(team) %></td>
+	    <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  </tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />
