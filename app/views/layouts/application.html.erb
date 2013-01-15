@@ -11,15 +11,18 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner main-menu">
     <a class="brand" href="/">Wattball</a>
+    <ul class="nav pull-right">
+      <li><%= link_to('Login', new_user_session_path) %></li>
+    </ul>
+    <br/>
     <ul class="nav">
-      <li class="active"><a href="/">Home</a></li>
+  	<li class="active"><a href="/">Home</a></li>
       <li><%= link_to("Events", events_path) %></li>
       <li><%= link_to("Teams", teams_path) %></li>
       <li><%= link_to("Athletes", athletes_path) %></li>
-      <li>Gallery</li>
+      <li><a href="/">Gallery</a></li>
       <li><a href="/">About us</a></li>
       <li><a href="/">Contact</a></li>
-      <li class="active"><%= link_to('Login', new_user_session_path) %></li>
     </ul>
   </div>
 </div>
@@ -36,6 +39,7 @@
 
 <!-- FOOTER -->
   <footer>
+  	<% @controller_name %>
     <p class="pull-right"><a href="#">Back to top</a></p>
     <p>Copyright 2012 © RailsDrive. All rights reserved.</p>
   </footer>

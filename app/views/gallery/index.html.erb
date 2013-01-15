@@ -2,3 +2,20 @@
 
 <hr> 
 
+<% @items_per_line = 0 %>
+
+<div class="raw">
+<% @events.each do |event| %>
+  <% if @items_per_line >= 3 %>
+    <% @items_per_line = 0 %>
+</div>
+<div class="raw">
+  
+  <% end %>
+  
+	<%= event.tournament.name %>
+	<%= link_to 'Show', event %>	
+	<% @items_per_line += 1 %>
+	
+<% end %>
+</div>
