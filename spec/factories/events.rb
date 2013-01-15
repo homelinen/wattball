@@ -12,6 +12,16 @@ class Dummy
 
     models[rand(models.length)]
   end
+
+  def self.get_random_where(model, where)
+    models = model.where(where)
+
+    if models.length > 0
+      models[rand(models.length)]
+    else
+      nil
+    end
+  end
 end
 
 FactoryGirl.define do
@@ -70,5 +80,13 @@ FactoryGirl.define do
 
     time { Time.at(1.minute + rand(60).seconds) }
     lane { rand(9) }
+  end
+
+  factory :score do
+    match = Dummy.getRandom(WattballMatch)
+    event { match.event }
+    # Pick a random player from this events teams, this is maybe a model method
+    wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", match.team1_id, match.team2_id).sample }
+    amount { rand(4) }
   end
 end

@@ -1,0 +1,26 @@
+<%= form_tag "/contact", :method => "post" do %>
+  <fieldset class="fields">
+    <div class="field">
+      <%= label_tag :name %>
+      <%= text_field_tag :name %>
+    </div>
+    
+    <div class="field">
+      <%= label_tag :email %>
+      <%= text_field_tag :email %>
+    </div>
+    <div class="field">
+      <%= label_tag :subject %>
+      <%= text_field_tag :subject %>
+    </div>
+    
+    <div class="field">
+      <%= label_tag :body %>
+      <%= text_area_tag :body %>
+    </div>
+  </fieldset>
+  
+  <fieldset class="actions">
+    <%= submit_tag "Send" %>
+  </fieldset>
+<% end %>
