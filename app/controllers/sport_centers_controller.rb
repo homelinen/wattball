@@ -21,6 +21,16 @@ class SportCentersController < ApplicationController
     end
   end
 
+  # Consider making a contact controller
+  def contact
+    @message = nil
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: "mail form" }
+    end
+  end
+
   # GET /sport_centers/new
   # GET /sport_centers/new.json
   def new

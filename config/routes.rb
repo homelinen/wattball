@@ -1,13 +1,13 @@
 Wattball::Application.routes.draw do
   resources :venues
 
-
-  resources :sport_centers
-
+  resources :sport_centers, :except => [:index]
 
   resources :hurdle_matches, :only => [:index, :show]
 
   resources :wattball_matches, :only => [:index, :show]
+
+  match "contact" => "sport_centers#contact", :as => :sport_center, :via => "get"
 
   resources :events
 
