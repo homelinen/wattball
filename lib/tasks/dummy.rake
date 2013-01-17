@@ -47,4 +47,8 @@ namespace :dummy do
   task :hurdle_matches => :hurdle_match do
     FactoryGirl.create_list(:hurdle_times, 8)
   end
+
+  task :scores => :environment do
+    p FactoryGirl.build(:score)
+  end
 end
