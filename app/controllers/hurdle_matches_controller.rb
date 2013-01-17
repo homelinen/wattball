@@ -2,7 +2,9 @@ class HurdleMatchesController < ApplicationController
   # GET /hurdle_matches
   # GET /hurdle_matches.json
   def index
-    @hurdle_matches = HurdleMatch.all
+
+    # Horrible sort by date
+    @hurdle_matches = HurdleMatch.joins(:event).order(:date).all
 
     respond_to do |format|
       format.html # index.html.erb
