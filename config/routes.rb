@@ -1,4 +1,7 @@
 Wattball::Application.routes.draw do
+  resources :tickets
+
+
   resources :venues
 
   resources :sport_centers, :except => [:index]

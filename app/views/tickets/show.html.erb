@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Start:</b>
+  <%= @ticket.start %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%= @ticket.end %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= join_user_name(@ticket.user) %>
+</p>
+
+<p>
+  <b>Tournament:</b>
+  <%= @ticket.tournament.name %>
+</p>
+
+<p>
+  <b>Dsc:</b>
+  <%= @ticket.dsc %>
+</p>
+
+<p>
+  <b>Adults number:</b>
+  <%= @ticket.adults_number %>
+</p>
+
+<p>
+  <b>Concess number:</b>
+  <%= @ticket.concess_number %>
+</p>
+
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>

@@ -1,2 +1,2 @@
-class TicketsHelper
+module TicketsHelper
 end
