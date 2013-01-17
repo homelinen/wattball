@@ -12,7 +12,7 @@
 
 <% @teams.each do |team| %>
   <tr>
-    <td><%= team.User.first_name + " " + team.User.last_name %></td>
+    <td><%= join_user_name(team.User) %></td>
     <td><%= team.teamName %></td>
     <td><%= image_tag team.badge.url(:thumb) %></td>
     <td><%= link_to 'Show', team %></td>

@@ -2,11 +2,15 @@ class AthletesController < ApplicationController
   # GET /athletes
   # GET /athletes.json
   def index
-    @athletes = Athlete.all
+    @wattballPlayers = WattballPlayer.all
+    @hurdlePlayers = HurdlePlayer.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @athletes }
+
+      # No clue if this will work
+      # Probably want a hash, really
+      format.json { render json: [@wattballplayers, @hurdleplayers] }
     end
   end
 
@@ -24,11 +28,20 @@ class AthletesController < ApplicationController
   # GET /athletes/new
   # GET /athletes/new.json
   def new
-    @athlete = Athlete.new
+    respond_to format.html # new.html.erb
+  end
+
+  # GET /atheletes/new_wattball_player
+  def new_wattball_player
+
+    # Should the non-required fields be set here?
+    @athlete = WattballPlayer.new
+    @athlete.build_user
+    @athlete.build_contact
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @athlete }
+      format.html { render "newWattballPlayer" }
+      format.json { render json: @player }
     end
   end
 
@@ -42,6 +55,19 @@ class AthletesController < ApplicationController
 
     respond_to do |format|
       format.html { render "newWattballPlayer" }
+      format.json { render json: @player }
+    end
+  end
+
+  # GET /atheletes/new_wattball_player
+  def new_hurdle_player
+
+    # Should the non-required fields be set here?
+    @athlete = HurdlePlayer.new
+    @athlete.build_user
+
+    respond_to do |format|
+      format.html { render "newHurdlePlayer" }
       format.json { render json: @player }
     end
   end

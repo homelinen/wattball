@@ -1,0 +1,25 @@
+<%= form_for(@hurdle_match) do |f| %>
+  <% if @hurdle_match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hurdle_match.errors.count, "error") %> prohibited this hurdle_match from being saved:</h2>
+
+      <ul>
+      <% @hurdle_match.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :event %><br />
+    <%= f.text_field :event %>
+  </div>
+  <div class="field">
+    <%= f.label :hurdle_times %><br />
+    <%= f.text_field :hurdle_times %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

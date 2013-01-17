@@ -1,5 +1,19 @@
 Wattball::Application.routes.draw do
-  resources :wattball_matches
+  resources :tickets
+
+
+  resources :venues
+
+  resources :sport_centers, :except => [:index]
+
+  # This is really a hack
+  match "about" => "sport_centers#show", :id => 1
+
+  resources :hurdle_matches, :only => [:index, :show]
+
+  resources :wattball_matches, :only => [:index, :show]
+
+  match "contact" => "sport_centers#contact", :as => :sport_center, :via => "get"
 
   resources :events
 
@@ -12,10 +26,10 @@ Wattball::Application.routes.draw do
   resources :athletes do
       get 'new_wattball_player', on: :collection
       get 'create_wattball_player', on: :collection
+      get 'new_hurdle_player', on: :collection
   end
 
   resources :teams
-
   devise_for :users
 
   # The priority is based upon order of creation:

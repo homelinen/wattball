@@ -2,7 +2,7 @@
 
 <p>
   <b>User:</b>
-  <%= "#{@athlete.user.first_name} #{@athlete.user.last_name}" %>
+  <%= join_user_name(@athlete.user) %>
 </p>
 
 <p>

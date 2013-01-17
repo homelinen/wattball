@@ -13,7 +13,7 @@
 
 <p>
   <b>Team2:</b>
-  <% team2 = @wattball_match.team2 %>
+  <% team2 = @wattball_match.team2 unless @wattball_match.team2.nil?%>
   <%= link_to team2.teamName, team_path(team2) %>
 </p>
 
