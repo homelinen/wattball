@@ -1,0 +1,37 @@
+<h1>Listing sport_centers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Address line1</th>
+    <th>Address line2</th>
+    <th>Address town</th>
+    <th>Address city</th>
+    <th>Address postcode</th>
+    <th>Contact</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sport_centers.each do |sport_center| %>
+  <tr>
+    <td><%= sport_center.name %></td>
+    <td><%= sport_center.email %></td>
+    <td><%= sport_center.address_line1 %></td>
+    <td><%= sport_center.address_line2 %></td>
+    <td><%= sport_center.address_town %></td>
+    <td><%= sport_center.address_city %></td>
+    <td><%= sport_center.address_postcode %></td>
+    <td><%= sport_center.contact %></td>
+    <td><%= link_to 'Show', sport_center %></td>
+    <td><%= link_to 'Edit', edit_sport_center_path(sport_center) %></td>
+    <td><%= link_to 'Destroy', sport_center, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sport center', new_sport_center_path %>

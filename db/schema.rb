@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105131748) do
+ActiveRecord::Schema.define(:version => 20130115023753) do
 
   create_table "athletes", :force => true do |t|
     t.integer  "user_id"
@@ -56,6 +56,26 @@ ActiveRecord::Schema.define(:version => 20130105131748) do
   add_index "events", ["official_id"], :name => "index_events_on_official_id"
   add_index "events", ["tournament_id"], :name => "index_events_on_tournament_id"
 
+  create_table "hurdle_matches", :force => true do |t|
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "hurdle_matches", ["event_id"], :name => "index_hurdle_matches_on_event_id"
+
+  create_table "hurdle_times", :force => true do |t|
+    t.integer  "athlete_id"
+    t.integer  "hurdle_match_id"
+    t.time     "time"
+    t.integer  "lane"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "hurdle_times", ["athlete_id"], :name => "index_hurdle_times_on_athlete_id"
+  add_index "hurdle_times", ["hurdle_match_id"], :name => "index_hurdle_times_on_hurdle_match_id"
+
   create_table "officials", :force => true do |t|
     t.integer  "user_id"
     t.integer  "phone"
@@ -64,6 +84,32 @@ ActiveRecord::Schema.define(:version => 20130105131748) do
   end
 
   add_index "officials", ["user_id"], :name => "index_officials_on_user_id"
+
+  create_table "scores", :force => true do |t|
+    t.integer  "wattball_player_id"
+    t.integer  "event_id"
+    t.integer  "amount"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "scores", ["event_id"], :name => "index_scores_on_event_id"
+  add_index "scores", ["wattball_player_id"], :name => "index_scores_on_wattball_player_id"
+
+  create_table "sport_centers", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "address_line1"
+    t.string   "address_line2"
+    t.string   "address_town"
+    t.string   "address_city"
+    t.string   "address_postcode"
+    t.integer  "contact_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "sport_centers", ["contact_id"], :name => "index_sport_centers_on_contact_id"
 
   create_table "sports", :force => true do |t|
     t.string   "name"
@@ -118,6 +164,18 @@ ActiveRecord::Schema.define(:version => 20130105131748) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "venues", :force => true do |t|
+    t.integer  "sport_id"
+    t.string   "name"
+    t.integer  "sport_center_id"
+    t.integer  "capacity"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "venues", ["sport_center_id"], :name => "index_venues_on_sport_center_id"
+  add_index "venues", ["sport_id"], :name => "index_venues_on_sport_id"
 
   create_table "wattball_matches", :force => true do |t|
     t.integer  "event_id"
