@@ -39,13 +39,11 @@
   <b>Events</b>
   <ul>
     <% Event.where(:tournament_id => @tournament.id).each do |event| %>
-        <li>
         <% match = WattballMatch.find(:first, :conditions => ["event_id = ?", event.id]) %>
         <% if !match.nil? %>
-          <%= match.team1.teamName + " vs " + match.team2.teamName + " at #{get_time_of_event(event.start)} on #{event.date}"%>
+          <%= content_tag :li, wattball_match_name(match)  %>
           <% # Add more type checks here, eg: :hurdle_match %>
         <% end %>
-        </li>
     <% end %>
   </ul>
 

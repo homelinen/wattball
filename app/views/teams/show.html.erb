@@ -27,6 +27,15 @@
 </p>
 
     
+<p>
+  <b>Matches:</b>
+  <% list = "" %>
+  <% WattballMatch.where("team1_id = :team OR team2_id = :team", :team => Team.first.id).each do |match|
+    list += content_tag :li, "#{match.team1.teamName} vs #{match.team2.teamName}" 
+  end %>
+  <%= content_tag :ul, list.html_safe %>
+  </ul>
+</p>
 
 
 <%= link_to 'Edit', edit_team_path(@team) %> |

@@ -1,32 +1,23 @@
-<h1>Listing events</h1>
+<h1>Listing Events</h1>
 
-<table>
-  <tr>
-    <th>Start</th>
-    <th>End</th>
-    <th>Date</th>
-    <th>Status</th>
-    <th>Official</th>
-    <th>Tournament</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @events.each do |event| %>
-  <tr>
-    <td><%= event.start %></td>
-    <td><%= event.end %></td>
-    <td><%= event.date %></td>
-    <td><%= event.status %></td>
-    <td><%= join_user_name(event.official.user) %></td>
-    <td><%= event.tournament.name %></td>
-    <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<%= table_for @events, :html => {
+  :class => "table table-bordered table-striped"
+} do -%>
+  <% column :start do |start| %>
+    <% get_time_of_event start %>
+  <% end %>
+  <% column :end %>
+  <% column :date %>
+  <% column :status %>
+  <% column :official do |official| %>
+    <% link_to join_user_name(official.user), official_path(official) %>
+  <% end %>
+  <% column :tournament do |tournament| %>
+    <% tournament.name %>
+  <% end %>
+  <% column :title => "Actions" do |event| %>
+    <% link_to "Show", event %>
+  <% end %>
 <% end %>
-</table>
-
-<br />
 
 <%= link_to 'New Event', new_event_path %>

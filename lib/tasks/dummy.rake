@@ -49,6 +49,6 @@ namespace :dummy do
   end
 
   task :scores => :environment do
-    p FactoryGirl.build(:score)
+    p FactoryGirl.create_list(:score, 12)
   end
 end
