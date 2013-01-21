@@ -20,10 +20,14 @@
     <div class="span4">
       <h2>Upcoming Events</h2>
       <div class="home-events">
-	      <h3>Wattball:</h3>
-	      <p>Saturday, November 3<br/>
-			Team 1 vs Team 2 <br/>
-			2:30 pm to 5:30 pm</p>
+	      <h3>Next 5 Wattball Matches:</h3>
+        <ul>
+          <% # Change the period, to 2.weeks with a limit? %>
+          <% WattballMatch.joins(:event).order(:date).limit(5).each do |match| %>
+            <%= content_tag :li, "#{wattball_match_name(match)}"%>
+          <% end %>
+        </ul>
+
 	  </div>
     </div>
   </div>
