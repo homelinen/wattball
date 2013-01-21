@@ -1,7 +1,9 @@
 <h1>Listing athletes</h1>
 
 <h3>Wattball Players</h3>
-<%= table_for @wattballPlayers do -%>
+<%= table_for @wattballPlayers, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
   <% column :user, :title => "User Name" do |user|
    join_user_name user
   end
@@ -19,7 +21,9 @@
 <% end %>
 
 <h3>Hurdlers</h3>
-<%= table_for @hurdlePlayers do -%>
+<%= table_for @hurdlePlayers, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
   <% column :user, :title => "User Name" do |user|
    join_user_name user
   end
