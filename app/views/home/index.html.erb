@@ -3,10 +3,10 @@
       <h2>Results</h2>
       <% list = "" %>
       <% WattballMatch.joins(:event).limit(5).order(:date).each do |match|
-        score1 = Score.includes(:wattball_player).includes(:event).where(:athletes => {"team_id" => match.team1}, :events => { :id => match.event_id }).sum(:amount)
-        score2 = Score.includes(:wattball_player).includes(:event).where(:athletes => {"team_id" => match.team2}, :events => { :id => match.event_id }).sum(:amount)
 
-        list += content_tag :li, "#{match.team1.teamName} #{score1} -  #{score2} #{match.team2.teamName}"
+        scores = Score.match_score(match)
+        p "Scores: #{scores}"
+        list += content_tag :li, "#{match.team1.teamName} #{scores[1]} -  #{scores[2]} #{match.team2.teamName}"
 
       end %>
       <%= content_tag :ul, list.html_safe %>
