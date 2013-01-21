@@ -1,12 +1,16 @@
   <div class="row">
     <div class="span4">
       <h2>Results</h2>
-      <p>WED 2 JAN 2013 - WattBall</p>
-      <p>Aberdeen   1-0   Dundee</p>
-      <p>Edinburgh  2-0   Aberdeen</p>
-      <p>Dundee     2-2   Inverness</p>
-      <p>Edinburgh  3-1  Inverness</p>
-      <hr>
+      <% list = "" %>
+      <% WattballMatch.joins(:event).limit(5).order(:date).each do |match|
+        score1 = Score.includes(:wattball_player).includes(:event).where(:athletes => {"team_id" => match.team1}, :events => { :id => match.event_id }).sum(:amount)
+        score2 = Score.includes(:wattball_player).includes(:event).where(:athletes => {"team_id" => match.team2}, :events => { :id => match.event_id }).sum(:amount)
+
+        list += content_tag :li, "#{match.team1.teamName} #{score1} -  #{score2} #{match.team2.teamName}"
+
+      end %>
+      <%= content_tag :ul, list.html_safe %>
+      <hr />
       <p><%= link_to("View all Results", events_path) %></p>
     </div>
     <div class="span4">
