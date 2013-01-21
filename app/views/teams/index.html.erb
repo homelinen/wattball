@@ -2,29 +2,17 @@
 
 <hr>
 
-<table class="table table-bordered table-striped">
-	<thead>
-	  <tr>
-	    <th>User</th>
-	    <th>Teamname</th>
-	    <th colspan="4">Badge</th>
-	  </tr>
-	</thead>
-	<tbody>  
-	
-	<% @teams.each do |team| %>
-	  <tr>
-	    <td><%= join_user_name(team.User) %></td>
-	    <td><%= team.teamName %></td>
-	    <td><%= image_tag team.badge.url(:thumb) %></td>
-	    <td><%= link_to 'Show', team %></td>
-	    <td><%= link_to 'Edit', edit_team_path(team) %></td>
-	    <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	  </tr>
-	<% end %>
-	</tbody>
-</table>
-
-<br />
+<%= table_for @teams, :html => { :class => "table table-bordered table-striped" } do -%>
+  <% column :User, :title => "Manager Name" do |user| %>
+    <% join_user_name user %>
+  <% end %>
+  <% column :teamName %>
+  <% column :badge do |badge| %>
+    <% image_tag badge.url(:thumb) %>
+  <% end %>
+  <% column :title => "Actions" do |team| %>
+    <% link_to "Show", team %>
+  <% end %>
+<% end %>
 
 <%= link_to 'New Team', new_team_path %>
