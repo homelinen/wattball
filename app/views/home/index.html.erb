@@ -1,5 +1,5 @@
-  <div class="row">
-    <div class="span4">
+  <div class="row-fluid home">
+    <div class="span4 thumbnail">
       <h2>Results</h2>
       <% list = "" %>
       <% WattballMatch.joins(:event).limit(5).order(:date).each do |match|
@@ -12,7 +12,7 @@
       <hr />
       <p><%= link_to("View all Results", events_path) %></p>
     </div>
-    <div class="span4">
+    <div class="span4 thumbnail">
       <h2>News Feed</h2>
       <ul>
       <% Blog.order(:created_at).limit(3).each do |blog|
@@ -22,7 +22,7 @@
     </ul>
     <%= link_to "More", blogs_path %>
    </div>
-    <div class="span4">
+    <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
       <div class="home-events">
 	      <h3>Next 5 Wattball Matches:</h3>
