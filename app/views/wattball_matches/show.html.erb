@@ -17,6 +17,9 @@
   <%= link_to team2.teamName, team_path(team2) %>
 </p>
 
+<% # Render parent class 
+%>
+<% @event = @wattball_match.event %>
+<%= render :template => 'events/show' %>
 
-<%= link_to 'Edit', edit_wattball_match_path(@wattball_match) %> |
 <%= link_to 'Back', wattball_matches_path %>
