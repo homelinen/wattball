@@ -80,4 +80,8 @@ class TicketsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def buy
+    
+  end
 end

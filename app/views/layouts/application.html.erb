@@ -7,19 +7,30 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="container-narrow">
+<div class="navbar nav-pills">
   <div class="navbar-inner main-menu">
     <a class="brand" href="/">Wattball</a>
     <ul class="nav pull-right">
       <li><%= link_to('Login', new_user_session_path) %></li>
     </ul>
-    <br/>
     <ul class="nav">
-  	<li class="active"><a href="/">Home</a></li>
-      <li><%= link_to("Events", events_path) %></li>
-      <li><%= link_to("Teams", teams_path) %></li>
-      <li><%= link_to("Athletes", athletes_path) %></li>
+  	<li<% if params[:controller] == "home" %>
+	   class="active"
+	   <% end %>
+		><a href="/">Home</a></li>
+      <li<% if params[:controller] == "events" %>
+           class="active"
+           <% end %>
+                ><%= link_to("Events", events_path) %></li>
+      <li<% if params[:controller] == "teams" %>
+           class="active"
+           <% end %>
+                ><%= link_to("Teams", teams_path) %></li>
+      <li<% if params[:controller] == "athletes" %>
+           class="active"
+           <% end %>
+                ><%= link_to("Athletes", athletes_path) %></li>
       <li><a href="/">Gallery</a></li>
       <% # This should be more dynamic
     %>
@@ -45,6 +56,6 @@
     <p class="pull-right"><a href="#">Back to top</a></p>
     <p>Copyright 2012 © RailsDrive. All rights reserved.</p>
   </footer>
-      
+</div>      
 </body>
 </html>
