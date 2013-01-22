@@ -7,7 +7,7 @@
 
 <p>
   <b>Email:</b>
-  <%= @sport_center.email %>
+  <%= mail_to @sport_center.email %>
 </p>
 
 <p>
@@ -37,7 +37,7 @@
 
 <p>
   <b>Contact:</b>
-  <%= @sport_center.contact %>
+  <%= "#{@sport_center.contact.name}" %>
 </p>
 
 

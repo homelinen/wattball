@@ -1,0 +1,16 @@
+<%= content_tag :h3, link_to(@blog.title, @blog) %>
+
+<p>
+  <%= @blog.body %>
+</p>
+
+<p class="blog-user">
+<%= "#{join_user_name @blog.user} \
+at #{@blog.created_at.strftime "%d/%m/%y"}" %>
+</p>
+
+
+<% #link_to 'Edit', edit_blog_path(@blog) 
+%>
+<% #link_to 'Back', blogs_path 
+%>
