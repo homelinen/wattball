@@ -4,7 +4,7 @@ module HurdleMatchesHelper
   #
   # Useful for lengths of time, not dates
   def time_to_mins_and_secs(time)
-        "#{time.min}:#{time.strftime("%S")}s"
+        "#{time.min}:#{time.strftime("%S.%2N")}"
   end
 
   # Print athletes and their times
