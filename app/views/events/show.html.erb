@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Start:</b>
-  <%= @event.start %>
+  <%= get_time_of_event @event.start %>
 </p>
 
 <p>
@@ -12,7 +10,7 @@
 
 <p>
   <b>Date:</b>
-  <%= @event.date %>
+  <%= @event.date.strftime "%d/%m/%y" %>
 </p>
 
 <p>
@@ -22,7 +20,7 @@
 
 <p>
   <b>Official:</b>
-  <%= "Mr. " + @event.official.user.last_name %>
+  <%= link_to join_user_name(@event.official.user), @event.official %>
 </p>
 
 <p>

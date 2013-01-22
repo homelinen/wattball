@@ -1,24 +1,19 @@
-<h1>Listing wattball_matches</h1>
+<h1>Listing Wattball Matches</h1>
 
-<table>
-  <tr>
-    <th>Event</th>
-    <th>Team1</th>
-    <th>Team2</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @wattball_matches.each do |wattball_match| %>
-  <tr>
-    <td><%= wattball_match.event.tournament.name %></td>
-    <td><%= wattball_match.team1.teamName %></td>
-    <td><%= wattball_match.team2.teamName %></td>
-    <td><%= link_to 'Show', wattball_match %></td>
-    <td><%= link_to 'Destroy', wattball_match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<%= table_for @wattball_matches, :html => {
+  :class => "table table-bordered"
+} do |t| -%>
+  <% column :team1 do |team|
+    team.teamName 
+  end %>
+  <% column :team2 do |team|
+    team.teamName 
+  end %>
+  <% render :partial => 'events/table', :locals => { :t=> t } %>
+  <% column :title => "Actions" do |wattball_match| %>
+    <% link_to 'Show', wattball_match %>
+  <% end %>
 <% end %>
-</table>
-
 <br />
+
+<%= link_to 'Back', events_path %>

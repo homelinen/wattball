@@ -1,15 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Event:</b>
-  <%= @hurdle_match.event %>
+<b>Hurdle times:</b>
+<%= print_times(@hurdle_match) %>
 </p>
 
-<p>
-  <b>Hurdle times:</b>
-  <%= @hurdle_match.hurdle_times %>
-</p>
+<% # Render parent class 
+%>
+<% @event = @hurdle_match.event %>
+<%= render :template => 'events/show' %>
 
-
-<%= link_to 'Edit', edit_hurdle_match_path(@hurdle_match) %> |
 <%= link_to 'Back', hurdle_matches_path %>

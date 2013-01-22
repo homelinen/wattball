@@ -1,4 +1,7 @@
 Wattball::Application.routes.draw do
+  resources :blogs
+
+
   resources :tickets
 
   match 'tickets/buy/:id' => 'tickets#buy'

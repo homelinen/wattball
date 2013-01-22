@@ -5,7 +5,6 @@
       <% WattballMatch.joins(:event).limit(5).order(:date).each do |match|
 
         scores = Score.match_score(match)
-        p "Scores: #{scores}"
         list += content_tag :li, "#{match.team1.teamName} #{scores[0]} -  #{scores[1]} #{match.team2.teamName}"
 
       end %>
@@ -15,7 +14,13 @@
     </div>
     <div class="span4 thumbnail">
       <h2>News Feed</h2>
-      <p></p>
+      <ul>
+      <% Blog.order(:created_at).limit(3).each do |blog|
+        @blog = blog %>
+        <%= content_tag :li, render(:template => 'blogs/show') %>
+      <% end %>
+    </ul>
+    <%= link_to "More", blogs_path %>
    </div>
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
