@@ -17,9 +17,10 @@
       <ul>
       <% Blog.order(:created_at).limit(3).each do |blog|
         @blog = blog %>
-        <%= render :template => 'blogs/show' %>
+        <%= content_tag :li, render(:template => 'blogs/show') %>
       <% end %>
     </ul>
+    <%= link_to "More", blogs_path %>
    </div>
     <div class="span4">
       <h2>Upcoming Events</h2>
