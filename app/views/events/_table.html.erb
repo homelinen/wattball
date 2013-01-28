@@ -1,4 +1,11 @@
-<% t.column :event, :title => "Start" do |event| %>
+  <% t.column :event, :title => "Venue" do |event| %>
+    <% if event.venue
+          event.venue.name
+        else
+          "No venue"
+        end %>
+  <% end %>
+  <% t.column :event, :title => "Start" do |event| %>
     <% get_time_of_event event.start %>
   <% end %>
   <% t.column :event, :title => "End" do |event| 

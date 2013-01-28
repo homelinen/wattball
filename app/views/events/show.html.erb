@@ -1,4 +1,13 @@
 <p>
+  <b>Venue:</b>
+  <%= if @event.venue
+        @event.venue.name
+      else 
+        "No venue"
+      end %>
+</p>
+
+<p>
   <b>Start:</b>
   <%= get_time_of_event @event.start %>
 </p>
