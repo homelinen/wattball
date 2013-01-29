@@ -37,6 +37,16 @@
   </ul>
 </p>
 
+<p>
+  <% if @team.tournament %>
+    Registered for
+    <%= link_to @team.tournament.name, @team.tournament %>.
+  <% else %>
+    Not Registered for a Tournament (Can't happen).
+  <% end %>
+
+</p>
+
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
