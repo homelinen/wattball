@@ -1,11 +1,9 @@
 Wattball::Application.routes.draw do
   resources :blogs
 
-
   resources :tickets
 
   match 'tickets/buy/:id' => 'tickets#buy'
-
 
   resources :venues
 
@@ -15,6 +13,8 @@ Wattball::Application.routes.draw do
   match "about" => "sport_centers#show", :id => 1
 
   resources :hurdle_matches, :only => [:index, :show]
+
+  resources :scores
 
   resources :wattball_matches, :only => [:index, :show]
 

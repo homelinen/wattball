@@ -1,0 +1,20 @@
+<h1>Listing Scores</h1>
+
+<%= table_for @scores, :html => { :class => "table table-bordered table-striped" } do -%>
+  <% column :wattball_player do |player|
+    player.name
+  end %>
+  <% column :event do |event| 
+    # Get the wattball match name for event
+    wattball_match_name WattballMatch.where(:event_id => event.id).first
+  end %>
+  <% column :amount, :title => "Goals" %>
+  <% column :title => "Actions" do |score| %>
+    <% [link_to("Show", score),
+      link_to("Edit", edit_score_path(score))].join(" | ").html_safe %>
+  <% end %>
+<% end %>
+
+<br />
+
+<%= link_to 'New Score', new_score_path %>
