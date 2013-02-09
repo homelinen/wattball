@@ -7,6 +7,9 @@ namespace :dummy do
     User.delete_all
     Team.delete_all
     Athlete.delete_all
+    WattballMatch.delete_all
+    HurdleMatch.delete_all
+    Score.delete_all
   end
 
   desc "Generate a fake user"
@@ -15,24 +18,20 @@ namespace :dummy do
     p user
   end
 
-  task :team => :environment  do
-    team = FactoryGirl.create_list(:team, 4)
-    p team
-  end
-
-  desc "Generate 44 Players and 4 Teams"
-  task :wattball_player => :team  do
-    team = FactoryGirl.create_list(:wattball_player, 44)
-    p team
-  end
-
   task :tournament => :environment do
     FactoryGirl.create(:tournament)
   end
 
-  desc "Generate 2 Wattball Matches"
-  task :wattball_matches => :tournament do
-    FactoryGirl.create_list(:wattball_match, 2)
+  task wattball_matches: [:tournament] do
+
+    # Create 4 teams
+    (1..4).each do |i|
+        puts "Creating team #{i}"
+        team = FactoryGirl.create(:team)
+        FactoryGirl.create_list(:wattball_player, 11, team: team)
+    end
+
+    FactoryGirl.create_list(:wattball_match, 4)
   end
 
   task :hurdle_players => :environment do
@@ -48,7 +47,11 @@ namespace :dummy do
     FactoryGirl.create_list(:hurdle_times, 8)
   end
 
-  task :scores => :environment do
-    p FactoryGirl.create_list(:score, 12)
+  desc "Generate 4 Wattball Matches And 8 Scores for Matches"
+  task :wattball_scores => :wattball_matches do
+    p FactoryGirl.create_list(:score, 8)
   end
+
+  desc "Create a base working data-set"
+  task base: [:clean, :wattball_scores, :hurdle_players]
 end

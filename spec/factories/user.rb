@@ -65,9 +65,10 @@ FactoryGirl.define do
     phoneNumber { Faker::PhoneNumber.phone_number }
     nationality 'British'
     contact
-    organisationTag 'H' + Dummy.random_numbers(6)
+    organisationTag {'H' + Dummy.random_numbers(6) }
     # Select a random team
     team { Dummy.pick_random(Team) }
+    sex { %w( m f ).sample }
   end
 
   factory :hurdle_player do
@@ -76,5 +77,6 @@ FactoryGirl.define do
     nationality 'British'
     phoneNumber { Faker::PhoneNumber.phone_number }
     previousTime { Time.at(1.minute + rand(60).seconds) }
+    sex { %w( m f ).sample }
   end
 end
