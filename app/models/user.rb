@@ -8,9 +8,15 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :first_name, :last_name
+  attr_accessible :first_name, :last_name, :admin
 
-  has_one :Team
-  has_one :Athlete
-  has_one :Official
+  before_save :default_values
+
+  has_one :team
+  has_one :athlete
+  has_one :official
+
+  def default_values
+      self.admin = false if self.admin.nil?
+  end
 end
