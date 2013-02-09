@@ -25,6 +25,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+  gem 'capybara', '~> 2.0.2'
+end
+
 # File uploads
 gem "paperclip", "~> 3.0"
 
