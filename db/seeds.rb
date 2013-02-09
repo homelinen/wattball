@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Create the default Admin user
+# TODO: Gather details from a config/file?
+User.create({first_name: 'admin', password: 'changeme', email: 'user@example.com', admin: true}) 
