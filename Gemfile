@@ -25,6 +25,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+#Authentication
+gem "cancan", '~> 1.6.9'
+
 # File uploads
 gem "paperclip", "~> 3.0"
 
