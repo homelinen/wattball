@@ -8,9 +8,12 @@ class Dummy
   # For the model get a random one
   #
   def self.getRandom(model)
-    models = model.all
+    # Make sure the table has been initialised
+    if model.table_exists?
+        models = model.all
 
-    models[rand(models.length)]
+        models[rand(models.length)]
+    end
   end
 
   def self.get_random_where(model, where)
@@ -82,7 +85,7 @@ FactoryGirl.define do
   end
 
   factory :score do
-    match = Dummy.getRandom(WattballMatch)
+    match = Dummy.getRandom(WattballMatch) 
     event { match.event }
     # Pick a random player from this events teams, this is maybe a model method
     wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", match.team1_id, match.team2_id).sample }
