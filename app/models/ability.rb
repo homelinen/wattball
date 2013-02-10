@@ -28,12 +28,23 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
+
+    alias_action :read, :create, :edit, :to => :modify
     
     user ||= User.new
     if user.admin?
        can :manage, :all 
-    else
-        can :read, :all
+    elsif user.team
+        can :manage, Team
+    elsif user.athlete && user.athlete.class == WattballPlayer
+      can [:modify, :new_wattball_player], Athlete
+    elsif user.athlete && user.athlete.class == HurdlePlayer
+      can [:modify, :new_hurdle_player], Athlete
+    elsif user
+      can :create, Ticket
     end
+
+    # Everyone can read everything
+    can :read, :all
   end
 end
