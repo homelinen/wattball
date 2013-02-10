@@ -18,9 +18,8 @@ describe "User" do
     context "when is a team manager" do
       let(:user) { FactoryGirl.create(:team).User }
 
-      it { should be_able_to(:manage, :team) }
+      it { should be_able_to(:manage, Team) }
       it { should be_able_to(:read, :all) }
-
 
       (ModelsHelper.all_models - [:team.capitalize.to_s]).each do |model|
           model = model.constantize
@@ -30,15 +29,17 @@ describe "User" do
     end
 
     context "when is  hurdle player" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:hurdle_player).user }
 
-      it{ should be_able_to(:manage, HurdlePlayer) }
+      it{ should be_able_to(:modify, HurdlePlayer) }
+      it{ should be_able_to(:new_hurdle_player, HurdlePlayer) }
     end
 
     context "when is an wattball player" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:wattball_player).user }
 
-      it{ should be_able_to(:manage, Athlete) }
+      it{ should be_able_to(:modify, WattballPlayer) }
+      it{ should be_able_to(:new_wattball_player, WattballPlayer) }
     end
 
     context "when is an authed user" do
