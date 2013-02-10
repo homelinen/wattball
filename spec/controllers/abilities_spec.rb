@@ -33,15 +33,15 @@ describe "User" do
       it { should be_able_to(:read, :all) }
     end
 
-    shared_context "athletes", :a => :b do
+    shared_context "is athlete", :a => :b do
+      # Gets the descendants of athlets and add Athlete onto the array
       @athlete_types = 
         Athlete.descendants.map { |klass| klass.to_s  }.push Athlete.to_s
-      p "Included"
     end
 
     context "when is  hurdle player" do
       let(:user) { FactoryGirl.create(:hurdle_player).user }
-      include_context "athletes"
+      include_context "is athlete"
 
       it{ should be_able_to(:modify, HurdlePlayer) }
       it{ should be_able_to(:new_hurdle_player, HurdlePlayer) }
@@ -51,7 +51,7 @@ describe "User" do
 
     context "when is an wattball player" do
       let(:user) { FactoryGirl.create(:wattball_player).user }
-      include_context "athletes"
+      include_context "is athlete"
 
       it{ should be_able_to(:modify, WattballPlayer) }
       it{ should be_able_to(:new_wattball_player, WattballPlayer) }
@@ -72,8 +72,7 @@ describe "User" do
       (ModelsHelper.all_models).each do |model|
           model = model.constantize
 
-          # NOTE: Tests that buying tickets not allows
-          # TODO: Print out what is being not allowed
+          # NOTE: Tests that buying tickets not allowed
           it{ should be_able_to(:read, model) }
           it{ should be_able_to(:read, model) }
           it{ should_not be_able_to(:edit, model) }
