@@ -39,6 +39,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password 'sekret'
     password_confirmation 'sekret'
+    admin false
   end
 
   factory :contact do
