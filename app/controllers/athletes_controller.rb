@@ -1,4 +1,6 @@
 class AthletesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /athletes
   # GET /athletes.json
   def index

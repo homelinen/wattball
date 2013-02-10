@@ -1,4 +1,6 @@
 class ScoresController < ApplicationController
+  load_and_authorize_resource
+
   # GET /scores
   # GET /scores.json
   def index
