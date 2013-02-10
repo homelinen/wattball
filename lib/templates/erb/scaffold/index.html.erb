@@ -1,0 +1,21 @@
+<h1>Listing <%= human_name %></h1>
+
+<%%= table_for @<%= plural_table_name %>, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
+<% attributes.each do |attribute| %>
+  <%%# Kill the whitespace %>
+  <%% column :<%= attribute.name %> %>
+<% end %>
+  <%% column :title => "Action" do |<%= singular_table_name %>|
+    link_to "Show", <%= singular_table_name %>
+  end %>
+  <%% column :title => "Action" do |<%= singular_table_name %>|
+    link_to "Edit", edit_<%= singular_table_name %>_path(<%= singular_table_name %>)
+  end %>
+  <%% column :title => "Action" do |<%= singular_table_name %>|
+    link_to "Destroy", <%= singular_table_name %>, method: :delete, data: { confirm: 'Are you sure?' }
+  end %>
+<%% end %>
+
+<%%= link_to 'New <%= human_name %>', new_<%= singular_table_name %>_path %>
