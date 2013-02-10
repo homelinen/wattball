@@ -23,31 +23,37 @@ describe "User" do
 
 
       (ModelsHelper.all_models - [:team.capitalize.to_s]).each do |model|
+          model = model.constantize
           it { should_not be_able_to(:destroy, model) }
           it { should_not be_able_to(:edit, model) }
       end
     end
 
     context "when is  hurdle player" do
-      let(:user) { FactoryGirl.create(:user, admin: true) }
+      let(:user) { FactoryGirl.create(:user) }
 
-      it{ should be_able_to(:manage, :all) }
+      it{ should be_able_to(:manage, HurdlePlayer) }
     end
 
     context "when is an wattball player" do
-      let(:user) { FactoryGirl.create(:user, admin: true) }
+      let(:user) { FactoryGirl.create(:user) }
 
-      it{ should be_able_to(:manage, WattballPlayer) }
+      it{ should be_able_to(:manage, Athlete) }
     end
 
     context "when is an authed user" do
       let(:user) { FactoryGirl.create(:user) }
 
       it{ should be_able_to(:read, :all) }
+      it {should be_able_to(:create, Ticket)}
     end
 
     context "when is a guest" do
-      ModelsHelper.all_models.each do |model|
+      (ModelsHelper.all_models).each do |model|
+          model = model.constantize
+
+          # NOTE: Tests that buying tickets not allows
+          # TODO: Print out what is being not allowed
           it{ should be_able_to(:read, model) }
           it{ should be_able_to(:read, model) }
           it{ should_not be_able_to(:edit, model) }
