@@ -8,38 +8,55 @@ describe "User" do
     let(:ability){ Ability.new(user) }
     let(:user){ nil }
 
-
     context "when is an admin" do
       let(:user) { FactoryGirl.create(:user, admin: true) }
 
       it{ should be_able_to(:manage, :all) }
     end
 
-    context "when is a team manager" do
-      let(:user) { FactoryGirl.create(:team).User }
+    shared_examples_for "unprivilidged" do |user_types = []|
 
-      it { should be_able_to(:manage, Team) }
-      it { should be_able_to(:read, :all) }
-
-      (ModelsHelper.all_models - [:team.capitalize.to_s]).each do |model|
+      # FIXME: Detect inherticance of types, rather than use array
+      (ModelsHelper.all_models - user_types).each do |model|
           model = model.constantize
           it { should_not be_able_to(:destroy, model) }
           it { should_not be_able_to(:edit, model) }
       end
     end
 
+    context "when is a team manager" do
+      let(:user) { FactoryGirl.create(:team).User }
+
+      it_behaves_like "unprivilidged", [Team.to_s]
+
+      it { should be_able_to(:manage, Team) }
+      it { should be_able_to(:read, :all) }
+    end
+
+    shared_context "athletes", :a => :b do
+      @athlete_types = 
+        Athlete.descendants.map { |klass| klass.to_s  }.push Athlete.to_s
+      p "Included"
+    end
+
     context "when is  hurdle player" do
       let(:user) { FactoryGirl.create(:hurdle_player).user }
+      include_context "athletes"
 
       it{ should be_able_to(:modify, HurdlePlayer) }
       it{ should be_able_to(:new_hurdle_player, HurdlePlayer) }
+
+      it_behaves_like "unprivilidged", @athlete_types
     end
 
     context "when is an wattball player" do
       let(:user) { FactoryGirl.create(:wattball_player).user }
+      include_context "athletes"
 
       it{ should be_able_to(:modify, WattballPlayer) }
       it{ should be_able_to(:new_wattball_player, WattballPlayer) }
+
+      it_behaves_like "unprivilidged", @athlete_types
     end
 
     context "when is an authed user" do
@@ -47,6 +64,8 @@ describe "User" do
 
       it{ should be_able_to(:read, :all) }
       it {should be_able_to(:create, Ticket)}
+
+      it_behaves_like "unprivilidged"
     end
 
     context "when is a guest" do
