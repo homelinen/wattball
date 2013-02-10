@@ -28,6 +28,15 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem 'capybara', '~> 2.0.2'
+  gem 'guard', '~> 1.6.2'
+  gem 'guard-rspec', '~> 2.4.0'
+
+  # Notifications for Growl
+  # Possibly will cause dep. problems
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
+  gem 'libnotify', '~> 0.8.0', :require => false
 end
 
 #Authentication
