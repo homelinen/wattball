@@ -24,6 +24,16 @@ describe "User" do
       end
     end
 
+    context "when is a staff member" do
+      let(:user) { FactoryGirl.create(:staff).user }
+
+      #it_behaves_like "unprivilidged", [Staff.to_s]
+
+      it { should_not be_able_to(:manage, Staff) }
+      it { should be_able_to(:create, Team) }
+      it { should be_able_to(:read, :all) }
+    end
+
     context "when is a team manager" do
       let(:user) { FactoryGirl.create(:team).User }
 

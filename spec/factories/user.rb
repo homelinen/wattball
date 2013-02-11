@@ -42,6 +42,12 @@ FactoryGirl.define do
     admin false
   end
 
+  factory :staff do
+    user
+    address
+    telephone { Faker::PhoneNumber.phone_number }
+  end
+
   factory :contact do
     name { Faker::Name.name }
     line1 { Faker::Address.street_address }
