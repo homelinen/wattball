@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210193016) do
+ActiveRecord::Schema.define(:version => 20130210231844) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
     t.string   "line2"
-    t.string   "town"
     t.string   "city"
+    t.string   "country"
     t.string   "postcode"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(:version => 20130210193016) do
     t.integer  "user_id"
     t.integer  "address_id"
     t.string   "telephone"
-    t.string   "address"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

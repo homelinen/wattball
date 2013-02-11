@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_one :team
   has_one :athlete
   has_one :official
+  has_one :staff
 
   def default_values
       self.admin = false if self.admin.nil?

@@ -1,3 +1,7 @@
 class Address < ActiveRecord::Base
-  attr_accessible :city, :line1, :line2, :postcode, :town
+  has_one :staff
+
+  attr_accessible :city, :line1, :line2, :postcode, :country
+
+  validates_presence_of :line1, :city, :postcode, :country
 end
