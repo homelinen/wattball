@@ -25,8 +25,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+gem "rspec-rails", "~> 2.0", :group => [:test, :development]
+
+group :test do
   gem 'capybara', '~> 2.0.2'
   gem 'shoulda', '~> 3.3.2'
 
