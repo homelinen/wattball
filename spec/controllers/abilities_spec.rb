@@ -21,7 +21,15 @@ describe "User" do
           model = model.constantize
           it { should_not be_able_to(:destroy, model) }
           it { should_not be_able_to(:edit, model) }
+
+          unless model == User
+            it { should_not be_able_to(:create, model) }
+          end
       end
+
+      it { should_not be_able_to(:read, Staff) }
+      it { should_not be_able_to(:read, FactoryGirl.build(:user, admin: true)) }
+      it { should_not be_able_to(:read, Staff) }
     end
 
     context "when is a staff member" do
@@ -30,8 +38,9 @@ describe "User" do
       #it_behaves_like "unprivilidged", [Staff.to_s]
 
       it { should_not be_able_to(:manage, Staff) }
-      it { should be_able_to(:create, Team) }
-      it { should be_able_to(:read, :all) }
+      it { should be_able_to :create, Team }
+      it { should be_able_to :create, User }
+      it { should be_able_to :read, :all }
     end
 
     context "when is a team manager" do
