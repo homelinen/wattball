@@ -81,14 +81,14 @@ describe "User" do
     context "when is an authed user" do
       let(:user) { FactoryGirl.create(:user) }
 
-      it{ should be_able_to(:read, :all) }
-      it {should be_able_to(:create, Ticket)}
+      it { should be_able_to(:read, :all) }
+      it { should be_able_to(:create, Ticket) }
 
-      it_behaves_like "unprivilidged"
+      it_behaves_like "unprivilidged", [Ticket.to_s]
     end
 
     context "when is a guest" do
-      (ModelsHelper.all_models).each do |model|
+      (ModelsHelper.all_models - ["Staff", "Admin"]).each do |model|
           model = model.constantize
 
           # NOTE: Tests that buying tickets not allowed

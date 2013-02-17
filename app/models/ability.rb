@@ -9,7 +9,10 @@ class Ability
     if user.admin?
        can :manage, :all 
     elsif user.team
-        can :manage, Team
+      can :manage, Team
+    elsif user.staff
+      can :create, Team
+      can :create, User
     elsif user.athlete && user.athlete.class == WattballPlayer
       can [:modify, :new_wattball_player], Athlete
     elsif user.athlete && user.athlete.class == HurdlePlayer
@@ -20,5 +23,9 @@ class Ability
 
     # Everyone can read everything
     can :read, :all
+
+    # Some read overrides
+    cannot :read, Staff
+    cannot :read, User, :admin => true unless user.admin?
   end
 end
