@@ -57,7 +57,7 @@ FactoryGirl.define do
   end
 
   factory :team do
-    association :User, factory: :user
+    association :user, factory: :user
     teamName { Faker::Name.first_name + " FC"}
   end
 
