@@ -5,7 +5,7 @@
 </p>
 
 <p class="blog-user">
-<%= "#{join_user_name @blog.user} \
+<%= "#{@blog.user.name} \
 at #{@blog.created_at.strftime "%d/%m/%y"}" %>
 </p>
 

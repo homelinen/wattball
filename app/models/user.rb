@@ -20,4 +20,10 @@ class User < ActiveRecord::Base
   def default_values
       self.admin = false if self.admin.nil?
   end
+
+  # Combine first and last names of user
+  # (This should be taken for all users)
+  def name
+    self.first_name + self.last_name
+  end
 end

@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(:version => 20130210231844) do
     t.integer  "tournament_id"
   end
 
-  add_index "teams", ["User_id"], :name => "index_teams_on_User_id"
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"
+  add_index "teams", ["user_id"], :name => "index_teams_on_User_id"
 
   create_table "tickets", :force => true do |t|
     t.datetime "start"

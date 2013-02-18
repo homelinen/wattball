@@ -43,7 +43,7 @@ class TeamsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
-    user_attrs = params[:team].delete(:User_attributes)
+    user_attrs = params[:team].delete(:user_attributes)
     user = User.new(user_attrs)
     if !user.save!
       flash[:error] = user.errors
@@ -52,8 +52,8 @@ class TeamsController < ApplicationController
 
     @team = Team.new(params[:team])
 
-    @team.User = user
-    @team.User_id = user.id
+    @team.user = user
+    @team.user_id = user.id
 
     respond_to do |format|
       if @team.save
