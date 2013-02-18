@@ -44,7 +44,7 @@ describe "User" do
     end
 
     context "when is a team manager" do
-      let(:user) { FactoryGirl.create(:team).User }
+      let(:user) { FactoryGirl.create(:team).user }
 
       it_behaves_like "unprivilidged", [Team.to_s]
 

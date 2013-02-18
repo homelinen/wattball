@@ -92,4 +92,14 @@ FactoryGirl.define do
     wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", match.team1_id, match.team2_id).sample }
     amount { rand(4) }
   end
+
+  factory :sport_center do
+    name = "Heriot Watt Sport Center"
+    email = "sport-center@hw.ac.uk"
+    address_line1 "Heriot-Watt University"
+    address_line2 "Edinburgh Campus"
+    address_city "Edinburgh"
+    address_postcode "EH14 4AS"
+    contact 
+  end
 end
