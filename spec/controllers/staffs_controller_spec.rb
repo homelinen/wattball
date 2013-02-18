@@ -68,14 +68,14 @@ describe StaffsController do
       it "assigns a newly created but unsaved staff as @staff" do
         # Trigger the behavior that occurs when invalid params are submitted
         Staff.any_instance.stub(:save).and_return(false)
-        post :create, {:staff => { "user" => "invalid value" }}, valid_session
+        post :create, {:staff => FactoryGirl.build(:user)}, valid_session
         assigns(:staff).should be_a_new(Staff)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Staff.any_instance.stub(:save).and_return(false)
-        post :create, {:staff => { "user" => "invalid value" }}, valid_session
+        post :create, {:staff => { "user" => User.new }}, valid_session
         response.should render_template("new")
       end
     end
@@ -113,7 +113,6 @@ describe StaffsController do
       it "assigns the staff as @staff" do
         staff = FactoryGirl.create(:staff)
         # Trigger the behavior that occurs when invalid params are submitted
-        Staff.any_instance.stub(:save).and_return(false)
         put :update, {:id => staff.to_param, :staff => { :user => nil }}, valid_session
         assigns(:staff).should eq(staff)
       end
