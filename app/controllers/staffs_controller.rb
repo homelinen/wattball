@@ -1,4 +1,6 @@
 class StaffsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /staffs
   # GET /staffs.json
   def index

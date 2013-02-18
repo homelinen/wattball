@@ -1,4 +1,6 @@
 class TicketsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /tickets
   # GET /tickets.json
   def index

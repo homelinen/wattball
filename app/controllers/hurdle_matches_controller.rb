@@ -1,4 +1,6 @@
 class HurdleMatchesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /hurdle_matches
   # GET /hurdle_matches.json
   def index
