@@ -25,7 +25,7 @@ class Ability
     can :read, :all
 
     # Some read overrides
-    cannot :read, Staff
+    cannot :read, Staff unless user.admin?
     cannot :read, User, :admin => true unless user.admin?
   end
 end
