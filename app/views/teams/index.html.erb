@@ -3,8 +3,8 @@
 <hr>
 
 <%= table_for @teams, :html => { :class => "table table-bordered table-striped" } do -%>
-  <% column :User, :title => "Manager Name" do |user| %>
-    <% join_user_name user %>
+  <% column :user, :title => "Manager Name" do |user| %>
+    <% user.name %>
   <% end %>
   <% column :teamName %>
   <% column :badge do |badge| %>

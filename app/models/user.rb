@@ -13,4 +13,10 @@ class User < ActiveRecord::Base
   has_one :Team
   has_one :Athlete
   has_one :Official
+
+  # Combine first and last names of user
+  # (This should be taken for all users)
+  def name
+    self.first_name + self.last_name
+  end
 end

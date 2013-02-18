@@ -18,7 +18,7 @@
     event.status
   end %>
   <% t.column :event, :title => "Referee" do |event| %>
-    <% link_to join_user_name(event.official.user), official_path(event.official) %>
+    <% link_to event.official.user.name, official_path(event.official) %>
   <% end %>
   <% t.column :event, :title => "Tournament" do |event| %>
     <% event.tournament.name %>
