@@ -10,7 +10,6 @@ class Dummy
   def self.getRandom(model)
     # Make sure the table has been initialised
     if model.table_exists?
-        p "Exists"
         models = model.all
 
         models[rand(models.length)]
