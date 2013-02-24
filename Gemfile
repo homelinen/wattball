@@ -42,6 +42,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 group :deploy do
   gem "capistrano"
   gem "rvm-capistrano"
+  gem "capistrano-rbenv"
 end
 # Dummy data generation
 
