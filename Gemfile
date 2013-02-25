@@ -29,6 +29,7 @@ end
 
 group :production do
       gem "mysql2", "~> 0.3.11"
+      gem "thin", "~> 1.5.0"
 end
 
 # File uploads
