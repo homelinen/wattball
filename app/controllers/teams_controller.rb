@@ -22,8 +22,6 @@ class TeamsController < ApplicationController
 
     @team = Team.find(params[:id])
 
-    add_breadcrumb @team.user.name, :team_path
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @team }
