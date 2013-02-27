@@ -31,7 +31,7 @@ test runs.
 
 ## Bug Tracker ##
 
-(Redmine)[http://redmine.homelinen.org] - For viewing tickets and bugs.
+[Redmine](http://redmine.homelinen.org) - For viewing tickets and bugs.
 
 ## Requirements ##
 
