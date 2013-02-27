@@ -12,4 +12,6 @@ class ApplicationController < ActionController::Base
       @current_action = action_name
       @current_controller = controller_name
   end
+
+  add_breadcrumb "home", :root_path
 end

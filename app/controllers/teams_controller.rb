@@ -1,9 +1,13 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb "teams", :teams_path
+  add_breadcrumb "user", :team_path, :only => %w(show edit)
+
   # GET /teams
   # GET /teams.json
   def index
+    
     @teams = Team.all
 
     respond_to do |format|
@@ -15,7 +19,10 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+
     @team = Team.find(params[:id])
+
+    add_breadcrumb @team.user.name, :team_path
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,6 +34,8 @@ class TeamsController < ApplicationController
   # GET /teams/new.json
   def new
     @team = Team.new
+
+    add_breadcrumb "new", :new_team_path
     #@team.User.build
 
     respond_to do |format|
@@ -37,6 +46,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    add_breadcrumb "edit", :edit_team_path
     @team = Team.find(params[:id])
   end
 

@@ -1,6 +1,8 @@
 class StaffsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb "staff", :staffs_path
+  
   # GET /staffs
   # GET /staffs.json
   def index
@@ -15,6 +17,8 @@ class StaffsController < ApplicationController
   # GET /staffs/1
   # GET /staffs/1.json
   def show
+    
+    add_breadcrumb @staff.user.name, :staffs_path
     @staff = Staff.find(params[:id])
 
     respond_to do |format|
@@ -36,6 +40,7 @@ class StaffsController < ApplicationController
 
   # GET /staffs/1/edit
   def edit
+    add_breadcrumb @staff.user.name, :staffs_path
     @staff = Staff.find(params[:id])
   end
 
