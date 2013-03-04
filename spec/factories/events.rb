@@ -92,6 +92,19 @@ FactoryGirl.define do
     amount { rand(4) }
   end
 
+  factory :ticket do
+    start do
+      match = FactoryGirl.create(:wattball_match)
+      match.event.start
+    end
+
+    user { Dummy.getRandom(User) }
+    tournament { Dummy.getRandom(Tournament) }
+    dsc "printed"
+    adults_number { (0..4).to_a.sample }
+    concess_number { (0..2).to_a.sample }
+  end
+
   factory :sport_center do
     name = "Heriot Watt Sport Center"
     email = "sport-center@hw.ac.uk"
