@@ -84,7 +84,4 @@ class TicketsController < ApplicationController
     end
   end
 
-  def buy
-    new
-  end
 end
