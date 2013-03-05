@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218195517) do
+ActiveRecord::Schema.define(:version => 20130304233019) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -87,6 +87,19 @@ ActiveRecord::Schema.define(:version => 20130218195517) do
 
   add_index "hurdle_matches", ["event_id"], :name => "index_hurdle_matches_on_event_id"
 
+  create_table "hurdle_players", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "dob"
+    t.integer  "phone_number"
+    t.string   "nationality"
+    t.integer  "previous_time"
+    t.string   "sex"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "hurdle_players", ["user_id"], :name => "index_hurdle_players_on_user_id"
+
   create_table "hurdle_times", :force => true do |t|
     t.integer  "athlete_id"
     t.integer  "hurdle_match_id"
@@ -96,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20130218195517) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "hurdle_times", ["athlete_id"], :name => "index_hurdle_times_on_athlete_id"
   add_index "hurdle_times", ["hurdle_match_id"], :name => "index_hurdle_times_on_hurdle_match_id"
 
   create_table "officials", :force => true do |t|
@@ -240,5 +252,20 @@ ActiveRecord::Schema.define(:version => 20130218195517) do
   add_index "wattball_matches", ["event_id"], :name => "index_wattball_matches_on_event_id"
   add_index "wattball_matches", ["team1_id"], :name => "index_wattball_matches_on_team1_id"
   add_index "wattball_matches", ["team2_id"], :name => "index_wattball_matches_on_team2_id"
+
+  create_table "wattball_players", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "contact_id"
+    t.string   "org_tag"
+    t.date     "dob"
+    t.integer  "phone_number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "wattball_players", ["contact_id"], :name => "index_wattball_players_on_contact_id"
+  add_index "wattball_players", ["team_id"], :name => "index_wattball_players_on_team_id"
+  add_index "wattball_players", ["user_id"], :name => "index_wattball_players_on_user_id"
 
 end
