@@ -18,6 +18,7 @@
 <p>
   <b>Players</b>
   <ul class="playerList">
+    <% # FIXME: Get this out of here %>
     <% WattballPlayer.where(:team_id => @team.id).each do |player| %>
         <li>
           <%= link_to player.user.name, player %>

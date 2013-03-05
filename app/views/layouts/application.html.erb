@@ -32,10 +32,10 @@
            class="active"
            <% end %>
                 ><%= link_to("Teams", teams_path) %></li>
-      <li<% if params[:controller] == "athletes" %>
+      <li<% if params[:controller] == "wattball_player" %>
            class="active"
            <% end %>
-                ><%= link_to("Athletes", athletes_path) %></li>
+                ><%= link_to("Athletes", wattball_players_path) %></li>
       <li><a href="/">Gallery</a></li>
       <% # This should be more dynamic
     %>

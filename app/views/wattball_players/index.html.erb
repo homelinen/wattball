@@ -1,0 +1,26 @@
+<h1>Listing Wattball player</h1>
+
+<%= table_for @wattball_players, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
+  <% column :user do |user|
+    link_to user.name, user
+  end %>
+  <% column :dob, :title => "Date of Birth" %>
+  <% column :phone_number %>
+  <% column :contact do |contact|
+    contact.name
+  end %>
+  <% column :org_tag, :title => "Wattball ID" %>
+  <% column :title => "Action" do |wattball_player|
+    link_to "Show", wattball_player
+  end %>
+  <% column :title => "Action" do |wattball_player|
+    link_to "Edit", edit_wattball_player_path(wattball_player)
+  end %>
+  <% column :title => "Action" do |wattball_player|
+    link_to "Destroy", wattball_player, method: :delete, data: { confirm: 'Are you sure?' }
+  end %>
+<% end %>
+
+<%= link_to 'New Wattball player', new_wattball_player_path %>

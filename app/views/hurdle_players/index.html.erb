@@ -1,0 +1,25 @@
+<h1>Listing Hurdle player</h1>
+
+<%= table_for @hurdle_players, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
+  <% column :user do |user| 
+    link_to user.name, user
+  end %>
+  <% column :dob, :title => "Date of Birth" %>
+  <% column :phone_number %>
+  <% column :nationality %>
+  <% column :previous_time %>
+  <% column :sex %>
+  <% column :title => "Action" do |hurdle_player|
+    link_to "Show", hurdle_player
+  end %>
+  <% column :title => "Action" do |hurdle_player|
+    link_to "Edit", edit_hurdle_player_path(hurdle_player)
+  end %>
+  <% column :title => "Action" do |hurdle_player|
+    link_to "Destroy", hurdle_player, method: :delete, data: { confirm: 'Are you sure?' }
+  end %>
+<% end %>
+
+<%= link_to 'New Hurdle player', new_hurdle_player_path %>

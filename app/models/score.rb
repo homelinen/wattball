@@ -28,7 +28,7 @@ class Score < ActiveRecord::Base
   #
   # Returns the points scored by a team in the match
   def self.calculate_score(team, event)
-    Score.includes(:wattball_player).includes(:event).where(:athletes => {"team_id" => team.id}, :events => { :id => event.id }).sum(:amount)
+    Score.includes(:wattball_player).includes(:event).where(:wattball_players => {"team_id" => team.id}, :events => { :id => event.id }).sum(:amount)
   end
 
 end

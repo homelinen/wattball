@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   before_save :default_values
 
   has_one :team
-  has_one :athlete
+  has_one :wattball_player
+  has_one :hurdle_player
   has_one :official
   has_one :staff
 

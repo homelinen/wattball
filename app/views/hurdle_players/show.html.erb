@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @hurdle_player.user %>
+</p>
+
+<p>
+  <b>Dob:</b>
+  <%= @hurdle_player.dob %>
+</p>
+
+<p>
+  <b>Phone number:</b>
+  <%= @hurdle_player.phone_number %>
+</p>
+
+<p>
+  <b>Nationality:</b>
+  <%= @hurdle_player.nationality %>
+</p>
+
+<p>
+  <b>Previous time:</b>
+  <%= @hurdle_player.previous_time %>
+</p>
+
+<p>
+  <b>Sex:</b>
+  <%= @hurdle_player.sex %>
+</p>
+
+
+<%= link_to 'Edit', edit_hurdle_player_path(@hurdle_player) %> |
+<%= link_to 'Back', hurdle_players_path %>

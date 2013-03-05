@@ -28,6 +28,7 @@
 	      <h3>Next 5 Wattball Matches:</h3>
         <ul>
           <% # Change the period, to 2.weeks with a limit? %>
+          <% # FIXME: Get rid of this join %>
           <% WattballMatch.joins(:event).order(:date).limit(5).each do |match| %>
             <%= content_tag :li, "#{wattball_match_name(match)}"%>
           <% end %>

@@ -28,13 +28,10 @@ Wattball::Application.routes.draw do
 
   resources :officials
 
-  resources :athletes do
-      get 'new_wattball_player', on: :collection
-      get 'create_wattball_player', on: :collection
-      get 'new_hurdle_player', on: :collection
-  end
-
   resources :teams
+  resources :wattball_players
+  resources :hurdle_players
+
   resources :staffs
   devise_for :users
 
