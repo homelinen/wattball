@@ -17,7 +17,7 @@ class Ability
     elsif user.wattball_player
       can :self_maintain, WattballPlayer
     elsif user.hurdle_player
-      can :self_maintain, hurdlePlayer
+      can :self_maintain, HurdlePlayer
     elsif user
       can :create, Ticket
     end
