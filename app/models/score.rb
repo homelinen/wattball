@@ -5,6 +5,10 @@ class Score < ActiveRecord::Base
   # Number of goals prevents duplicates in the table
   attr_accessible :amount
 
+  validates_presence_of :event, :wattball_player
+
+  validate :amount, :presence => true, :numericality => { :greater_than => 0 }
+
   # Calculate the score for a match
   #
   # match - An WattballMatch with two different teams

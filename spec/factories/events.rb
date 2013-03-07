@@ -47,7 +47,8 @@ FactoryGirl.define do
 
     # This will create a new official for every event
     official
-    tournament { Tournament.all.sample }
+    tournament { Tournament.all.sample || FactoryGirl.create(Tournament) }
+    venue
   end
 
   factory :wattball_match do
@@ -65,6 +66,13 @@ FactoryGirl.define do
     max_competitors 5
     adult_ticket_price 9.20
     concession_ticket_price 5.40
+  end
+
+  factory :venue do
+    capacity { [10, 500 , 1000, 2000].sample }
+    name { %w( Frontier Barrier Forklon ).sample + " Stadium" }
+    sport { Dummy.getRandom(Sport) || FactoryGirl.create(:sport) }
+    sport_center { Dummy.getRandom(SportCenter) || FactoryGirl.create(:sport_center) }
   end
 
   factory :sport do
@@ -99,7 +107,7 @@ FactoryGirl.define do
     end
 
     user { Dummy.getRandom(User) }
-    tournament { Dummy.getRandom(Tournament) }
+    tournament { Dummy.getRandom(Tournament) || FactoryGirl.create(:tournament) }
     dsc "printed"
     adults_number { (0..4).to_a.sample }
     concess_number { (0..2).to_a.sample }
