@@ -48,34 +48,24 @@ describe "User" do
 
       it_behaves_like "unprivilidged", [Team.to_s]
 
-      it { should be_able_to(:manage, Team) }
+      it { should be_able_to(:self_maintain, Team) }
       it { should be_able_to(:read, :all) }
-    end
-
-    shared_context "is athlete", :a => :b do
-      # Gets the descendants of athlets and add Athlete onto the array
-      @athlete_types = 
-        Athlete.descendants.map { |klass| klass.to_s  }.push Athlete.to_s
     end
 
     context "when is  hurdle player" do
       let(:user) { FactoryGirl.create(:hurdle_player).user }
-      include_context "is athlete"
 
-      it{ should be_able_to(:modify, HurdlePlayer) }
-      it{ should be_able_to(:new_hurdle_player, HurdlePlayer) }
+      it{ should be_able_to(:self_maintain, HurdlePlayer) }
 
-      it_behaves_like "unprivilidged", @athlete_types
+      it_behaves_like "unprivilidged", ["HurdlePlayer"]
     end
 
     context "when is an wattball player" do
       let(:user) { FactoryGirl.create(:wattball_player).user }
-      include_context "is athlete"
 
-      it{ should be_able_to(:modify, WattballPlayer) }
-      it{ should be_able_to(:new_wattball_player, WattballPlayer) }
+      it{ should be_able_to(:self_maintain, WattballPlayer) }
 
-      it_behaves_like "unprivilidged", @athlete_types
+      it_behaves_like "unprivilidged", ["WattballPlayer"]
     end
 
     context "when is an authed user" do
@@ -92,7 +82,6 @@ describe "User" do
           model = model.constantize
 
           # NOTE: Tests that buying tickets not allowed
-          it{ should be_able_to(:read, model) }
           it{ should be_able_to(:read, model) }
           it{ should_not be_able_to(:edit, model) }
       end
