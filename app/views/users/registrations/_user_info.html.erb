@@ -14,5 +14,8 @@
 <div><%= f.label :password %><br />
 <%= f.password_field :password %></div>
 
+<% # A dirty hack for CanCan %>
+<%= f.hidden_field :registered, :value => true %>
+
 <div><%= f.label :password_confirmation %><br />
 <%= f.password_field :password_confirmation %></div>
