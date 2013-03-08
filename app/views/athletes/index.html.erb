@@ -5,7 +5,7 @@
   :class => "table table-bordered table-striped" 
 } do -%>
   <% column :user, :title => "User Name" do |user|
-   join_user_name user
+   user.name
   end
   %>
   <% column :dateOfBirth, :title => "Date of Birth" %>
@@ -28,7 +28,7 @@
   :class => "table table-bordered table-striped" 
 } do -%>
   <% column :user, :title => "User Name" do |user|
-   join_user_name user
+   user.name
   end
   %>
   <% column :dateOfBirth, :title => "Date of Birth" %>

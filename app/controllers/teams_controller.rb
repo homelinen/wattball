@@ -1,7 +1,13 @@
 class TeamsController < ApplicationController
+  load_and_authorize_resource
+
+  add_breadcrumb "teams", :teams_path
+  add_breadcrumb "user", :team_path, :only => %w(show edit)
+
   # GET /teams
   # GET /teams.json
   def index
+    
     @teams = Team.all
 
     respond_to do |format|
@@ -13,6 +19,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+
     @team = Team.find(params[:id])
 
     respond_to do |format|
@@ -25,6 +32,8 @@ class TeamsController < ApplicationController
   # GET /teams/new.json
   def new
     @team = Team.new
+
+    add_breadcrumb "new", :new_team_path
     #@team.User.build
 
     respond_to do |format|
@@ -35,13 +44,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    add_breadcrumb "edit", :edit_team_path
     @team = Team.find(params[:id])
   end
 
   # POST /teams
   # POST /teams.json
   def create
-    user_attrs = params[:team].delete(:User_attributes)
+    user_attrs = params[:team].delete(:user_attributes)
     user = User.new(user_attrs)
     if !user.save!
       flash[:error] = user.errors
@@ -50,8 +60,8 @@ class TeamsController < ApplicationController
 
     @team = Team.new(params[:team])
 
-    @team.User = user
-    @team.User_id = user.id
+    @team.user = user
+    @team.user_id = user.id
 
     respond_to do |format|
       if @team.save

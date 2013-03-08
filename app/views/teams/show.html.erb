@@ -2,7 +2,7 @@
 
 <p>
   <b>User:</b>
-  <%= join_user_name(@team.User) %>
+  <%= @team.user.name %>
 </p>
 
 <p>
@@ -20,7 +20,7 @@
   <ul class="playerList">
     <% WattballPlayer.where(:team_id => @team.id).each do |player| %>
         <li>
-          <%= link_to join_user_name(player.user), athlete_path(player) %>
+          <%= link_to player.user.name, player %>
         </li>
     <% end %>
   </ul>
@@ -35,6 +35,16 @@
   end %>
   <%= content_tag :ul, list.html_safe %>
   </ul>
+</p>
+
+<p>
+  <% if @team.tournament %>
+    Registered for
+    <%= link_to @team.tournament.name, @team.tournament %>.
+  <% else %>
+    Not Registered for a Tournament (Can't happen).
+  <% end %>
+
 </p>
 
 

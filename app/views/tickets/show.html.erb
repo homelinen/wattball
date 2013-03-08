@@ -12,7 +12,7 @@
 
 <p>
   <b>User:</b>
-  <%= join_user_name(@ticket.user) %>
+  <%= @ticket.user.name %>
 </p>
 
 <p>
@@ -21,7 +21,7 @@
 </p>
 
 <p>
-  <b>Dsc:</b>
+  <b>Description:</b>
   <%= @ticket.dsc %>
 </p>
 

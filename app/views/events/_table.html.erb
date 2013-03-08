@@ -1,4 +1,11 @@
-<% t.column :event, :title => "Start" do |event| %>
+  <% t.column :event, :title => "Venue" do |event| %>
+    <% if event.venue
+          event.venue.name
+        else
+          "No venue"
+        end %>
+  <% end %>
+  <% t.column :event, :title => "Start" do |event| %>
     <% get_time_of_event event.start %>
   <% end %>
   <% t.column :event, :title => "End" do |event| 
@@ -11,7 +18,7 @@
     event.status
   end %>
   <% t.column :event, :title => "Referee" do |event| %>
-    <% link_to join_user_name(event.official.user), official_path(event.official) %>
+    <% link_to event.official.user.name, official_path(event.official) %>
   <% end %>
   <% t.column :event, :title => "Tournament" do |event| %>
     <% event.tournament.name %>

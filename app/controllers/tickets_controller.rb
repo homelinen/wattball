@@ -1,4 +1,6 @@
 class TicketsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /tickets
   # GET /tickets.json
   def index
@@ -25,6 +27,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new.json
   def new
     @ticket = Ticket.new
+    @ticket.tournament_id = params[:id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -82,6 +85,6 @@ class TicketsController < ApplicationController
   end
 
   def buy
-    
+    new
   end
 end

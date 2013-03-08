@@ -1,4 +1,9 @@
 class AthletesController < ApplicationController
+  load_and_authorize_resource
+
+  add_breadcrumb "athletes", :athletes_path
+  add_breadcrumb "athlete", :athlete_path, :only => %w(edit)
+
   # GET /athletes
   # GET /athletes.json
   def index
@@ -18,6 +23,15 @@ class AthletesController < ApplicationController
   # GET /athletes/1.json
   def show
     @athlete = Athlete.find(params[:id])
+
+    if @athlete.type == WattballPlayer.to_s
+      
+      # Print the team name, could just say "team"
+      add_breadcrumb @athlete.team.teamName, team_path(@athlete.team)
+    end
+
+    # What if the name doesn't have P in it?
+    add_breadcrumb @athlete.type.split("P").join(" P").downcase, :athlete_path, :only => %w(new edit)
 
     respond_to do |format|
       format.html # show.html.erb

@@ -21,11 +21,11 @@
   </div>
   <div class="field">
     <%= f.label :user %><br />
-    <%= f.text_field :user %>
+    <%= f.collection_select(:user_id, User.all, :id, :first_name) %>
   </div>
   <div class="field">
     <%= f.label :tournament %><br />
-    <%= f.text_field :tournament %>
+    <%= f.collection_select(:tournament_id, Tournament.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :dsc %><br />

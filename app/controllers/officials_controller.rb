@@ -1,4 +1,6 @@
 class OfficialsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /officials
   # GET /officials.json
   def index

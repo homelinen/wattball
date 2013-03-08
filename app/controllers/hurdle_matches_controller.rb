@@ -1,4 +1,9 @@
 class HurdleMatchesController < ApplicationController
+  load_and_authorize_resource
+
+  add_breadcrumb "hurdle matches", :hurdle_matches_path
+  add_breadcrumb "hurdle match", :hurdle_matche_path, :only => %w(edit show)
+
   # GET /hurdle_matches
   # GET /hurdle_matches.json
   def index

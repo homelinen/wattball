@@ -19,13 +19,17 @@
 
 <div class="field">
   <%= f.label :dateOfBirth %><br />
-  <%= f.text_field :dateOfBirth %>
+  <%= f.date_select :dateOfBirth %>
 </div>
 <div class="field">
   <%= f.label :phoneNumber %><br />
-  <%= f.number_field :phoneNumber %>
+  <%= f.telephone_field :phoneNumber %>
 </div>
 <div class="field">
   <%= f.label :nationality %><br />
   <%= f.text_field :nationality %>
 </div>
+<div class="field">
+  <%= f.label :sex %>
+  <%= f.select :sex, [['Male', 'm'], ['Female','f']] %>
+</div> 

@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   belongs_to :official
   belongs_to :tournament
+  belongs_to :venue
 
   has_one :wattball_match
   has_one :hurdle_match

@@ -32,10 +32,32 @@ group :production do
       gem "thin", "~> 1.5.0"
 end
 
+gem "rspec-rails", "~> 2.0", :group => [:test, :development]
+
+group :test do
+  gem 'capybara', '~> 2.0.2'
+  gem 'shoulda', '~> 3.3.2'
+
+  gem 'guard', '~> 1.6.2'
+  gem 'guard-rspec', '~> 2.4.0'
+
+  # Notifications for Growl
+  # Possibly will cause dep. problems
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
+  gem 'libnotify', '~> 0.8.0', :require => false
+end
+
+#Authentication
+gem "cancan", '~> 1.6.9'
+
 # File uploads
 gem "paperclip", "~> 3.0"
 
 gem 'jquery-rails', '~> 2.0.1'
+
+gem "breadcrumbs_on_rails", "~> 2.3.0"
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
