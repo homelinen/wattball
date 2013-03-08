@@ -41,7 +41,7 @@ FactoryGirl.define do
   end
 
   factory :event do
-    start { generate(:time) }
+    start { generate(:time) + 1.months.from_now + rand(12).days }
     date { 2.months.from_now + rand(12).days }
     status 'Scheduled'
 
@@ -53,8 +53,8 @@ FactoryGirl.define do
 
   factory :wattball_match do
     event
-    team1 { Team.all.sample }
-    team2 { Team.all.sample }
+    association team1, factory: :team
+    association team2, factory: :team
   end
 
   factory :tournament do
@@ -93,10 +93,9 @@ FactoryGirl.define do
   end
 
   factory :score do
-    match = Dummy.getRandom(WattballMatch) 
-    event { match.event }
+    wattball_match { Dummy.getRandom(WattballMatch) || FactoryGirl.create(WattballMatch) }
     # Pick a random player from this events teams, this is maybe a model method
-    wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", match.team1_id, match.team2_id).sample }
+    wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", wattball_match.team1_id, wattball_match.team2_id).sample }
     amount { rand(4) }
   end
 
