@@ -27,6 +27,8 @@ set :use_sudo, false
 #before 'deploy:setup', 'rvm:export_gemset'
 
 set :rbenv_ruby_version, "1.9.3-p392"
+set :rbenv_setup_shell, true
+set :rbenv_setup_default_environment, true
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
@@ -45,18 +47,18 @@ namespace :deploy do
   desc "Wattball stop"
   task :stop, :roles => :app do
 
-      invoke_command "cd #{current_path}; thin stop"
+      invoke_command "cd #{current_path}; bundle exec thin stop"
   end
 
   desc "Wattball start."
   task :start, :roles => :app do
 
-      invoke_command "cd #{current_path}; thin start"
+      invoke_command "cd #{current_path}; bundle exec thin start"
   end  
 
   desc "Wattball Restart"
   task :restart, :roles => :app do
-      invoke_command "cd #{current_path}; thin stop"
-      invoke_command "cd #{current_path}; thin start"
+      invoke_command "cd #{current_path}; bundle exec thin stop"
+      invoke_command "cd #{current_path}; bundle exec thin start"
   end
 end
