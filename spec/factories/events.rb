@@ -53,8 +53,8 @@ FactoryGirl.define do
 
   factory :wattball_match do
     event
-    association team1, factory: :team
-    association team2, factory: :team
+    association :team1, factory: :team
+    association :team2, factory: :team
   end
 
   factory :tournament do

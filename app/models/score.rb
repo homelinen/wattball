@@ -3,11 +3,11 @@ class Score < ActiveRecord::Base
   belongs_to :wattball_match
 
   # Number of goals prevents duplicates in the table
-  attr_accessible :amount, :wattball_match, :wattball_player
+  attr_accessible :amount, :wattball_match_id, :wattball_player_id
 
-  validates_presence_of :wattball_match, :wattball_player
+  validates_presence_of :wattball_match_id, :wattball_player_id
 
-  validate :amount, :presence => true, :numericality => { :greater_than => 0 }
+  validates :amount, :presence => true, :numericality => { :greater_than => 0 }
 
   # Calculate the score for a match
   #

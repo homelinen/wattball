@@ -8,8 +8,8 @@ describe Score do
   end
 
   it { @scores.should validate_presence_of :amount }
-  it { @scores.should validate_presence_of :wattball_player }
-  it { @scores.should validate_presence_of :wattball_match }
+  it { @scores.should validate_presence_of :wattball_player_id }
+  it { @scores.should validate_presence_of :wattball_match_id }
 
   it { @scores.should_not allow_value(0).for(:amount) }
 end

@@ -4,9 +4,9 @@
   <% column :wattball_player do |player|
     player.user.name
   end %>
-  <% column :event do |event| 
+  <% column :wattball_match do |event| 
     # Get the wattball match name for event
-    wattball_match_name event.wattball_match
+    wattball_match_name event
   end %>
   <% column :amount, :title => "Goals" %>
   <% column :title => "Actions" do |score| %>
