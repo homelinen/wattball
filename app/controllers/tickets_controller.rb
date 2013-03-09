@@ -36,7 +36,9 @@ class TicketsController < ApplicationController
   # GET /tickets/new.json
   def new
     @ticket = Ticket.new
-    @ticket.tournament_id = params[:id]
+    event = Event.find(params[:event])
+    @ticket.tournament_id = event.tournament.id
+    @ticket.start = event.start
 
     respond_to do |format|
       format.html # new.html.erb

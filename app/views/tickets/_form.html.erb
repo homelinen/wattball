@@ -16,28 +16,22 @@
     <%= f.datetime_select :start %>
   </div>
   <div class="field">
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, User.all, :id, :first_name) %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
   <div class="field">
     <%= f.label :tournament %><br />
     <%= f.collection_select(:tournament_id, Tournament.all, :id, :name) %>
   </div>
   <div class="field">
-    <%= f.label :dsc %><br />
-    <%= f.text_field :dsc %>
+    <%= f.hidden_field :dsc, :value => :pending %>
   </div>
   <div class="field">
     <%= f.label :adults_number %><br />
-    <%= f.number_field :adults_number %>
+    <%= f.number_field :adults_number, :value => 1 %>
   </div>
   <div class="field">
     <%= f.label :concess_number %><br />
-    <%= f.number_field :concess_number %>
+    <%= f.number_field :concess_number, :value => 0 %>
   </div>
   <div class="actions">
     <%= f.submit %>
