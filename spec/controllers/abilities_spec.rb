@@ -30,6 +30,7 @@ describe "User" do
       it { should_not be_able_to(:read, Staff) }
       it { should_not be_able_to(:read, FactoryGirl.build(:user, admin: true)) }
       it { should_not be_able_to(:read, Staff) }
+      it { should_not be_able_to(:index, WattballPlayer) }
     end
 
     context "when is a staff member" do
@@ -78,13 +79,16 @@ describe "User" do
     end
 
     context "when is a guest" do
-      (ModelsHelper.all_models - ["Staff", "Admin"]).each do |model|
+      (ModelsHelper.all_models - ["Staff", "Admin", "Ticket"]).each do |model|
           model = model.constantize
 
           # NOTE: Tests that buying tickets not allowed
           it{ should be_able_to(:read, model) }
           it{ should_not be_able_to(:edit, model) }
       end
+
+      it { should_not be_able_to(:read, Staff) }
+      it { should_not be_able_to(:read, Ticket) }
     end
 
   end

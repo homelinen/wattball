@@ -40,6 +40,7 @@ FactoryGirl.define do
     password 'sekret'
     password_confirmation 'sekret'
     admin false
+    registered true
   end
 
   factory :staff do
