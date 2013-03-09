@@ -4,7 +4,7 @@
   :class => "table table-bordered table-striped" 
 } do -%>
   <% column :user do |user|
-    link_to user.name, user
+    link_to user.name, user.wattball_player
   end %>
   <% column :dob, :title => "Date of Birth" %>
   <% column :phone_number %>
