@@ -18,7 +18,10 @@ class Ability
       can :self_maintain, WattballPlayer
     elsif user.hurdle_player
       can :self_maintain, HurdlePlayer
-    elsif user
+    end
+
+    # All users have these rights
+    if user
       can :create, Ticket
       can :edit, user
     end
