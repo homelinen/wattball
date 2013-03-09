@@ -10,7 +10,7 @@ class Ability
     if user.admin?
        can :manage, :all 
     elsif user.team
-      can :self_maintain, Team
+      can :self_maintain, Team, :user => user
     elsif user.staff
       can :create, Team
       can :create, User
@@ -20,8 +20,8 @@ class Ability
       can :self_maintain, HurdlePlayer
     elsif user
       can :create, Ticket
+      can :edit, user
     end
-
 
     # Everyone can read everything
     can :read, :all

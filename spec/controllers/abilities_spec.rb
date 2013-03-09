@@ -49,7 +49,10 @@ describe "User" do
 
       it_behaves_like "unprivilidged", [Team.to_s]
 
-      it { should be_able_to(:self_maintain, Team) }
+      it { should be_able_to(:self_maintain, user.team) }
+      it { should_not be_able_to(:manage, Team.all - [user.team]) }
+
+      # Shouldn't be able to read EVERYTHING
       it { should be_able_to(:read, :all) }
     end
 
@@ -57,7 +60,7 @@ describe "User" do
       let(:user) { FactoryGirl.create(:hurdle_player).user }
 
       it{ should be_able_to(:self_maintain, HurdlePlayer) }
-
+      it { should_not be_able_to(:modify, HurdlePlayer.all - [user.hurdle_player])  }
       it_behaves_like "unprivilidged", ["HurdlePlayer"]
     end
 
@@ -65,6 +68,7 @@ describe "User" do
       let(:user) { FactoryGirl.create(:wattball_player).user }
 
       it{ should be_able_to(:self_maintain, WattballPlayer) }
+      it { should_not be_able_to(:modify, WattballPlayer.all - [user.wattball_player])  }
 
       it_behaves_like "unprivilidged", ["WattballPlayer"]
     end
@@ -73,6 +77,10 @@ describe "User" do
       let(:user) { FactoryGirl.create(:user) }
 
       it { should be_able_to(:read, :all) }
+      it { should be_able_to(:edit, user) }
+
+      # Cannot edit any other users
+      it {should_not be_able_to(:edit, User.all - [user])}
       it { should be_able_to(:create, Ticket) }
 
       it_behaves_like "unprivilidged", [Ticket.to_s]
@@ -84,11 +92,14 @@ describe "User" do
 
           # NOTE: Tests that buying tickets not allowed
           it{ should be_able_to(:read, model) }
-          it{ should_not be_able_to(:edit, model) }
+          it{ should_not be_able_to(:edit, model)  }
+          if (model != User) 
+              # Should be able to create a user
+              it { should_not be_able_to(:manage, model) }
+          end
       end
-
-      it { should_not be_able_to(:read, Staff) }
-      it { should_not be_able_to(:read, Ticket) }
+      it { should_not be_able_to(:read, Staff)  }
+      it { should_not be_able_to(:manage, Ticket)  }
     end
 
   end
