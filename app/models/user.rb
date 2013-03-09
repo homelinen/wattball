@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :first_name, :last_name, :admin
+  attr_accessible :first_name, :last_name, :admin, :registered
 
   before_save :default_values
 
@@ -26,5 +26,9 @@ class User < ActiveRecord::Base
   # (This should be taken for all users)
   def name
     [first_name, last_name].join " "
+  end
+
+  def privileged?
+    self.admin? || self.staff
   end
 end
