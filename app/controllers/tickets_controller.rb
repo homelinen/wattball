@@ -4,7 +4,16 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+
+    if current_user
+      if current_user.privileged?
+        @tickets = Ticket.all
+      else
+        @tickets = Ticket.where(:user_id => current_user.id)
+      end
+    else
+      @tickets = []
+    end
 
     respond_to do |format|
       format.html # index.html.erb

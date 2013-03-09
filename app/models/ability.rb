@@ -22,8 +22,12 @@ class Ability
       can :create, Ticket
     end
 
+
     # Everyone can read everything
     can :read, :all
+    cannot :index, WattballPlayer unless user.privileged?
+
+    cannot :manage, Ticket if !user.registered?
 
     # Some read overrides
     cannot :read, Staff unless user.admin?
