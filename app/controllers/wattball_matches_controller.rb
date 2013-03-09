@@ -1,4 +1,6 @@
 class WattballMatchesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /wattball_matches
   # GET /wattball_matches.json
   def index

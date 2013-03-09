@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @wattball_player.user %>
+</p>
+
+<p>
+  <b>Dob:</b>
+  <%= @wattball_player.dob %>
+</p>
+
+<p>
+  <b>Phone number:</b>
+  <%= @wattball_player.phone_number %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @wattball_player.contact %>
+</p>
+
+<p>
+  <b>Org tag:</b>
+  <%= @wattball_player.org_tag %>
+</p>
+
+
+<%= link_to 'Edit', edit_wattball_player_path(@wattball_player) %> |
+<%= link_to 'Back', wattball_players_path %>

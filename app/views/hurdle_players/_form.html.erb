@@ -1,0 +1,44 @@
+<%= form_for(@hurdle_player) do |f| %>
+  <% if @hurdle_player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hurdle_player.errors.count, "error") %> prohibited this hurdle_player from being saved:</h2>
+
+      <ul>
+      <% @hurdle_player.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+  <% @hurdle_player.build_user unless @hurdle_player.user %>
+    <%= f.fields_for :user do |user_details_form| %>
+      <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_select :dob %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_number %><br />
+    <%= f.number_field :phone_number %>
+  </div>
+  <div class="field">
+    <%= f.label :nationality %><br />
+    <%= f.text_field :nationality %>
+  </div>
+  <div class="field">
+    <%= f.label :previous_time %><br />
+    <%= f.number_field :previous_time %>
+  </div>
+  <div class="field">
+    <%= f.label :sex %><br />
+  <%= f.select :sex, [['Male', 'm'], ['Female','f']] %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -2,11 +2,11 @@
 
 <%= table_for @scores, :html => { :class => "table table-bordered table-striped" } do -%>
   <% column :wattball_player do |player|
-    player.name
+    player.user.name
   end %>
-  <% column :event do |event| 
+  <% column :wattball_match do |event| 
     # Get the wattball match name for event
-    wattball_match_name WattballMatch.where(:event_id => event.id).first
+    wattball_match_name event
   end %>
   <% column :amount, :title => "Goals" %>
   <% column :title => "Actions" do |score| %>

@@ -12,7 +12,12 @@
   <div class="navbar-inner main-menu">
     <a class="brand" href="/">Wattball</a>
     <ul class="nav pull-right">
-      <li><%= link_to('Login', new_user_session_path) %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to current_user.name, edit_user_registration_path %></li>
+        <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
+      <% else %>
+        <li><%= link_to('Login', new_user_session_path) %></li>
+      <% end %>
     </ul>
     <ul class="nav">
   	<li<% if params[:controller] == "home" %>
@@ -27,10 +32,10 @@
            class="active"
            <% end %>
                 ><%= link_to("Teams", teams_path) %></li>
-      <li<% if params[:controller] == "athletes" %>
+      <li<% if params[:controller] == "wattball_player" %>
            class="active"
            <% end %>
-                ><%= link_to("Athletes", athletes_path) %></li>
+                ><%= link_to("Athletes", wattball_players_path) %></li>
       <li><a href="/">Gallery</a></li>
       <% # This should be more dynamic
     %>
@@ -43,6 +48,7 @@
 <div class="container">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
+  <p><%= render_breadcrumbs %></p>
 
 <%= yield %>
 

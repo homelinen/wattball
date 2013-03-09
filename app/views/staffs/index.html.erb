@@ -1,0 +1,20 @@
+<h1>Listing Staff</h1>
+
+<%= table_for @staffs, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
+  <% column :user %>
+  <% column :address %>
+  <% column :telephone %>
+  <% column :title => "Action" do |staff|
+    link_to "Show", staff
+  end %>
+  <% column :title => "Action" do |staff|
+    link_to "Edit", edit_staff_path(staff)
+  end %>
+  <% column :title => "Action" do |staff|
+    link_to "Destroy", staff, method: :delete, data: { confirm: 'Are you sure?' }
+  end %>
+<% end %>
+
+<%= link_to 'New Staff', new_staff_path %>

@@ -2,7 +2,7 @@
 
 <p>
   <b>User:</b>
-  <%= join_user_name(@team.User) %>
+  <%= @team.user.name %>
 </p>
 
 <p>
@@ -18,9 +18,10 @@
 <p>
   <b>Players</b>
   <ul class="playerList">
-    <% WattballPlayer.where(:team_id => @team.id).each do |player| %>
+    <% # FIXME: Get this out of here %>
+    <% @team.wattball_players.each do |player| %>
         <li>
-          <%= link_to join_user_name(player.user), athlete_path(player) %>
+          <%= link_to player.user.name, player %>
         </li>
     <% end %>
   </ul>
@@ -30,7 +31,7 @@
 <p>
   <b>Matches:</b>
   <% list = "" %>
-  <% WattballMatch.where("team1_id = :team OR team2_id = :team", :team => Team.first.id).each do |match|
+  <% @team.wattball_matches.each do |match|
     list += content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match)
   end %>
   <%= content_tag :ul, list.html_safe %>

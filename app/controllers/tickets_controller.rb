@@ -1,8 +1,19 @@
 class TicketsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+
+    if current_user
+      if current_user.privileged?
+        @tickets = Ticket.all
+      else
+        @tickets = Ticket.where(:user_id => current_user.id)
+      end
+    else
+      @tickets = []
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,7 +93,4 @@ class TicketsController < ApplicationController
     end
   end
 
-  def buy
-    new
-  end
 end

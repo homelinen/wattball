@@ -1,4 +1,7 @@
 class SportCentersController < ApplicationController
+  load_and_authorize_resource
+  skip_authorize_resource :only => :contact
+
   # GET /sport_centers
   # GET /sport_centers.json
   def index

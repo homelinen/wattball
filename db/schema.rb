@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129090429) do
+ActiveRecord::Schema.define(:version => 20130308234224) do
+
+  create_table "addresses", :force => true do |t|
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "city"
+    t.string   "country"
+    t.string   "postcode"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "athletes", :force => true do |t|
     t.integer  "user_id"
@@ -77,6 +87,19 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
 
   add_index "hurdle_matches", ["event_id"], :name => "index_hurdle_matches_on_event_id"
 
+  create_table "hurdle_players", :force => true do |t|
+    t.integer  "user_id"
+    t.date     "dob"
+    t.integer  "phone_number"
+    t.string   "nationality"
+    t.integer  "previous_time"
+    t.string   "sex"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "hurdle_players", ["user_id"], :name => "index_hurdle_players_on_user_id"
+
   create_table "hurdle_times", :force => true do |t|
     t.integer  "athlete_id"
     t.integer  "hurdle_match_id"
@@ -86,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "hurdle_times", ["athlete_id"], :name => "index_hurdle_times_on_athlete_id"
   add_index "hurdle_times", ["hurdle_match_id"], :name => "index_hurdle_times_on_hurdle_match_id"
 
   create_table "officials", :force => true do |t|
@@ -100,13 +122,13 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
 
   create_table "scores", :force => true do |t|
     t.integer  "wattball_player_id"
-    t.integer  "event_id"
+    t.integer  "wattball_match_id"
     t.integer  "amount"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
 
-  add_index "scores", ["event_id"], :name => "index_scores_on_event_id"
+  add_index "scores", ["wattball_match_id"], :name => "index_scores_on_event_id"
   add_index "scores", ["wattball_player_id"], :name => "index_scores_on_wattball_player_id"
 
   create_table "sport_centers", :force => true do |t|
@@ -131,8 +153,19 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "staffs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "address_id"
+    t.string   "telephone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "staffs", ["address_id"], :name => "index_staffs_on_address_id"
+  add_index "staffs", ["user_id"], :name => "index_staffs_on_user_id"
+
   create_table "teams", :force => true do |t|
-    t.integer  "User_id"
+    t.integer  "user_id"
     t.string   "teamName"
     t.string   "badge_file_name"
     t.string   "badge_content_type"
@@ -143,8 +176,8 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
     t.integer  "tournament_id"
   end
 
-  add_index "teams", ["User_id"], :name => "index_teams_on_User_id"
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"
+  add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
 
   create_table "tickets", :force => true do |t|
     t.datetime "start"
@@ -190,6 +223,8 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "admin"
+    t.boolean  "registered"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -218,5 +253,20 @@ ActiveRecord::Schema.define(:version => 20130129090429) do
   add_index "wattball_matches", ["event_id"], :name => "index_wattball_matches_on_event_id"
   add_index "wattball_matches", ["team1_id"], :name => "index_wattball_matches_on_team1_id"
   add_index "wattball_matches", ["team2_id"], :name => "index_wattball_matches_on_team2_id"
+
+  create_table "wattball_players", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "contact_id"
+    t.string   "org_tag"
+    t.date     "dob"
+    t.integer  "phone_number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "wattball_players", ["contact_id"], :name => "index_wattball_players_on_contact_id"
+  add_index "wattball_players", ["team_id"], :name => "index_wattball_players_on_team_id"
+  add_index "wattball_players", ["user_id"], :name => "index_wattball_players_on_user_id"
 
 end

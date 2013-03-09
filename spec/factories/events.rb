@@ -8,9 +8,12 @@ class Dummy
   # For the model get a random one
   #
   def self.getRandom(model)
-    models = model.all
+    # Make sure the table has been initialised
+    if model.table_exists?
+        models = model.all
 
-    models[rand(models.length)]
+        models[rand(models.length)]
+    end
   end
 
   def self.get_random_where(model, where)
@@ -38,19 +41,20 @@ FactoryGirl.define do
   end
 
   factory :event do
-    start { generate(:time) }
+    start { generate(:time) + 1.months.from_now + rand(12).days }
     date { 2.months.from_now + rand(12).days }
     status 'Scheduled'
 
     # This will create a new official for every event
     official
-    tournament { Tournament.all.sample }
+    tournament { Tournament.all.sample || FactoryGirl.create(Tournament) }
+    venue
   end
 
   factory :wattball_match do
     event
-    team1 { Team.all.sample }
-    team2 { Team.all.sample }
+    association :team1, factory: :team
+    association :team2, factory: :team
   end
 
   factory :tournament do
@@ -62,6 +66,13 @@ FactoryGirl.define do
     max_competitors 5
     adult_ticket_price 9.20
     concession_ticket_price 5.40
+  end
+
+  factory :venue do
+    capacity { [10, 500 , 1000, 2000].sample }
+    name { %w( Frontier Barrier Forklon ).sample + " Stadium" }
+    sport { Dummy.getRandom(Sport) || FactoryGirl.create(:sport) }
+    sport_center { Dummy.getRandom(SportCenter) || FactoryGirl.create(:sport_center) }
   end
 
   factory :sport do
@@ -82,10 +93,32 @@ FactoryGirl.define do
   end
 
   factory :score do
-    match = Dummy.getRandom(WattballMatch)
-    event { match.event }
+    wattball_match { Dummy.getRandom(WattballMatch) || FactoryGirl.create(WattballMatch) }
     # Pick a random player from this events teams, this is maybe a model method
-    wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", match.team1_id, match.team2_id).sample }
+    wattball_player { WattballPlayer.where("team_id = ? OR team_id = ?", wattball_match.team1_id, wattball_match.team2_id).sample }
     amount { rand(4) }
+  end
+
+  factory :ticket do
+    start do
+      match = FactoryGirl.create(:wattball_match)
+      match.event.start
+    end
+
+    user { Dummy.getRandom(User) }
+    tournament { Dummy.getRandom(Tournament) || FactoryGirl.create(:tournament) }
+    dsc "printed"
+    adults_number { (0..4).to_a.sample }
+    concess_number { (0..2).to_a.sample }
+  end
+
+  factory :sport_center do
+    name = "Heriot Watt Sport Center"
+    email = "sport-center@hw.ac.uk"
+    address_line1 "Heriot-Watt University"
+    address_line2 "Edinburgh Campus"
+    address_city "Edinburgh"
+    address_postcode "EH14 4AS"
+    contact 
   end
 end

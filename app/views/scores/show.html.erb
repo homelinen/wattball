@@ -2,12 +2,12 @@
 
 <p>
   <b>Player:</b>
-  <%= link_to @score.wattball_player.name, @score.wattball_player %>
+  <%= link_to @score.wattball_player.user.name, @score.wattball_player %>
 </p>
 
 <p>
   <b>Event:</b>
-  <%= link_to @score.event %>
+  <%= link_to wattball_match_name(@score.wattball_match), @score.wattball_match %>
 </p>
 
 <p>
