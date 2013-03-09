@@ -247,6 +247,7 @@ DEPENDENCIES
   guard-rspec (~> 2.4.0)
   jquery-rails (~> 2.0.1)
   libnotify (~> 0.8.0)
+  mocha
   mysql2 (~> 0.3.11)
   paperclip (~> 3.0)
   rails (~> 3.2.11)
