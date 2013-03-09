@@ -2,18 +2,20 @@
 
 <p>
   <b>User:</b>
-  <%= @hurdle_player.user %>
+  <%= @hurdle_player.user.name %>
 </p>
 
-<p>
-  <b>Dob:</b>
-  <%= @hurdle_player.dob %>
-</p>
+<% if current_user && current_user.privileged? %>
+  <p>
+    <b>Date of Birth:</b>
+    <%= @hurdle_player.dob %>
+  </p>
 
-<p>
-  <b>Phone number:</b>
-  <%= @hurdle_player.phone_number %>
-</p>
+  <p>
+    <b>Phone number:</b>
+    <%= @hurdle_player.phone_number %>
+  </p>
+<% end %>
 
 <p>
   <b>Nationality:</b>

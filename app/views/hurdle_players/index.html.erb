@@ -4,13 +4,21 @@
   :class => "table table-bordered table-striped" 
 } do -%>
   <% column :user do |user| 
-    link_to user.name, user
+    link_to user.name, user.hurdle_player
   end %>
-  <% column :dob, :title => "Date of Birth" %>
-  <% column :phone_number %>
+  <% if current_user && current_user.privileged? %>
+    <% column :dob, :title => "Date of Birth" %>
+    <% column :phone_number %>
+  <% end %>
   <% column :nationality %>
   <% column :previous_time %>
-  <% column :sex %>
+  <% column :sex do |sex|
+    if sex == "f"
+      "Female"
+    else 
+      "Male"
+    end
+  end %>
   <% column :title => "Action" do |hurdle_player|
     link_to "Show", hurdle_player
   end %>
