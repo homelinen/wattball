@@ -4,19 +4,20 @@ class Ability
   def initialize(user)
 
     alias_action :read, :create, :edit, :to => :modify
+    alias_action :read, :edit, :destroy, :to => :self_maintain
     
     user ||= User.new
     if user.admin?
        can :manage, :all 
     elsif user.team
-      can :manage, Team, :user => user
+      can :self_maintain, Team, :user => user
     elsif user.staff
       can :create, Team
       can :create, User
-    elsif user.athlete && user.athlete.class == WattballPlayer
-      can [:modify, :new_wattball_player], Athlete
-    elsif user.athlete && user.athlete.class == HurdlePlayer
-      can [:modify, :new_hurdle_player], Athlete
+    elsif user.wattball_player
+      can :self_maintain, WattballPlayer
+    elsif user.hurdle_player
+      can :self_maintain, HurdlePlayer
     elsif user
       can :create, Ticket
       can :edit, user
@@ -24,6 +25,9 @@ class Ability
 
     # Everyone can read everything
     can :read, :all
+    cannot :index, WattballPlayer unless user.privileged?
+
+    cannot :manage, Ticket if !user.registered?
 
     # Some read overrides
     cannot :read, Staff unless user.admin?

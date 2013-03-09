@@ -2,7 +2,8 @@
     <div class="span4 thumbnail">
       <h2>Results</h2>
       <% list = "" %>
-      <% WattballMatch.joins(:event).limit(5).order(:date).each do |match|
+      <% # Only find the results, not all %>
+      <% WattballMatch.details(5).each do |match|
 
         scores = Score.match_score(match)
         list += content_tag :li, "#{match.team1.teamName} #{scores[0]} -  #{scores[1]} #{match.team2.teamName}"
@@ -28,7 +29,8 @@
 	      <h3>Next 5 Wattball Matches:</h3>
         <ul>
           <% # Change the period, to 2.weeks with a limit? %>
-          <% WattballMatch.joins(:event).order(:date).limit(5).each do |match| %>
+          <% # FIXME: Get rid of this join %>
+          <% WattballMatch.details(5).each do |match| %>
             <%= content_tag :li, "#{wattball_match_name(match)}"%>
           <% end %>
         </ul>

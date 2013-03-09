@@ -40,6 +40,7 @@ FactoryGirl.define do
     password 'sekret'
     password_confirmation 'sekret'
     admin false
+    registered true
   end
 
   factory :staff do
@@ -57,7 +58,8 @@ FactoryGirl.define do
   end
 
   factory :team do
-    association :user, factory: :user
+    user
+    tournament
     teamName { Faker::Name.first_name + " FC"}
   end
 
@@ -68,22 +70,20 @@ FactoryGirl.define do
 
   factory :wattball_player do
     user
-    dateOfBirth { Dummy.fake_time_from(18.year.ago) }
-    phoneNumber { Faker::PhoneNumber.phone_number }
-    nationality 'British'
+    dob { Dummy.fake_time_from((18..24).to_a.sample.year.ago) }
+    phone_number { Faker::PhoneNumber.phone_number }
     contact
-    organisationTag {'H' + Dummy.random_numbers(6) }
+    org_tag {'H' + Dummy.random_numbers(6) }
     # Select a random team
-    team { Dummy.pick_random(Team) }
-    sex { %w( m f ).sample }
+    team { Dummy.pick_random(Team) || FactoryGirl.create(:team) }
   end
 
   factory :hurdle_player do
     user
-    dateOfBirth { Dummy.fake_time_from(18.year.ago) }
+    dob { Dummy.fake_time_from((18..24).to_a.sample.year.ago) }
     nationality 'British'
-    phoneNumber { Faker::PhoneNumber.phone_number }
-    previousTime { Time.at(1.minute + rand(60).seconds) }
+    phone_number { Faker::PhoneNumber.phone_number }
+    previous_time { Time.at(1.minute + rand(60).seconds) }
     sex { %w( m f ).sample }
   end
 end

@@ -4,8 +4,5 @@ class HurdleMatch < ActiveRecord::Base
 
   accepts_nested_attributes_for :event 
 
-  # Fetch all the times for the current match
-  def hurdle_times
-    HurdleTimes.where(:hurdle_match_id => id)
-  end
+  validates_presence_of :event
 end

@@ -30,6 +30,7 @@ describe "User" do
       it { should_not be_able_to(:read, Staff) }
       it { should_not be_able_to(:read, FactoryGirl.build(:user, admin: true)) }
       it { should_not be_able_to(:read, Staff) }
+      it { should_not be_able_to(:index, WattballPlayer) }
     end
 
     context "when is a staff member" do
@@ -48,38 +49,28 @@ describe "User" do
 
       it_behaves_like "unprivilidged", [Team.to_s]
 
-      it { should be_able_to(:manage, user.team) }
+      it { should be_able_to(:self_maintain, user.team) }
       it { should_not be_able_to(:manage, Team.all - [user.team]) }
 
       # Shouldn't be able to read EVERYTHING
       it { should be_able_to(:read, :all) }
     end
 
-    shared_context "is athlete", :a => :b do
-      # Gets the descendants of athlets and add Athlete onto the array
-      @athlete_types = 
-        Athlete.descendants.map { |klass| klass.to_s  }.push Athlete.to_s
-    end
-
     context "when is  hurdle player" do
       let(:user) { FactoryGirl.create(:hurdle_player).user }
-      include_context "is athlete"
 
-      it{ should be_able_to(:modify, user.athlete) }
-      it{ should be_able_to(:new_hurdle_player, user.athlete) }
-      it { should_not be_able_to(:modify, Athlete.all - [user.athlete]) }
-
-      it_behaves_like "unprivilidged", @athlete_types
+      it{ should be_able_to(:self_maintain, HurdlePlayer) }
+      it { should_not be_able_to(:modify, HurdlePlayer.all - [user.hurdle_player])  }
+      it_behaves_like "unprivilidged", ["HurdlePlayer"]
     end
 
     context "when is an wattball player" do
       let(:user) { FactoryGirl.create(:wattball_player).user }
-      include_context "is athlete"
 
-      it{ should be_able_to(:modify, WattballPlayer) }
-      it{ should be_able_to(:new_wattball_player, WattballPlayer) }
+      it{ should be_able_to(:self_maintain, WattballPlayer) }
+      it { should_not be_able_to(:modify, WattballPlayer.all - [user.wattball_player])  }
 
-      it_behaves_like "unprivilidged", @athlete_types
+      it_behaves_like "unprivilidged", ["WattballPlayer"]
     end
 
     context "when is an authed user" do
@@ -96,16 +87,19 @@ describe "User" do
     end
 
     context "when is a guest" do
-      (ModelsHelper.all_models - ["Staff", "Admin"]).each do |model|
+      (ModelsHelper.all_models - ["Staff", "Admin", "Ticket"]).each do |model|
           model = model.constantize
 
           # NOTE: Tests that buying tickets not allowed
           it{ should be_able_to(:read, model) }
+          it{ should_not be_able_to(:edit, model)  }
           if (model != User) 
               # Should be able to create a user
               it { should_not be_able_to(:manage, model) }
           end
       end
+      it { should_not be_able_to(:read, Staff)  }
+      it { should_not be_able_to(:manage, Ticket)  }
     end
 
   end

@@ -38,6 +38,8 @@ group :test do
   gem 'capybara', '~> 2.0.2'
   gem 'shoulda', '~> 3.3.2'
 
+  gem 'mocha'
+
   gem 'guard', '~> 1.6.2'
   gem 'guard-rspec', '~> 2.4.0'
 
