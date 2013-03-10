@@ -13,7 +13,8 @@
 
   <div class="field">
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
+    <% # FIXME: event.date should be the new event.start %>
+    <%= f.datetime_select :start, :end_year => (Date.today.year + 2), :prompt => true %>
   </div>
   <div class="field">
     <%= f.hidden_field :user_id, :value => current_user.id %>
