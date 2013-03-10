@@ -1,12 +1,149 @@
 <!DOCTYPE html>
-<html>
 <head>
   <title>Wattball</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+					<a class="brand" href="#"><%= image_tag("logo.png", :alt => "") %>Wattball</a>
+					<div class="nav-collapse">
+					<ul class="nav">
+						<li<% 
+							if params[:controller] == "home" 
+								%> class="active"<% 
+							end 
+								%>><a href="/">Home</a></li>
+						<li<% 
+							if params[:controller] == "events"
+                                                        	%> class="active"<% 
+							end 
+								%>><%= link_to("Events", events_path) %></li>
+
+						<li><a href="results">Results</a></li>
+						<li<%
+                                                        if params[:controller] == "teams"
+                                                                %> class="active"<%
+                                                        end
+                                                                %>><%= link_to("Teams", teams_path) %></li>
+						<li<%
+                                                        if params[:controller] == "wattball_player"
+                                                                %> class="active"<%
+                                                        end
+                                                                %>><%= link_to("Athletes", wattball_players_path) %></li>
+						
+						<li><a href="/gallery">Gallery</a></li>
+						<li><a href="/about">About us</a></li>
+						<li><a href="/contact">Contact</a></li>            
+					</ul>
+					
+						<ul class="nav pull-right">
+						<li><a href="signup.html">Register</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-black"></i>Login <b class="caret"></b></a>
+							<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+							<form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
+								<input id="user_username" placeholder="Login" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" />
+								<input id="user_password" placeholder="Password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" />
+								<input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
+								<label class="string optional" for="user_remember_me"> Remember me</label>
+								<input class="btn btn-info" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+								<a href="forgot.html">Forgot password?</a>
+							</form> <!-- Login form here -->
+							</div><!-- div dropdown  -->
+             			</li>
+             		</ul>
+             		
+             		</div>
+			</div>
+		</div>
+	</div>
+<!-- NavBar End -->
+		<!--Start Carousel-->
+			<!-- ScriptLocation: /tmpl/scripts/carousel.php -->
+				<div id="myCarousel" class="carousel slide">
+			<div class="carousel-inner">
+			  <div class="item active">
+				<%= image_tag("featured/22.jpg", :alt => "") %>
+				<div class="carousel-caption">
+				  <h4>First Thumbnail label</h4>
+				  <p>Some more description to edit ;P</p>
+				</div>
+			  </div>
+			  <div class="item">
+				<%= image_tag("featured/11.jpg", :alt => "") %>
+				<div class="carousel-caption">
+				  <h4>Wattball Hurdling</h4>
+				  <p>Description of the image you can edit</p>
+				</div>
+			  </div>
+			  <div class="item">
+				<%= image_tag("featured/33.jpg", :alt => "") %>
+				<div class="carousel-caption">
+				  <h4>Third Thumbnail label</h4>
+				  <p>Description of the image you can edit</p>
+				</div>
+			  </div>
+			</div>
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
+			</div>
+		<!--End Carousel-->
+		
+	<div class="container">
+	<hr>
+	
+  		<p><%= render_breadcrumbs %></p>
+
+		<%= yield %>
+
+	</div>
+    <%= javascript_include_tag "jquery" %>
+    <%= javascript_include_tag "bootstrap-transition" %>
+    <%= javascript_include_tag "bootstrap-carousel" %>
+    <%= javascript_include_tag "bootstrap-alert" %>
+    <%= javascript_include_tag "bootstrap-modal" %>
+    <%= javascript_include_tag "bootstrap-dropdown" %>
+    <%= javascript_include_tag "bootstrap-scrollspy" %>
+    <%= javascript_include_tag "bootstrap-tab" %>
+    <%= javascript_include_tag "bootstrap-tooltip" %>
+    <%= javascript_include_tag "bootstrap-popover" %>
+    <%= javascript_include_tag "bootstrap-button" %>
+    <%= javascript_include_tag "bootstrap-collapse" %>
+    <%= javascript_include_tag "bootstrap-typeahead" %>
+    <%= javascript_include_tag "jquery-ui-1.8.18.custom.min" %>
+    <%= javascript_include_tag "jquery.smooth-scroll.min" %>
+    <%= javascript_include_tag "lightbox" %>
+    <script>
+$('.carousel').carousel({
+  interval: 5000
+})
+</script>
+<script>
+$(function() {
+  // Setup drop down menu
+  $('.dropdown-toggle').dropdown();
+ 
+  // Fix input element click problem
+  $('.dropdown input, .dropdown label').click(function(e) {
+    e.stopPropagation();
+  });
+});
+</script>
+
+
+<!--
+Old HTML
 <div class="container-narrow">
 <div class="navbar nav-pills">
   <div class="navbar-inner main-menu">
@@ -44,7 +181,6 @@
     </ul>
   </div>
 </div>
-
 <div class="container">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
@@ -55,13 +191,12 @@
 </div>
 
 <hr>
-
-<!-- FOOTER -->
   <footer>
   	<% @controller_name %>
     <p class="pull-right"><a href="#">Back to top</a></p>
     <p>Copyright 2012 © RailsDrive. All rights reserved.</p>
   </footer>
-</div>      
+</div>
+-->      
 </body>
 </html>
