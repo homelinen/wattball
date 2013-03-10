@@ -103,9 +103,24 @@
 	<div class="container">
 	<hr>
 	
-  		<p><%= render_breadcrumbs %></p>
+	<p><%= render_breadcrumbs %></p>
 
-		<%= yield %>
+	<%= yield %>
+
+<footer class="footer">
+      <div class="container">
+      <a href="#">Back to top</a>
+        <p>All rights reserved to Heriot-Watt Sports Centre for Exercise.</p>
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">RailsDrive 2012-13</a>
+        <ul class="footer-links">
+          <li><a href="contact.html">Contact Sports Centre</a></li>
+          <li class="muted">-</li>
+          <li><a href="about.html">About</a></li>
+          <li class="muted"></li>
+        </ul>
+        <a href="http://www2.macs.hw.ac.uk/~nt78/bootstrap/index.html">Designed by RailsDrive</p>
+      </div>
+    </footer>
 
 	</div>
     <%= javascript_include_tag "jquery" %>
