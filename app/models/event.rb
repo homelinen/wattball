@@ -29,4 +29,16 @@ class Event < ActiveRecord::Base
       errors.add(:start, "can't be in the past")
     end
   end
+
+  # Get ids for events on given date
+  def self.on_date(date)
+    ids = []
+    Event.select([:id, :date]).each do |e| 
+      if e.date == date 
+        ids.push e.id
+      end
+    end
+
+    ids
+  end
 end
