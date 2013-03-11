@@ -12,6 +12,7 @@ gem 'devise', '~> 2.2.3'
 
 # Table generationble_for_collection", "
 gem "table_for_collection", "~> 1.0.6"
+gem "calendar_helper", "~> 0.2.5"
 
 # Gems used only for assets and not required
 # in production environments by default.

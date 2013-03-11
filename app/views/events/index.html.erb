@@ -1,4 +1,10 @@
 <h1>Listing Events</h1>
+<%= calendar(:year => Date.today.year, :month => Date.today.month + 2, :first_day_of_week => 1) do |d|
+  if Event.on_date(d).length > 0 
+    matches = WattballMatch.where(:event_id => Event.on_date(d).first)
+    link_to "#{d.mday}: #{matches.first.match_name}", matches.first
+  end
+end %>
 
 <%= link_to content_tag(:h3, "Hurdle Matches"), hurdle_matches_path %>
 <%= link_to content_tag(:h3, "Wattball Matches"), wattball_matches_path %>

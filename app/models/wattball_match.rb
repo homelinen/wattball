@@ -17,4 +17,8 @@ class WattballMatch < ActiveRecord::Base
   def name
       "#{self.team1.teamName} vs #{self.team2.teamName}"
   end
+
+  def match_name
+    "#{self.team1.teamName} vs #{self.team2.teamName}"
+  end
 end
