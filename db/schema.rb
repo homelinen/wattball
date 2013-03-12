@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308234224) do
+ActiveRecord::Schema.define(:version => 20130312122528) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -64,15 +64,13 @@ ActiveRecord::Schema.define(:version => 20130308234224) do
   end
 
   create_table "events", :force => true do |t|
-    t.time     "start"
-    t.time     "end"
-    t.date     "date"
     t.string   "status"
     t.integer  "official_id"
     t.integer  "tournament_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "venue_id"
+    t.datetime "start"
   end
 
   add_index "events", ["official_id"], :name => "index_events_on_official_id"
@@ -101,15 +99,16 @@ ActiveRecord::Schema.define(:version => 20130308234224) do
   add_index "hurdle_players", ["user_id"], :name => "index_hurdle_players_on_user_id"
 
   create_table "hurdle_times", :force => true do |t|
-    t.integer  "athlete_id"
+    t.integer  "hurdle_player_id"
     t.integer  "hurdle_match_id"
     t.time     "time"
     t.integer  "lane"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "hurdle_times", ["hurdle_match_id"], :name => "index_hurdle_times_on_hurdle_match_id"
+  add_index "hurdle_times", ["hurdle_player_id"], :name => "index_hurdle_times_on_hurdle_player_id"
 
   create_table "officials", :force => true do |t|
     t.integer  "user_id"

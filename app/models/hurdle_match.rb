@@ -5,4 +5,8 @@ class HurdleMatch < ActiveRecord::Base
   accepts_nested_attributes_for :event 
 
   validates_presence_of :event
+
+  def name
+    "Heat: #{self.event.number_of_event}"
+  end
 end

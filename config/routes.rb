@@ -3,7 +3,7 @@ Wattball::Application.routes.draw do
 
   resources :tickets
 
-  match 'tickets/buy/:id' => 'tickets#new'
+  match 'tickets/buy/:event' => 'tickets#new', :as => :buy_ticket
 
   resources :venues
 
@@ -21,6 +21,7 @@ Wattball::Application.routes.draw do
   match "contact" => "sport_centers#contact", :as => :sport_center, :via => "get"
 
   resources :events
+  match 'calendar/(:date)' => 'events#index', :as => :events
 
   resources :tournaments
 
@@ -33,7 +34,9 @@ Wattball::Application.routes.draw do
   resources :hurdle_players
 
   resources :staffs
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => 'registrations' }
+
+  get 'users', :to => 'home#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

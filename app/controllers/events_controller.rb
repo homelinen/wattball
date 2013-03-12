@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    date = params[:date] || Date.today
+    date = date.to_date
+    date_start = Date.new(date.year,date.month,1)
+    date_end = Date.civil(date.year,date.month,-1)
+    @events = Event.where(:start => (date_start..date_end))
 
     respond_to do |format|
       format.html # index.html.erb
