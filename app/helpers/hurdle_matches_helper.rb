@@ -13,7 +13,7 @@ module HurdleMatchesHelper
     list = ""
 
     match.hurdle_times.each do |times|
-      content = "#{link_to times.athlete.user.name, times.athlete} - "
+      content = "#{link_to times.hurdle_player.user.name, times.hurdle_player} - "
 
       time = times.time
 
