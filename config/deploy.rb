@@ -15,7 +15,7 @@ set :deploy_via, :remote_cache
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-server "neor.homelinen.org", :app, :web, :db, :primary => true
+server "dracula.homelinen.org", :app, :web, :db, :primary => true
 
 set :deploy_to, "/srv/ruby/#{application}"
 
