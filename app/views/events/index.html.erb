@@ -1,19 +1,42 @@
 <h1>Listing Events</h1>
-<% calendar = calendar(:year => Date.today.year, :month => Date.today.month + 1, :first_day_of_week => 1) do |d|
-  events = Event.get_match_list(d).map do |e|
-    content_tag :li, link_to(e.name, e)
-  end
+<% if !@events.empty? %>
+  <% calendar = calendar(:year => @events.first.start.year, :month => @events.first.start.month, :first_day_of_week => 1) do |d|
+    events = Event.get_match_list(d).map do |e|
+      content_tag :li, link_to(e.name, e)
+    end
 
-  if events.length > 0
-    content_tag :ul, events.join.html_safe
+    if events.length > 0
+      content_tag :ul, events.join.html_safe
+    else 
+      d.mday
+    end
+  end %>
+
+  <%= calendar %>
+
+<% else %>
+  <h3> No Events this Month </h3>
+<% end %>
+
+<% # Next and Previous Months %>
+<%= link_to "Prev Month", 
+  if @events.empty?
+    events_path(:date => Date.today + 1.months)
   else 
-    d.mday
-  end
-end %>
+    events_path(:date => @events.first.start.to_date - 1.months)
+  end%>
+|
+<%= link_to "Next Month", 
+if @events.empty?
+  events_path(:date => Date.today + 1.months)
+  else 
+    events_path(:date => @events.first.start.to_date + 1.months)
+  end%>
 
-<%= calendar %>
 
-<%= link_to content_tag(:h3, "Hurdle Matches"), hurdle_matches_path %>
-<%= link_to content_tag(:h3, "Wattball Matches"), wattball_matches_path %>
+<br />
+
+<% #link_to content_tag(:h3, "Hurdle Matches"), hurdle_matches_path %>
+<% # link_to content_tag(:h3, "Wattball Matches"), wattball_matches_path %>
 
 <%= link_to 'New Event', new_event_path %>
