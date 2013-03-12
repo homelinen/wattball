@@ -4,7 +4,7 @@
   :class => "table table-bordered"
 } do |t| -%>
   <% column :event, :title => "Details" do |event| %>
-    <% link_to("Heat #{event.number_of_event}", event) + " at #{get_time_of_event event.start} on #{get_date_for_event event.date}"%>
+    <% link_to("Heat #{event.number_of_event}", event) + " at #{get_time_of_event event.start} on #{get_date_for_event event.start.to_date}"%>
   <% end %>
   <% column :title => "Hurdle Times" do |match| %>
     <% print_times(match) %>
