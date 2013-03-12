@@ -10,8 +10,10 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new(params[:user])
     p @user.valid?
 
-    if @user.save!
-      flash[:notice] = "You have signed up successfully. If enabled, a confirmation was sent to your e-mail."
+    @user.save
+
+    if @user.save
+      flash[:notice] = "You have signed up successfully!"
       redirect_to root_url
     else
       flash[:notice] = "Flip"
