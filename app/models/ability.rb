@@ -35,5 +35,8 @@ class Ability
     # Some read overrides
     cannot :read, Staff unless user.admin?
     cannot :read, User, :admin => true unless user.admin?
+
+    can :create, User
+    can :create, WattballPlayer
   end
 end
