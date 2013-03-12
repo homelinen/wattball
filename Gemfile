@@ -10,7 +10,7 @@ group :development do
 end
 
 gem 'therubyracer', '~> 0.10.2'
-gem 'devise'
+gem 'devise', '~> 2.2.3'
 
 # Table generationble_for_collection", "
 gem "table_for_collection", "~> 1.0.6"
