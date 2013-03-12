@@ -33,7 +33,9 @@ Wattball::Application.routes.draw do
   resources :hurdle_players
 
   resources :staffs
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => 'registrations' }
+
+  get 'users', :to => 'home#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
