@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312013415) do
+ActiveRecord::Schema.define(:version => 20130312122528) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -64,15 +64,13 @@ ActiveRecord::Schema.define(:version => 20130312013415) do
   end
 
   create_table "events", :force => true do |t|
-    t.time     "start"
-    t.time     "end"
-    t.date     "date"
     t.string   "status"
     t.integer  "official_id"
     t.integer  "tournament_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "venue_id"
+    t.datetime "start"
   end
 
   add_index "events", ["official_id"], :name => "index_events_on_official_id"

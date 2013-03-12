@@ -13,4 +13,8 @@ class WattballMatch < ActiveRecord::Base
     lim = nil if lim == 0
     WattballMatch.joins(:event).order(:date).limit(lim)
   end
+
+  def name
+      "#{self.team1.teamName} vs #{self.team2.teamName}"
+  end
 end
