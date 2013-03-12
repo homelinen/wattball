@@ -6,9 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    p "CREATE A NEW USER. yESYYESYSE"
     @user = User.new(params[:user])
-    p @user.valid?
 
     @user.save
 
