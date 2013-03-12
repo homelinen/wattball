@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
   #
   # Returns: An int for the position in the event 1 - first, n - last
   def number_of_event
-    tournament = Event.where(:tournament_id => self.tournament.id).order :date
+    tournament = Event.where(:tournament_id => self.tournament.id).order :start
 
     tournament.index( self ) + 1
   end
@@ -30,11 +30,20 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def self.get_match_list(date)
+    event = Event.on_date(date);
+    if event.length > 0 
+      matches = WattballMatch.where(:event_id => event) + HurdleMatch.where(:event_id => event)
+    else
+      []
+    end
+  end
+
   # Get ids for events on given date
   def self.on_date(date)
     ids = []
-    Event.select([:id, :date]).each do |e| 
-      if e.date == date 
+    Event.select([:id, :start]).each do |e| 
+      if e.start.to_date == date 
         ids.push e.id
       end
     end

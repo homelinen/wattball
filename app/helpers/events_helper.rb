@@ -17,4 +17,12 @@ module EventsHelper
   def get_date_for_event(date)
     date.strftime("%A, %d/%m/%y")
   end
+
+  def list_events_for_day(date)
+    events = Event.get_match_list(d).map do |e|
+      content_tag :li, link_to(e.name, e)
+    end
+
+    content_tag :ul, events.join.html_safe
+  end
 end
