@@ -257,7 +257,7 @@ textarea {
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial;
   font-size: 14px;
   line-height: 20px;
   color: #555555;
@@ -783,7 +783,7 @@ h4,
 h5,
 h6 {
   margin: 10px 0;
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial",Arial;
   font-weight: bold;
   line-height: 20px;
   color: inherit;
@@ -2326,7 +2326,7 @@ table th[class*="span"],
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("../assets/glyphicons-halflings.png");
+  background-image: url("../img/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
 }
@@ -6240,7 +6240,7 @@ hr {
 
 .navbar .brand {
   padding: 12px 20px 8px;
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
   font-weight: bold;
 }
 
@@ -6250,7 +6250,7 @@ hr {
 
 .navbar .nav > li > a {
   padding: 13px 15px 6px;
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
   font-weight: bold;
   text-shadow: none;
 }
@@ -6266,7 +6266,7 @@ hr {
 
 .navbar .navbar-text {
   padding: 13px 15px 7px;
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
   line-height: 19px;
   color: #999999;
 }
@@ -6285,7 +6285,7 @@ hr {
 }
 
 .navbar .dropdown-menu a {
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
 }
 
 .navbar-inverse .navbar-inner {
@@ -6328,7 +6328,7 @@ hr {
 }
 
 div.subnav {
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
   background-color: #fefefe;
   background-image: none;
   border-bottom: 1px solid transparent;
@@ -6546,12 +6546,12 @@ div.subnav .nav > li.active > a:hover {
 
 .btn {
   padding-top: .6em;
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
   font-weight: bold;
 }
 
 legend {
-  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Arial", Arial;
   border-bottom: 1px solid #ddd;
 }
 
