@@ -8,7 +8,7 @@ gem 'rails', '~> 3.2.11'
 gem 'sqlite3'
 
 gem 'therubyracer', '~> 0.10.2'
-gem 'devise'
+gem 'devise', '~> 2.2.3'
 
 # Table generationble_for_collection", "
 gem "table_for_collection", "~> 1.0.6"
