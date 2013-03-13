@@ -106,10 +106,8 @@ FactoryGirl.define do
     end
 
     user { Dummy.getRandom(User) }
-    tournament { Dummy.getRandom(Tournament) || FactoryGirl.create(:tournament) }
-    dsc "printed"
-    adults_number { (0..4).to_a.sample }
-    concess_number { (0..2).to_a.sample }
+    status "printed"
+    denomination { %w( adult concession ).sample }
   end
 
   factory :sport_center do
