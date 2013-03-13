@@ -37,7 +37,6 @@ class TicketsController < ApplicationController
   def new
     @ticket = Ticket.new
     event = Event.find(params[:event])
-    @ticket.tournament_id = event.tournament.id
     @ticket.start = event.start
 
     respond_to do |format|
@@ -54,13 +53,31 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(params[:ticket])
+    adult_number = params[:num][:adult]
+    consession_number = params[:num][:consession]
 
+    @ticket = Ticket.new(params[:ticket])
+    @ticket.denomination = 'adult'
+    (0..adult_number).each do
+      respond_to do |format|
+        if !@ticket.save
+          format.html { render action: "new" }
+          format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    @ticket.denomination = 'concession'
+    (0..concession_number).each do
+      save_and_respond(@ticket.save)
+    end
+
+  end
+
+  # Respond if there is a failure
+  def save_and_respond(record)
     respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render json: @ticket, status: :created, location: @ticket }
-      else
+      if !record.save
         format.html { render action: "new" }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
