@@ -53,35 +53,50 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    adult_number = params[:num][:adult]
-    consession_number = params[:num][:consession]
 
+    @tickets = []
+
+    adult_number = params[:num][:adults].to_i
+    concession_number = params[:num][:concession].to_i
+    
     @ticket = Ticket.new(params[:ticket])
     @ticket.denomination = 'adult'
-    (0..adult_number).each do
-      respond_to do |format|
-        if !@ticket.save
-          format.html { render action: "new" }
-          format.json { render json: @ticket.errors, status: :unprocessable_entity }
+    (1..adult_number).each do
+        @ticket = @ticket.dup
+        @tickets.push @ticket
+
+        if !save_and_respond(@ticket)
+            return
         end
-      end
     end
 
     @ticket.denomination = 'concession'
-    (0..concession_number).each do
-      save_and_respond(@ticket.save)
+    (1..concession_number).each do
+      @ticket = @ticket.dup
+      @tickets.push @ticket
+
+      if !save_and_respond(@ticket)
+          return
+      end
     end
 
+    respond_to do |format|
+        format.html { render action: "index", :notice => "Added These Tickets"  }
+        format.json { render json: @tickets }
+    end
   end
 
   # Respond if there is a failure
   def save_and_respond(record)
-    respond_to do |format|
       if !record.save
-        format.html { render action: "new" }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        respond_to do |format|
+          format.html { render action: "new" }
+          format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        end
+        false
+      else
+        true
       end
-    end
   end
 
   # PUT /tickets/1
