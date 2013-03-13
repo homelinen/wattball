@@ -1,19 +1,15 @@
 class Ticket < ActiveRecord::Base
   belongs_to :user
-  belongs_to :tournament
-  attr_accessible :adults_number, :concess_number, :dsc, :end, :start, :tournament, :tournament_id, :user_id, :user
+  attr_accessible :start, :status, :denomination, :user_id, :user
 
-  validates_presence_of :user, :dsc, :start
+  validates_presence_of :user, :status, :denomination, :start
 
   # This needs be be tournament OR events
-  validates_associated :user, :tournament
+  validates_associated :user
 
-  validate :valid_amount
   validate :valid_date
 
-  def ticket_count
-    self.adults_number + self.concess_number
-  end
+  validates :denomination, :inclusion => { :in => %w( adult concession ) }
 
   # Ensure at least one ticket has been purchased
   def valid_amount 

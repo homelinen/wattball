@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312122528) do
+ActiveRecord::Schema.define(:version => 20130312225233) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -180,17 +180,13 @@ ActiveRecord::Schema.define(:version => 20130312122528) do
 
   create_table "tickets", :force => true do |t|
     t.datetime "start"
-    t.datetime "end"
     t.integer  "user_id"
-    t.integer  "tournament_id"
-    t.string   "dsc"
-    t.integer  "adults_number"
-    t.integer  "concess_number"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.string   "status"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "denomination"
   end
 
-  add_index "tickets", ["tournament_id"], :name => "index_tickets_on_tournament_id"
   add_index "tickets", ["user_id"], :name => "index_tickets_on_user_id"
 
   create_table "tournaments", :force => true do |t|

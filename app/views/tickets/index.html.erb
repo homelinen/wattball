@@ -3,13 +3,9 @@
 <table>
   <tr>
     <th>Start</th>
-    <th>End</th>
     <th>User</th>
-    <th>Tournament</th>
-    <th>Dsc</th>
-    <th>Adults number</th>
-    <th>Concess number</th>
-    <th></th>
+    <th>Status</th>
+    <th>Denomination</th>
     <th></th>
     <th></th>
   </tr>
@@ -17,19 +13,12 @@
 <% @tickets.each do |ticket| %>
   <tr>
     <td><%= ticket.start %></td>
-    <td><%= ticket.end %></td>
     <td><%= ticket.user.name %></td>
-    <td><%= ticket.tournament.name %></td>
-    <td><%= ticket.dsc %></td>
-    <td><%= ticket.adults_number %></td>
-    <td><%= ticket.concess_number %></td>
+    <td><%= ticket.status %></td>
+    <td><%= ticket.denomination %></td>
     <td><%= link_to 'Show', ticket %></td>
     <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
     <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Ticket', new_ticket_path %>
