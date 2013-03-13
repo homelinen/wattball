@@ -1,4 +1,7 @@
 Wattball::Application.routes.draw do
+  resources :competitions
+
+
   resources :blogs
 
   resources :tickets

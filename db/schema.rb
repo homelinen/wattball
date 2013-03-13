@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312225233) do
+ActiveRecord::Schema.define(:version => 20130313160921) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(:version => 20130312225233) do
   end
 
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
+
+  create_table "competitions", :force => true do |t|
+    t.string   "name"
+    t.integer  "ticket_limit"
+    t.decimal  "adult_price",      :precision => 2, :scale => 0
+    t.decimal  "concession_price", :precision => 2, :scale => 0
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
 
   create_table "contacts", :force => true do |t|
     t.string   "name"
@@ -195,12 +204,12 @@ ActiveRecord::Schema.define(:version => 20130312225233) do
     t.date     "endDate"
     t.integer  "sport_id"
     t.integer  "max_competitors"
-    t.decimal  "adult_ticket_price",      :precision => 2, :scale => 0
-    t.decimal  "concession_ticket_price", :precision => 2, :scale => 0
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "competition_id"
   end
 
+  add_index "tournaments", ["competition_id"], :name => "index_tournaments_on_competition_id"
   add_index "tournaments", ["sport_id"], :name => "index_tournaments_on_sport_id"
 
   create_table "users", :force => true do |t|

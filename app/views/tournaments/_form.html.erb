@@ -16,6 +16,10 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :competition %>
+    <% # FIXME: Add a dropdown list %>
+  </div>
+  <div class="field">
     <%= f.label :startDate %><br />
     <%= f.date_select :startDate %>
   </div>
@@ -30,14 +34,6 @@
   <div class="field">
     <%= f.label :max_competitors %><br />
     <%= f.number_field :max_competitors %>
-  </div>
-  <div class="field">
-    <%= f.label :adult_ticket_price %><br />
-    <%= f.number_field :adult_ticket_price %>
-  </div>
-  <div class="field">
-    <%= f.label :concession_ticket_price %><br />
-    <%= f.number_field :concession_ticket_price %>
   </div>
   <div class="actions">
     <%= f.submit %>
