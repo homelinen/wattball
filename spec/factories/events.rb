@@ -56,6 +56,13 @@ FactoryGirl.define do
     team2 { Dummy.getRandom(Team) || FactoryGirl.build(:team) }
   end
 
+  factory :competition do
+    name "Tournaments"
+    ticket_limit 2000
+    adult_price 7.20
+    concession_price 5.40
+  end
+
   factory :tournament do
     name 'Wattball Tournament'
     startDate { 2.weeks.from_now }
@@ -63,8 +70,7 @@ FactoryGirl.define do
     sport
 
     max_competitors 5
-    adult_ticket_price 9.20
-    concession_ticket_price 5.40
+    competition { Competition.first || FactoryGirl.create(:competition) }
   end
 
   factory :venue do
