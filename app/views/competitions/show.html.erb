@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @competition.name %>
+</p>
+
+<p>
+  <b>Ticket limit:</b>
+  <%= @competition.ticket_limit %>
+</p>
+
+<p>
+  <b>Adult price:</b>
+  <%= @competition.adult_price %>
+</p>
+
+<p>
+  <b>Concession price:</b>
+  <%= @competition.concession_price %>
+</p>
+
+
+<%= link_to 'Edit', edit_competition_path(@competition) %> |
+<%= link_to 'Back', competitions_path %>
