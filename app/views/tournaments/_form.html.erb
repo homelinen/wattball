@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :competition %>
-    <% # FIXME: Add a dropdown list %>
+    <%= f.collection_select(:competition_id, Competition.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :startDate %><br />
@@ -33,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :max_competitors %><br />
-    <%= f.number_field :max_competitors %>
+    <%= f.number_field :max_competitors, :value => 0 %>
   </div>
   <div class="actions">
     <%= f.submit %>
