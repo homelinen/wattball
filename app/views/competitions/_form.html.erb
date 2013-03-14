@@ -17,15 +17,17 @@
   </div>
   <div class="field">
     <%= f.label :ticket_limit %><br />
-    <%= f.text_field :ticket_limit %>
+    <%= f.number_field :ticket_limit, :value => 0 %>
   </div>
   <div class="field">
     <%= f.label :adult_price %><br />
-    <%= f.text_field :adult_price %>
+    <%= I18n.t 'number.currency.format.unit' %>
+    <%= f.number_field :adult_price %>
   </div>
   <div class="field">
     <%= f.label :concession_price %><br />
-    <%= f.text_field :concession_price %>
+    <%= I18n.t 'number.currency.format.unit' %>
+    <%= f.number_field :concession_price %>
   </div>
   <div class="actions">
     <%= f.submit %>

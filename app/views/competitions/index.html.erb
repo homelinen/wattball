@@ -3,19 +3,14 @@
 <%= table_for @competitions, :html => { 
   :class => "table table-bordered table-striped" 
 } do -%>
-
-  <%# Kill the whitespace %>
   <% column :name %>
-
-  <%# Kill the whitespace %>
   <% column :ticket_limit %>
-
-  <%# Kill the whitespace %>
-  <% column :adult_price %>
-
-  <%# Kill the whitespace %>
-  <% column :concession_price %>
-
+  <% column :adult_price do |price|
+    number_to_currency price
+  end %>
+  <% column :concession_price do |price|
+    number_to_currency price
+  end %>
   <% column :title => "Action" do |competition|
     link_to "Show", competition
   end %>
