@@ -108,12 +108,13 @@ FactoryGirl.define do
   factory :ticket do
     start do
       match = FactoryGirl.create(:wattball_match)
-      match.event.start
+      match.event.start.to_date
     end
 
     user { Dummy.getRandom(User) }
     status "printed"
     denomination { %w( adult concession ).sample }
+    competition { Competition.first || FactoryGirl.create(:competition) }
   end
 
   factory :sport_center do
