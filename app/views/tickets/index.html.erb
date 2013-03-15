@@ -2,6 +2,9 @@
 
 <%= table_for @tickets, :html => {
   :class => "table table-bordered" } do -%>
+  <% column :title => 'UID' do |t|
+    t.barcode
+  end %>
   <% column :start %>
   <% column :user do |user| 
     user.name 

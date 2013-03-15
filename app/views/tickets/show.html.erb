@@ -1,4 +1,7 @@
-<p id="notice"><%= notice %></p>
+<p>
+  <b>UID:</b>
+  <%= @ticket.barcode %>
+</p>
 
 <p>
   <b>Start:</b>
@@ -30,5 +33,11 @@
   <%= number_to_currency @ticket.total_price %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+
+<div class="actions">
+  <%= link_to 'Print', '#', :onclick => "window.print();" %>
+  <br />
+
+  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+  <%= link_to 'Back', tickets_path %>
+</div>
