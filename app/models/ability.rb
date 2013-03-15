@@ -7,9 +7,7 @@ class Ability
     alias_action :read, :edit, :destroy, :to => :self_maintain
     
     user ||= User.new
-    if user.admin?
-       can :manage, :all 
-    elsif user.team
+    if user.team
       can :self_maintain, Team, :user => user
     elsif user.staff
       can :create, Team
@@ -38,5 +36,7 @@ class Ability
 
     can :create, User
     can :create, WattballPlayer
+
+    can :manage, :all if user.admin?
   end
 end

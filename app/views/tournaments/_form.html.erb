@@ -16,6 +16,10 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :competition %>
+    <%= f.collection_select(:competition_id, Competition.all, :id, :name) %>
+  </div>
+  <div class="field">
     <%= f.label :startDate %><br />
     <%= f.date_select :startDate %>
   </div>
@@ -29,15 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :max_competitors %><br />
-    <%= f.number_field :max_competitors %>
-  </div>
-  <div class="field">
-    <%= f.label :adult_ticket_price %><br />
-    <%= f.number_field :adult_ticket_price %>
-  </div>
-  <div class="field">
-    <%= f.label :concession_ticket_price %><br />
-    <%= f.number_field :concession_ticket_price %>
+    <%= f.number_field :max_competitors, :value => 0 %>
   </div>
   <div class="actions">
     <%= f.submit %>
