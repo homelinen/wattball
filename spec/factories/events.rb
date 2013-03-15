@@ -120,6 +120,7 @@ FactoryGirl.define do
 
   factory :sport_center do
     name = "Heriot Watt Sport Center"
+    about = "A place to get fit and keep healthy"
     email = "sport-center@hw.ac.uk"
     address_line1 "Heriot-Watt University"
     address_line2 "Edinburgh Campus"
