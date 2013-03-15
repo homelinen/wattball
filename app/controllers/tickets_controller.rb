@@ -1,6 +1,8 @@
 class TicketsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb "tickets", :tickets_path, :except => "index"
+
   # GET /tickets
   # GET /tickets.json
   def index
@@ -38,6 +40,7 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new
     event = Event.find(params[:event])
     @ticket.start = event.start
+    @ticket.competition_id = event.tournament.competition_id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,50 +56,17 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-
-    @tickets = []
-
-    adult_number = params[:num][:adults].to_i
-    concession_number = params[:num][:concession].to_i
-    
     @ticket = Ticket.new(params[:ticket])
-    @ticket.denomination = 'adult'
-    (1..adult_number).each do
-        @ticket = @ticket.dup
-        @tickets.push @ticket
-
-        if !save_and_respond(@ticket)
-            return
-        end
-    end
-
-    @ticket.denomination = 'concession'
-    (1..concession_number).each do
-      @ticket = @ticket.dup
-      @tickets.push @ticket
-
-      if !save_and_respond(@ticket)
-          return
-      end
-    end
 
     respond_to do |format|
-        format.html { render action: "index", :notice => "Added These Tickets"  }
-        format.json { render json: @tickets }
-    end
-  end
-
-  # Respond if there is a failure
-  def save_and_respond(record)
-      if !record.save
-        respond_to do |format|
-          format.html { render action: "new" }
-          format.json { render json: @ticket.errors, status: :unprocessable_entity }
-        end
-        false
+      if @ticket.save
+        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
+        format.json { render json: @ticket, status: :created, location: @ticket }
       else
-        true
+        format.html { render action: "new" }
+        format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
+    end
   end
 
   # PUT /tickets/1

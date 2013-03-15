@@ -1,24 +1,25 @@
-<h1>Listing tickets</h1>
+<h1>Listing Tickets</h1>
 
-<table>
-  <tr>
-    <th>Start</th>
-    <th>User</th>
-    <th>Status</th>
-    <th>Denomination</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @tickets.each do |ticket| %>
-  <tr>
-    <td><%= ticket.start %></td>
-    <td><%= ticket.user.name %></td>
-    <td><%= ticket.status %></td>
-    <td><%= ticket.denomination %></td>
-    <td><%= link_to 'Show', ticket %></td>
-    <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<%= table_for @tickets, :html => {
+  :class => "table table-bordered" } do -%>
+  <% column :start %>
+  <% column :user do |user| 
+    user.name 
+  end %>
+  <% column :title => "No. Adults" do |ticket|
+    ticket.adults
+  end %>
+  <% column :title => "No. Concessions" do |ticket|
+    ticket.concessions
+  end %>
+  <% if current_user.privileged? %>
+    <% column :status %>
+  <% end %>
+  <% column :title => "Total Price" do |ticket|
+    number_to_currency ticket.total_price
+  end %>
+  <% column :title => "Actions" do |wattball_match| %>
+    <% link_to 'Show', wattball_match %>
+  <% end %>
 <% end %>
-</table>
+

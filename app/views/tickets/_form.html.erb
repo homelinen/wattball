@@ -22,12 +22,15 @@
     <%= f.hidden_field :status, :value => :pending %>
   </div>
   <div class="field">
+    <%= f.hidden_field :competition_id %>
+  </div>
+  <div class="field">
     <%= label :num, :adults_number %><br />
-    <%= number_field :num, :adults, :value => 1 %>
+    <%= f.number_field :adults, :value => 1 %>
   </div>
   <div class="field">
     <%= label :num, :concess_number %><br />
-    <%= number_field :num, :concession, :value => 0 %>
+    <%= f.number_field :concessions, :value => 0 %>
   </div>
   <div class="actions">
     <%= f.submit %>
