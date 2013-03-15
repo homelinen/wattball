@@ -113,7 +113,8 @@ FactoryGirl.define do
 
     user { Dummy.getRandom(User) }
     status "printed"
-    denomination { %w( adult concession ).sample }
+    adults { rand(4) + 1 }
+    concessions { rand(4) }
     competition { Competition.first || FactoryGirl.create(:competition) }
   end
 

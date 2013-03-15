@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314201515) do
+ActiveRecord::Schema.define(:version => 20130314232329) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -193,8 +193,9 @@ ActiveRecord::Schema.define(:version => 20130314201515) do
     t.string   "status"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.string   "denomination"
     t.integer  "competition_id"
+    t.integer  "adults"
+    t.integer  "concessions"
   end
 
   add_index "tickets", ["competition_id"], :name => "index_tickets_on_competition_id"
