@@ -12,25 +12,23 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :start %><br />
-    <%= f.datetime_select :start, :end_year => (Date.today.year + 2), :prompt => true %>
-  </div>
-  <div class="field">
+    <%= f.hidden_field :start %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
-  </div>
-  <div class="field">
     <%= f.hidden_field :status, :value => :pending %>
-  </div>
-  <div class="field">
     <%= f.hidden_field :competition_id %>
   </div>
   <div class="field">
     <%= label :num, :adults_number %><br />
-    <%= f.number_field :adults, :value => 1 %>
+    <%= f.number_field :adults, :value => 1 %> 
+    - Cost per ticket: <%= content_tag :span, number_to_currency(@ticket.competition.adult_price), :id => "adult_price" %>
   </div>
   <div class="field">
     <%= label :num, :concess_number %><br />
     <%= f.number_field :concessions, :value => 0 %>
+    - Cost per ticket: <%= content_tag :span, number_to_currency(@ticket.competition.concession_price), :id => "concession_price" %>
+  </div>
+  <div class="field total">
+    Total: <span id="total_price"></span>
   </div>
   <div class="actions">
     <%= f.submit %>
