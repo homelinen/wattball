@@ -23,12 +23,21 @@ ssh_options[:forward_agent] = true
 
 set :use_sudo, false
 
+set :default_environment, {
+    'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
+
+
 #set :rvm_ruby_string, "1.9.3@wattball"
 #before 'deploy:setup', 'rvm:export_gemset'
 
 set :rbenv_ruby_version, "1.9.3-p392"
 set :rbenv_setup_shell, true
 set :rbenv_setup_default_environment, true
+
+#Bundler
+set :bundle_flags, "--deployment --quiet --binstubs"
+
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
