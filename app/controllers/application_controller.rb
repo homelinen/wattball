@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
     session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
   end
 
+  # After sign in, redirect to previous page
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end

@@ -12,9 +12,8 @@ class RegistrationsController < Devise::RegistrationsController
 
     if @user.save
       flash[:notice] = "You have signed up successfully!"
-      redirect_to root_url
+      redirect_to new_user_session_path
     else
-      flash[:notice] = "Flip"
       render :action => :new
     end
   end
