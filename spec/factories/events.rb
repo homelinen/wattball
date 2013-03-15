@@ -89,7 +89,7 @@ FactoryGirl.define do
     event
   end
 
-  factory :hurdle_times do
+  factory :hurdle_time do
     hurdle_player { Dummy.getRandom(HurdlePlayer) }
     hurdle_match { Dummy.getRandom(HurdleMatch) }
 
@@ -119,9 +119,9 @@ FactoryGirl.define do
   end
 
   factory :sport_center do
-    name = "Heriot Watt Sport Center"
-    about = "A place to get fit and keep healthy"
-    email = "sport-center@hw.ac.uk"
+    name "Heriot Watt Sport Center"
+    about "A place to get fit and keep healthy"
+    email "sport-center@hw.ac.uk"
     address_line1 "Heriot-Watt University"
     address_line2 "Edinburgh Campus"
     address_city "Edinburgh"
