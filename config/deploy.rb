@@ -38,7 +38,6 @@ set :rbenv_setup_default_environment, true
 #Bundler
 set :bundle_flags, "--deployment --quiet --binstubs"
 
-
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
 
@@ -55,19 +54,17 @@ namespace :deploy do
 
   desc "Wattball stop"
   task :stop, :roles => :app do
-
-      invoke_command "cd #{current_path}; bundle exec thin stop"
+      invoke_command "cd #{current_path}; bundle exec thin -C /etc/thin/wattball stop"
   end
 
   desc "Wattball start."
   task :start, :roles => :app do
-
-      invoke_command "cd #{current_path}; bundle exec thin start"
+      invoke_command "cd #{current_path}; bundle exec thin -C /etc/thin/wattball start"
   end  
 
   desc "Wattball Restart"
   task :restart, :roles => :app do
-      invoke_command "cd #{current_path}; bundle exec thin stop"
-      invoke_command "cd #{current_path}; bundle exec thin start"
+      invoke_command "cd #{current_path}; bundle exec thin -C /etc/thin/wattball stop"
+      invoke_command "cd #{current_path}; bundle exec thin -C /etc/thin/wattball start"
   end
 end
