@@ -11,9 +11,10 @@ Wattball::Application.routes.draw do
   resources :venues
 
   resources :sport_centers, :except => [:index]
-
   # This is really a hack
   match "about" => "sport_centers#show", :id => 1
+  match "sport_centers" => "sport_centers#show", :id => 1
+
 
   resources :hurdle_matches, :only => [:index, :show]
 
