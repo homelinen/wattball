@@ -42,4 +42,8 @@ class Ticket < ActiveRecord::Base
       errors.add(:start, "event must be in the future")
     end
   end
+
+  def barcode
+    (self.hash + user.hash + start.hash).abs
+  end
 end
