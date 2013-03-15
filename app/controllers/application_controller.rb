@@ -5,15 +5,19 @@ class ApplicationController < ActionController::Base
   before_filter :store_location
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = "Sorry, you need to login or register to do that."
-    redirect_to new_user_session_path
+    if current_user.nil?
+      flash[:alert] = "Sorry, you need to login or register to do that."
+      redirect_to new_user_session_path
+    else
+      flash[:alert] = "Sorry, you don't have permission to see that."
+      redirect_to root_path
+    end
   end
    
   def instantiate_controller_and_action_names
       @current_action = action_name
       @current_controller = controller_name
   end
-
 
   def store_location
     # store last url as long as it isn't a /users path
