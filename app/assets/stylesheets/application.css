@@ -11,6 +11,24 @@
  *= require_self
  *= require_tree .
  */
+
+.right{
+	text-align:right;
+}
+.home .thumbnail{
+        position: relative;
+}
+.home .thumbnail .bottom{
+        position: absolute;
+        bottom: 0px;
+	width: 270px;
+	height: 60px;
+	text-align: center;
+}
+.home .thumbnail .bottom p{
+	position:relative;
+	bottom: 12px;
+}
 /*
 .container-narrow {
 	margin: 20px auto;

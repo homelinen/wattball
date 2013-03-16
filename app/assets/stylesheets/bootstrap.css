@@ -436,6 +436,10 @@ a:focus {
   width: 100%;
   *zoom: 1;
 }
+.row-fluid.home {
+  height: 400px;
+}
+
 
 .row-fluid:before,
 .row-fluid:after {
@@ -6604,6 +6608,7 @@ i[class^="icon-"] {
 .thumbnail {
   padding: 10px;
   background-color: #ffffff;
+  height: 100%;
 }
 
 .progress {

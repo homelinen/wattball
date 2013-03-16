@@ -30,7 +30,7 @@
 							end 
 								%>><%= link_to("Events", events_path) %></li>
 
-						<li><a href="results">Results</a></li>
+						<li><a href="/scores">Results</a></li>
 						<li<%
                                                         if params[:controller] == "teams"
                                                                 %> class="active"<%
@@ -47,6 +47,13 @@
 					</ul>
 					
 						<ul class="nav pull-right">
+							<% if user_signed_in? %>
+        <li><%= link_to current_user.name, edit_user_registration_path %></li>
+        <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
+      <% else %>
+        <li><%= link_to('Login', new_user_session_path) %></li>
+      <% end %>					
+<!--
 						<li><a href="signup.html">Register</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-black"></i>Login <b class="caret"></b></a>
@@ -100,12 +107,12 @@
 		<!--End Carousel-->
 		
 	<div class="container">
-	<hr>
 	
-	<p><%= render_breadcrumbs %></p>
+  		<p><%= render_breadcrumbs %></p>
+		<hr/>
+		<%= yield %>
 
-	<%= yield %>
-
+	      <hr>
 <footer class="footer">
       <div class="container">
       <a href="#">Back to top</a>
@@ -115,13 +122,13 @@
           <li><a href="contact.html">Contact Sports Centre</a></li>
           <li class="muted">-</li>
           <li><a href="about.html">About</a></li>
-          <li class="muted"></li>
         </ul>
         <a href="http://www2.macs.hw.ac.uk/~nt78/bootstrap/index.html">Designed by RailsDrive</p>
-      </div>
-    </footer>
+     			 </div>
+    		</footer>
 
-	</div>
+	</div>	
+
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "bootstrap-transition" %>
     <%= javascript_include_tag "bootstrap-carousel" %>
