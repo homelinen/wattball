@@ -1,8 +1,8 @@
 class HurdlePlayersController < ApplicationController
   load_and_authorize_resource
 
-  add_breadcrumb "hurdle_players", :hurdle_players_path
-  add_breadcrumb "hurdle_player", :hurdle_player_path, :only => %w(edit)
+  add_breadcrumb "hurdle players", :hurdle_players_path, :except => :index
+  add_breadcrumb "hurdle player", :hurdle_player_path, :only => %w(edit)
 
   # GET /hurdle_players
   # GET /hurdle_players.json

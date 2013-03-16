@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource
 
   add_breadcrumb "teams", :teams_path
-  add_breadcrumb "user", :team_path, :only => %w(show edit)
+  add_breadcrumb "team", :team_path, :only => %w(show edit)
 
   # GET /teams
   # GET /teams.json
