@@ -2,14 +2,14 @@ class HurdleMatchesController < ApplicationController
   load_and_authorize_resource
 
   add_breadcrumb "hurdle matches", :hurdle_matches_path
-  add_breadcrumb "hurdle match", :hurdle_matche_path, :only => %w(edit show)
+  add_breadcrumb "hurdle match", :hurdle_match_path, :only => %w(edit show)
 
   # GET /hurdle_matches
   # GET /hurdle_matches.json
   def index
 
     # Horrible sort by date
-    @hurdle_matches = HurdleMatch.joins(:event).order(:date).all
+    @hurdle_matches = HurdleMatch.joins(:event).order(:start).all
 
     respond_to do |format|
       format.html # index.html.erb

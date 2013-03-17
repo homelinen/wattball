@@ -1,6 +1,8 @@
 class TicketsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb "tickets", :tickets_path, :except => "index"
+
   # GET /tickets
   # GET /tickets.json
   def index
@@ -36,7 +38,9 @@ class TicketsController < ApplicationController
   # GET /tickets/new.json
   def new
     @ticket = Ticket.new
-    @ticket.tournament_id = params[:id]
+    event = Event.find(params[:event])
+    @ticket.start = event.start
+    @ticket.competition_id = event.tournament.competition_id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -56,7 +60,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
+        format.html { redirect_to @ticket, notice: 'Thank you for your purchase.' }
         format.json { render json: @ticket, status: :created, location: @ticket }
       else
         format.html { render action: "new" }

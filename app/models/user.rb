@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   def default_values
       self.admin = false if self.admin.nil?
+      true
   end
 
   # Combine first and last names of user

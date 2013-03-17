@@ -12,34 +12,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
+    <%= f.hidden_field :start %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :status, :value => :pending %>
+    <%= f.hidden_field :competition_id %>
   </div>
   <div class="field">
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
+    <%= label :num, :adults_number %><br />
+    <%= f.number_field :adults, :value => 1 %> 
+    - Cost per ticket: <%= content_tag :span, number_to_currency(@ticket.competition.adult_price), :id => "adult_price" %>
   </div>
   <div class="field">
-    <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, User.all, :id, :first_name) %>
+    <%= label :num, :concess_number %><br />
+    <%= f.number_field :concessions, :value => 0 %>
+    - Cost per ticket: <%= content_tag :span, number_to_currency(@ticket.competition.concession_price), :id => "concession_price" %>
   </div>
-  <div class="field">
-    <%= f.label :tournament %><br />
-    <%= f.collection_select(:tournament_id, Tournament.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :dsc %><br />
-    <%= f.text_field :dsc %>
-  </div>
-  <div class="field">
-    <%= f.label :adults_number %><br />
-    <%= f.number_field :adults_number %>
-  </div>
-  <div class="field">
-    <%= f.label :concess_number %><br />
-    <%= f.number_field :concess_number %>
+  <div class="field total">
+    Total: <span id="total_price"></span>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :value => "Buy Ticket" %>
   </div>
 <% end %>

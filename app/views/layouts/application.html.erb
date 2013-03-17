@@ -16,7 +16,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-					<a class="brand" href="#"><%= image_tag("logo.png", :alt => "") %>Wattball</a>
+        <%= link_to root_path, [image_tag("logo.png", :alt => ""), "Wattball"].join(" ") %>
 					<div class="nav-collapse">
 					<ul class="nav">
 						<li<% 
@@ -28,19 +28,19 @@
 							if params[:controller] == "events"
                                                         	%> class="active"<% 
 							end 
-								%>><%= link_to("Events", events_path) %></li>
+								%>><%= link_to("Calendar", events_path) %></li>
 
 						<li><a href="/scores">Results</a></li>
 						<li<%
-                                                        if params[:controller] == "teams"
-                                                                %> class="active"<%
-                                                        end
-                                                                %>><%= link_to("Teams", teams_path) %></li>
-						<li<%
-                                                        if params[:controller] == "wattball_player"
-                                                                %> class="active"<%
-                                                        end
-                                                                %>><%= link_to("Athletes", wattball_players_path) %></li>
+                                                if params[:controller] == "teams"
+                                                        %> class="active"<%
+                                                end
+                                                        %>><%= link_to("Teams", teams_path) %></li>
+    <li<%
+                                                if params[:controller] == "wattball_player"
+                                                        %> class="active"<%
+                                                end
+                                                        %>><%= link_to("Athletes", wattball_players_path) %></li>
 						
 						<li><a href="/about">About us</a></li>
 						<li><a href="/contact">Contact</a></li>            
@@ -185,7 +185,7 @@ Old HTML
       <li<% if params[:controller] == "events" %>
            class="active"
            <% end %>
-                ><%= link_to("Events", events_path) %></li>
+                ><%= link_to("Calendar", events_path) %></li>
       <li<% if params[:controller] == "teams" %>
            class="active"
            <% end %>
@@ -193,7 +193,7 @@ Old HTML
       <li<% if params[:controller] == "wattball_player" %>
            class="active"
            <% end %>
-                ><%= link_to("Athletes", wattball_players_path) %></li>
+                ><%= link_to("Athletes", hurdle_players_path) %></li>
       <li><a href="/">Gallery</a></li>
       <% # This should be more dynamic
     %>
@@ -203,9 +203,13 @@ Old HTML
   </div>
 </div>
 <div class="container">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <p><%= render_breadcrumbs %></p>
+  <% if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
+  <p class="breadcrumbs"><%= render_breadcrumbs %></p>
 
 <%= yield %>
 

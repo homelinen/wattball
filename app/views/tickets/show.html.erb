@@ -1,13 +1,11 @@
-<p id="notice"><%= notice %></p>
+<p>
+  <b>UID:</b>
+  <%= @ticket.barcode %>
+</p>
 
 <p>
   <b>Start:</b>
   <%= @ticket.start %>
-</p>
-
-<p>
-  <b>End:</b>
-  <%= @ticket.end %>
 </p>
 
 <p>
@@ -16,25 +14,30 @@
 </p>
 
 <p>
-  <b>Tournament:</b>
-  <%= @ticket.tournament.name %>
+  <b>Status:</b>
+  <%= @ticket.status %>
 </p>
 
 <p>
-  <b>Description:</b>
-  <%= @ticket.dsc %>
+  <b>Adults:</b>
+  <%= @ticket.adults %>
 </p>
 
 <p>
-  <b>Adults number:</b>
-  <%= @ticket.adults_number %>
+  <b>Concessions:</b>
+  <%= @ticket.concessions %>
 </p>
 
 <p>
-  <b>Concess number:</b>
-  <%= @ticket.concess_number %>
+  <b>Total Cost:</b>
+  <%= number_to_currency @ticket.total_price %>
 </p>
 
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<div class="actions">
+  <%= link_to 'Print', '#', :onclick => "window.print();" %>
+  <br />
+
+  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+  <%= link_to 'Back', tickets_path %>
+</div>
