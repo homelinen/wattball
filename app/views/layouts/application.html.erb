@@ -16,7 +16,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-        <%= link_to root_path, [image_tag("logo.png", :alt => ""), "Wattball"].join(" ") %>
+        <%= link_to [image_tag("logo.png", :alt => ""), "Wattball"].join(" ").html_safe, root_path, :class => :brand %>
 					<div class="nav-collapse">
 					<ul class="nav">
 						<li<% 
@@ -37,40 +37,33 @@
                                                 end
                                                         %>><%= link_to("Teams", teams_path) %></li>
     <li<%
-                                                if params[:controller] == "wattball_player"
+                                                if params[:controller] == "hurdle_player"
                                                         %> class="active"<%
                                                 end
-                                                        %>><%= link_to("Athletes", wattball_players_path) %></li>
+                                                        %>><%= link_to("Hurdlers", hurdle_players_path) %></li>
 						
-						<li><a href="/about">About us</a></li>
+                                                        <li><%= link_to 'About us', about_path %></li>
 						<li><a href="/contact">Contact</a></li>            
 					</ul>
 					
-						<ul class="nav pull-right">
+          <ul class="nav pull-right">
 							<% if user_signed_in? %>
-        <li><%= link_to current_user.name, edit_user_registration_path %></li>
-        <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
-      <% else %>
-        <li><%= link_to('Login', new_user_session_path) %></li>
-      <% end %>					
-<!--
-						<li><a href="signup.html">Register</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-black"></i>Login <b class="caret"></b></a>
-							<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-							<form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
-								<input id="user_username" placeholder="Login" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" />
-								<input id="user_password" placeholder="Password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" />
-								<input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
-								<label class="string optional" for="user_remember_me"> Remember me</label>
-								<input class="btn btn-info" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
-								<a href="forgot.html">Forgot password?</a>
-							</form> <!-- Login form here -->
-							</div><!-- div dropdown  -->
-             			</li>
-             		</ul>
+                <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
+              <% else %>
+
+                <li><%= link_to 'Register', new_user_registration_path %></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-black"></i>Login <b class="caret"></b></a>
+                  <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+
+                    <%= render 'users/sessions/form', :layout => true %>
+                  </div><!-- div dropdown  -->
+                </li>
+              <% end %>					
+          </ul>
              		
-             		</div>
+        </div>
 			</div>
 		</div>
 	</div>
@@ -107,7 +100,10 @@
 		<!--End Carousel-->
 		
 	<div class="container">
-	
+
+      <% if flash[:notice] %>
+        <p class="notice"><%= flash[:notice] %></p>
+      <% end %>
   		<p><%= render_breadcrumbs %></p>
 		<hr/>
 		<%= yield %>
