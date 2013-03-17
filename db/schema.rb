@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315184401) do
+ActiveRecord::Schema.define(:version => 20130315222542) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -180,9 +180,10 @@ ActiveRecord::Schema.define(:version => 20130315184401) do
     t.string   "badge_content_type"
     t.integer  "badge_file_size"
     t.datetime "badge_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "tournament_id"
+    t.string   "org_tag",            :default => ""
   end
 
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"
@@ -266,7 +267,6 @@ ActiveRecord::Schema.define(:version => 20130315184401) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.integer  "contact_id"
-    t.string   "org_tag"
     t.date     "dob"
     t.integer  "phone_number"
     t.datetime "created_at",   :null => false

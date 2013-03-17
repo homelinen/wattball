@@ -61,6 +61,7 @@ FactoryGirl.define do
     user
     tournament { Tournament.where(:sport_id => Sport.where(:name => "Wattball").first.id).first || FactoryGirl.create(:tournament) }
     teamName { Faker::Name.first_name + " FC"}
+    org_tag {'H' + Dummy.random_numbers(6) }
   end
 
   factory :official do
@@ -73,7 +74,6 @@ FactoryGirl.define do
     dob { Dummy.fake_time_from((18..24).to_a.sample.year.ago) }
     phone_number { Faker::PhoneNumber.phone_number }
     contact
-    org_tag {'H' + Dummy.random_numbers(6) }
     # Select a random team
     team { Dummy.pick_random(Team) || FactoryGirl.create(:team) }
   end

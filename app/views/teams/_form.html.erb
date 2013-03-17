@@ -11,25 +11,34 @@
     </div>
   <% end %>
 
-  <div class="field">
-  <% @team.build_user unless @team.user %>
-    <%= f.fields_for :user do |user_details_form| %>
-      <% p "Team User: #{user_details_form}" %>
-      <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
-    <% end %>
-  </div>
 
   <div class="field">
-    <%= f.label :teamName %><br />
+    <%= f.label :team_name %><br />
     <%= f.text_field :teamName %>
   </div>
   <div class="field">
-    <%= f.label :tournament %><br />
-    <%= f.collection_select(:tournament_id, Tournament.all, :id, :name) %>
+    <%= f.label 'Wattball ID' %><br />
+    <%= f.text_field :org_tag %>
   </div>
   <div class="field">
     <%= f.label :badge %><br />
     <%= f.file_field :badge %>
+  </div>
+
+  <div class="field">
+  <fieldset>
+    <legend>Manager</legend>
+    <% @team.build_user unless @team.user %>
+      <%= f.fields_for :user do |user_details_form| %>
+        <% p "Team User: #{user_details_form}" %>
+        <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <div class="field">
+    <%= f.label :tournament %><br />
+    <%= f.collection_select(:tournament_id, Tournament.all, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

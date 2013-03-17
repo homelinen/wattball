@@ -1,3 +1,6 @@
+  <% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
   <div class="row-fluid home">
     <div class="span4 thumbnail">
       <h2>Results</h2>
@@ -6,12 +9,19 @@
       <% WattballMatch.details(5).each do |match|
 
         scores = Score.match_score(match)
-        list += content_tag :li, "#{match.team1.teamName} #{scores[0]} -  #{scores[1]} #{match.team2.teamName}"
-
+	list += "\n\t\t" + content_tag(:div, 
+        	(content_tag(:div, "#{match.team1.teamName}", :class => 'span5')+"\n\t\t"+
+		content_tag(:div, "#{scores[0]} -  #{scores[1]}", :class => 'span2')+
+		content_tag(:div, "#{match.team2.teamName}", :class => 'span5 right' )
+		), :class => "row-fluid"
+		
+	)
       end %>
-      <%= content_tag :ul, list.html_safe %>
-      <hr />
-      <p><%= link_to("View all Results", events_path) %></p>
+      <%= list.html_safe %>
+      <div class="bottom">
+        <hr />
+        <p><%= link_to("View all Results", events_path) %></p>
+      </div>
     </div>
     <div class="span4 thumbnail">
       <h2>News Feed</h2>
@@ -21,8 +31,12 @@
         <%= content_tag :li, render(:template => 'blogs/show') %>
       <% end %>
     </ul>
-    <%= link_to "More", blogs_path %>
-   </div>
+    <div class="bottom">
+        <hr />
+
+        <%= link_to "More", blogs_path %>
+    </div>
+    </div>
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
       <div class="home-events">

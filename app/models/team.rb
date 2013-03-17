@@ -6,13 +6,19 @@ class Team < ActiveRecord::Base
   has_many :wattball_matches_as_team1, :class_name => 'WattballMatch', :foreign_key => :team1_id
   has_many :wattball_matches_as_team2, :class_name => 'WattballMatch', :foreign_key => :team2_id
 
-  attr_accessible :badge, :badge_file_name, :teamName, :user, :user_id, :tournament_id
+  attr_accessible :badge, :badge_file_name, :teamName, :user, :user_id, :tournament_id,
+    :org_tag
+
   has_attached_file :badge, :styles => { :medium => "300x300>", :thumb => "100x100>"  }
 
   accepts_nested_attributes_for :user
 
-  validates_presence_of :user, :teamName, :tournament
+  validates_presence_of :user, :teamName, :tournament, :org_tag
   validates_associated :tournament, :user
+
+  # Check the wattball id is a H followed by 6 numbers, exactly
+  validates :org_tag, :format => { :with => /^H[0-9]{6}$/, 
+    :message => "ID should be a \"H\" followed by 6 numbers" }
 
   # Get all the matches team is playing in
   def wattball_matches
