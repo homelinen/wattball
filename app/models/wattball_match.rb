@@ -18,10 +18,6 @@ class WattballMatch < ActiveRecord::Base
       "#{self.team1.teamName} vs #{self.team2.teamName}"
   end
 
-  def match_name
-    "#{self.team1.teamName} vs #{self.team2.teamName}"
-  end
-
   # Calculate the Result of a Wattball Match
   #
   # Example
