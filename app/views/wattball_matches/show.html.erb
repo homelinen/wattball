@@ -8,13 +8,19 @@
 <p>
   <b>Team1:</b>
   <% team1 = @wattball_match.team1 %>
-  <%= link_to team1.teamName, team_path(team1) %>
+  <div class="team-badge">
+    <%= image_tag team1.badge.url(:thumb) if team1.badge? %>
+    <%= link_to team1.teamName, team_path(team1) %>
+  </div>
 </p>
 
 <p>
   <b>Team2:</b>
   <% team2 = @wattball_match.team2 unless @wattball_match.team2.nil?%>
-  <%= link_to team2.teamName, team_path(team2) %>
+  <div class="team-badge">
+    <%= image_tag team2.badge.url(:thumb) if team2.badge?%>
+    <%= link_to team2.teamName, team_path(team2) %>
+  </div>
 </p>
 
 <% # Render parent class 
