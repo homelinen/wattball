@@ -6,8 +6,7 @@ class Team < ActiveRecord::Base
   has_many :wattball_matches_as_team1, :class_name => 'WattballMatch', :foreign_key => :team1_id
   has_many :wattball_matches_as_team2, :class_name => 'WattballMatch', :foreign_key => :team2_id
 
-  attr_accessible :badge, :badge_file_name, :teamName, :user, :user_id, :tournament_id,
-    :org_tag
+  attr_accessible :badge, :badge_file_name, :teamName, :user, :user_id, :tournament_id, :org_tag, :user_attributes
 
   has_attached_file :badge, :styles => { :medium => "300x300>", :thumb => "100x100>"  }
 
