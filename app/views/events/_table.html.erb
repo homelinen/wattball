@@ -6,7 +6,7 @@
         end %>
   <% end %>
   <% t.column :event, :title => "Start" do |event| %>
-    <% event.start %>
+    <% [get_time_of_event(event.start), get_date_for_event(event.start)].join(" on ")  %>
   <% end %>
   <% t.column :event, :title => "Status" do |event| 
     event.status
