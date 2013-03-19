@@ -28,7 +28,7 @@ module RoundRobin
 			:rules => [
 						RRSchedule::Rule.new(
 							:wday => 6,
-							:gt => ["11:00AM","01:00PM"],
+							:gt => ["11:00AM","02:00PM"],
 							:ps => fields
 						)
 						],

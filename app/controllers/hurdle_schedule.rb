@@ -34,11 +34,7 @@ def day1
 	rounds.append(8)
 	
 	#Make the blank tournaments events.
-	rounds.each_with_index do |round, index|
-		(round / 8).times do
-			makeBlankHeat(Tournament, index)
-		end
-	end
+	makeBlankEvents(tour, rounds)
 	
 	#To randomise lanes, shuffle players.
 	players_with_no_time.shuffle
@@ -125,15 +121,25 @@ def dayN
 end
 
 
+private
+
+
 def fillHeat (players, round, tour)
 	'''Find a blank heat in tournament Tour, with round number Round.
 	  *Assumes players are in lane order, 1->8.
 	  *Fill it with players.'''
+	  
+	  	'''Person cannot race more than once per day.
+	   '''
 	
 	#Get all blank events, then sort them by start date, soonest at the top.
 	blankEvent = tour.events.where(:round => round, :status => "pending")
 	blankEvent.sort_by!{|u| u.start }
+	
+	#Buggy
 	blankEvent = blankEvent[0]
+	#Needs to look for first event that does conflict with requirement
+	# "Person cannot race more than once per day."
 	
 	players.each_with_index do |player, lane|
 		HurdleTime.create({:lane => (lane+1), :hurdle_player_id => player.id, :hurdle_match_id => blankEvent.hurdle_match.id, :time => nil})
@@ -144,10 +150,102 @@ def fillHeat (players, round, tour)
 end
 
 
-def makeBlankHeat(tour, round)
-	#Makes a new blank event at the next free date.
+def makeBlankEvents(tour, rounds)
+	#rounds index = round, rounds[x] = numbers of players in that round.
+	#Eg. rounds = [10, 32, 16, 8]
+	#First number may be lower as day 0 gets a time for players without one.
+
+	#Makes all needed blank events for the tournament.
 	#round number round?, associated to tour
 	#status => "pending"
 	#blank hurdle_match associated to it.
+
+	#Find all assests, eg, playing fields.
+	pitchs = tour.sport.venues
 	
+	#Create a list of times where the venues are used.
+	times = getUsedTimes(pitchs)
+	
+	#Create an array of times when matches may be started
+	#every 20 minutes from 10:00am until 4am, excluding 12:00pm > 1:00pm
+	gTs = []
+	x = 10.hours
+	duration = tour.sport.length.minutes
+	begin 
+		gTs.append(x) unless ((x > 12.hours) and (x < 13.hours))
+		x+=duration
+	end while gTs.last < (16.hours - duration)
+	
+	rounds.each_with_index do |round, index|
+		(round / 8).times do
+			time = getNextTime(times, tour.startDate, gTs)
+			times.append(makeBlankHeat(tour, time, index+1))
+			times.sort_by!(|t|t.start)
+		end
+	end
+	
+	
+end
+
+def makeBlankHeat(tour, round, time)
+	event = Event.new({:status => "pending", tournament_id => tour.id, :round => round, :start => time})
+	ven = tour.sport.venues.first
+	event.venue_id = ven
+	event.save
+	
+	hm = HurdleMatch.new({})
+	hm.event_id = event.id
+	hm.save
+end
+
+def getNextTime(usedTimes, startDate, gameTimes)
+	time = startDate
+	
+	duration = usedTime.first.tournament.sport.length.minutes
+	
+	begin
+		gameTimes.each do |gt|
+			time = startDate.to_datetime + gt
+			
+			time if time > (usedTimes.last.start + duration)
+			time if (time+duration) < (usedTimes.first.start)
+			
+			usedTimes.each_with_index do |usedTime, index|
+				endTime = usedTime.start + duration
+				
+				#If it conflicts, break
+				break if ((time >= usedTime.start) and (time <= endTime)) or (((time+duration) >= usedTime.start) and ((time+duration) <= endTime))
+				
+				#If it's higher than the current, and lower than the next, return it.
+				usedTime = usedTimes[index+1]
+				unless (((time >= usedTime.start) and (time <= endTime)) or (((time+duration) >= usedTime.start) and ((time+duration) <= endTime)))
+					time
+		end
+		startDate += 1.day
+	end while true
+end
+
+def getUsedTimes(pitchs)
+	#Get all the times the venues are in use
+
+	times = []
+	pitchs.each do |pitch|
+		pitch.events.each do |event|
+			times.append(event)
+		end
+	end
+	
+	#Remove duplicates and sort in decending order.
+	times.uniq!
+	times.sort_by!{|h|h.start}
+	
+	outOfBound = nil
+	times.each_with_index do |event, index|
+		if ((event.start + e.tournament.sport.length.minutes) < tour.startDate)
+			outOfBounds = index
+		end
+	end
+	
+	times.slice!(outOfBounds+1, a.size-1) unless outOfBounds == nil
+	times
 end
