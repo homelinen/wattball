@@ -23,14 +23,14 @@
 							if params[:controller] == "home" 
 								%> class="active"<% 
 							end 
-								%>><a href="/">Home</a></li>
+              %>><%= link_to "Home", root_path %></li>
 						<li<% 
 							if params[:controller] == "events"
                                                         	%> class="active"<% 
 							end 
 								%>><%= link_to("Calendar", events_path) %></li>
 
-						<li><a href="/scores">Results</a></li>
+                <li><%= link_to "Results", wattball_matches_path %></a></li>
 						<li<%
                                                 if params[:controller] == "teams"
                                                         %> class="active"<%
@@ -43,7 +43,7 @@
                                                         %>><%= link_to("Hurdlers", hurdle_players_path) %></li>
 						
                                                         <li><%= link_to 'About us', about_path %></li>
-						<li><a href="/contact">Contact</a></li>            
+                                                        <li><%= link_to "Contact", sport_center_path %></li>            
 					</ul>
 					
           <ul class="nav pull-right">
