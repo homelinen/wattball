@@ -83,7 +83,7 @@ FactoryGirl.define do
     event
   end
 
-  factory :hurdle_times do
+  factory :hurdle_time do
     hurdle_player { Dummy.getRandom(HurdlePlayer) }
     hurdle_match { Dummy.getRandom(HurdleMatch) }
 

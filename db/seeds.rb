@@ -39,6 +39,6 @@ FactoryGirl.create(:tournament, :name => "Hurdle Tournament",
 FactoryGirl.create_list(:hurdle_player, 8)
 # FIXME: Replace the hurdle_match generator with the scheduler
 FactoryGirl.create_list(:hurdle_match, 2)
-FactoryGirl.create_list(:hurdle_times, 8)
+FactoryGirl.create_list(:hurdle_time, 8)
 
 

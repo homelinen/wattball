@@ -11,7 +11,8 @@ module RoundRobin
 		#static start date
 		#Get all the teams
 		
-		tour = Tournament.joins(:sport).where("sports.name = 'Wattball'").first
+		#tour = Tournament.joins(:sport).where("sports.name = 'Wattball'").first
+		tour = params[:tournament]
 		
 		teams = Team.all
 
