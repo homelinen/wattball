@@ -48,7 +48,11 @@
 					
           <ul class="nav pull-right">
 							<% if user_signed_in? %>
-                <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% if !current_user.admin? %>
+                  <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% else %>
+                  <li><%= link_to "Admin", admin_path %></li>
+                <% end %>
                 <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
               <% else %>
 
@@ -71,34 +75,27 @@
 		<!--Start Carousel-->
 			<!-- ScriptLocation: /tmpl/scripts/carousel.php -->
 				<div id="myCarousel" class="carousel slide">
-			<div class="carousel-inner">
-			  <div class="item active">
-				<%= image_tag("featured/22.jpg", :alt => "") %>
-				<div class="carousel-caption">
-				  <h4>First Thumbnail label</h4>
-				  <p>Some more description to edit ;P</p>
-				</div>
-			  </div>
-			  <div class="item">
-				<%= image_tag("featured/11.jpg", :alt => "") %>
-				<div class="carousel-caption">
-				  <h4>Wattball Hurdling</h4>
-				  <p>Description of the image you can edit</p>
-				</div>
-			  </div>
-			  <div class="item">
-				<%= image_tag("featured/33.jpg", :alt => "") %>
-				<div class="carousel-caption">
-				  <h4>Third Thumbnail label</h4>
-				  <p>Description of the image you can edit</p>
-				</div>
-			  </div>
-			</div>
-			<a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
-			<a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
-			</div>
-		<!--End Carousel-->
-		
+          <div class="carousel-inner">
+            <% carousel_images = Carousel.all.each do |carousel|
+              image = image_tag(carousel.banner_image.url(:large), :alt => carousel.title)
+              header = content_tag :h4, carousel.title %>
+
+              <% if Carousel.first == carousel %>
+                <div class="item active">
+              <% else %>
+                <div class="item">
+              <% end %>
+              <%= "#{image}".html_safe %>
+              <%= content_tag :div, "#{header}\
+              <p>#{carousel.description}</p>".html_safe, :class => "carousel-caption" %>
+              </div>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
+        </div>
+        <!--End Carousel-->
+
 	<div class="container">
 
       <% if flash[:notice] %>

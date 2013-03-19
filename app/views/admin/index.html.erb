@@ -1,0 +1,62 @@
+<h1>Admin Panel</h1>
+
+<h2>Users</h2>
+
+<ul class="admin-panel">
+  <li>
+  <%= link_to "Staff", staffs_path, :class => 'btn btn-info' %> 
+  <li>
+    <%= link_to "Wattball Players", wattball_players_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Hurdle Players", hurdle_players_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Teams", teams_path, :class => 'btn btn-info' %>
+  </li>
+</ul>
+
+<h2>
+  Sport Center and Tournaments
+</h2>
+
+<ul class="admin-panel">
+  <li>
+    <%= link_to "Sport Center", edit_sport_center_path(1), :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Banner", carousels_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Venues", venues_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Competitions", competitions_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Tournaments", tournaments_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+    <%= link_to "Sports", sports_path, :class => 'btn btn-info' %>
+  </li>
+</ul>
+
+<h2>
+  Scheduling
+</h2>
+
+<p>Coming Soon</p>
+
+
+<h2>
+  Blogs
+</h2>
+
+<ul class="admin-panel">
+  <li>
+  <%= link_to "Blogs", blogs_path, :class => 'btn btn-info' %>
+  </li>
+  <li>
+  <%= link_to "New Post", new_blog_path, :class => 'btn btn-info' %>
+  </li>
+</ul>

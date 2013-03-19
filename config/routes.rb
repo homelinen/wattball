@@ -1,4 +1,7 @@
 Wattball::Application.routes.draw do
+  resources :carousels
+
+
   resources :competitions
 
 
@@ -41,6 +44,8 @@ Wattball::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get 'users', :to => 'home#index'
+
+  get 'admin', :to => 'admin#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
