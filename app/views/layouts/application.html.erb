@@ -48,7 +48,11 @@
 					
           <ul class="nav pull-right">
 							<% if user_signed_in? %>
-                <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% if !current_user.admin? %>
+                  <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% else %>
+                  <li><%= link_to "Admin", admin_path %></li>
+                <% end %>
                 <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
               <% else %>
 
@@ -86,9 +90,9 @@
               <p>#{carousel.description}</p>".html_safe, :class => "carousel-caption" %>
               </div>
             <% end %>
-			  </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
+          </div>
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
         </div>
         <!--End Carousel-->
 
