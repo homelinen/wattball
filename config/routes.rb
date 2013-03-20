@@ -1,9 +1,7 @@
 Wattball::Application.routes.draw do
   resources :carousels
 
-
   resources :competitions
-
 
   resources :blogs
 
@@ -23,7 +21,9 @@ Wattball::Application.routes.draw do
 
   resources :scores
 
-  resources :wattball_matches, :only => [:index, :show]
+  resources :wattball_matches, :only => [:index, :show] do
+    resources :scores, :only => [:index, :new]
+  end
 
   match "contact" => "sport_centers#contact", :as => :sport_center, :via => "get"
 
@@ -45,7 +45,9 @@ Wattball::Application.routes.draw do
 
   get 'users', :to => 'home#index'
 
-  get 'admin', :to => 'admin#index'
+  get 'admin_panel', :to => 'panels#admin'
+  get 'official_panel', :to => 'panels#official'
+  get 'user_panel', :to => 'panels#user'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,10 +1,17 @@
+<% is_admin = current_user.admin? %>
+
 <h1>Admin Panel</h1>
 
 <h2>Users</h2>
 
-<ul class="admin-panel">
-  <li>
-  <%= link_to "Staff", staffs_path, :class => 'btn btn-info' %> 
+<ul class="admin-panel panel">
+
+  <li><%= link_to "Edit Self", edit_user_registration_path, :class => 'btn' %></li>
+  <% if is_admin %>
+    <li>
+    <%= link_to "Staff", staffs_path, :class => 'btn btn-info' %> 
+    </li>
+  <% end %>
   <li>
     <%= link_to "Wattball Players", wattball_players_path, :class => 'btn btn-info' %>
   </li>
@@ -20,16 +27,18 @@
   Sport Center and Tournaments
 </h2>
 
-<ul class="admin-panel">
+<ul class="admin-panel panel">
   <li>
     <%= link_to "Sport Center", edit_sport_center_path(1), :class => 'btn btn-info' %>
   </li>
   <li>
     <%= link_to "Banner", carousels_path, :class => 'btn btn-info' %>
   </li>
-  <li>
-    <%= link_to "Venues", venues_path, :class => 'btn btn-info' %>
-  </li>
+  <% if is_admin %>
+    <li>
+      <%= link_to "Venues", venues_path, :class => 'btn btn-info' %>
+    </li>
+  <% end %>
   <li>
     <%= link_to "Competitions", competitions_path, :class => 'btn btn-info' %>
   </li>
@@ -41,18 +50,20 @@
   </li>
 </ul>
 
-<h2>
-  Scheduling
-</h2>
+<% if is_admin %>
+  <h2>
+    Scheduling
+  </h2>
 
-<p>Coming Soon</p>
+  <p>Coming Soon</p>
+<% end %>
 
 
 <h2>
   Blogs
 </h2>
 
-<ul class="admin-panel">
+<ul class="admin-panel panel">
   <li>
   <%= link_to "Blogs", blogs_path, :class => 'btn btn-info' %>
   </li>
