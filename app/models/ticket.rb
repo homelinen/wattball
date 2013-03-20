@@ -10,6 +10,8 @@ class Ticket < ActiveRecord::Base
   validates_associated :user
 
   validate :valid_date
+  validates :adults, :numericality => { :greater_than => 0 }
+  validates :concessions, :numericality => { :greater_than => 0 }
 
   # Sum the totals
   def ticket_count
