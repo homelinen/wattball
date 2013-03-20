@@ -60,4 +60,40 @@ class WattballMatch < ActiveRecord::Base
     # Combine the arrays
     cur_players.flatten! 
   end
+
+  # Get the points for the match as team 1 or team 2
+  #
+  # team - Team number: 1 or 2
+  def points(team)
+    first = 0
+    res = self.result
+
+    if team == 1
+      first_team = res[0]
+      sec_team = res[1]
+    elsif team == 2
+      first_team = res[1]
+      sec_team = res[0]
+    else 
+      raise "Invalid Team chosen"
+    end
+
+    if res
+      # Compare the results
+      outcome = first_team <=> sec_team
+
+      if outcome > 0
+        # Win
+        3
+      elsif outcome < 0
+        # Draw
+        0
+      else 
+        # Loss
+        1
+      end
+    else
+      nil
+    end
+  end
 end

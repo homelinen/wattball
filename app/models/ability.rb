@@ -33,6 +33,8 @@ class Ability
 
     # Everyone can read everything
     can :read, :all
+    can :results, Team
+
     cannot :index, WattballPlayer unless user.privileged?
 
     cannot :manage, Ticket if !user.registered?

@@ -8,5 +8,4 @@ class Score < ActiveRecord::Base
   validates_presence_of :wattball_match_id, :wattball_player_id
 
   validates :amount, :presence => true, :numericality => { :greater_than => 0 }
-
 end

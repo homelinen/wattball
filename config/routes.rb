@@ -36,7 +36,13 @@ Wattball::Application.routes.draw do
 
   resources :officials
 
-  resources :teams
+  resources :teams do
+
+    collection do
+      get 'results'
+    end
+  end
+
   resources :wattball_players
   resources :hurdle_players
 
