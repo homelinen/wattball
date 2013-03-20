@@ -16,6 +16,10 @@ class Ability
       can :self_maintain, WattballPlayer
     elsif user.hurdle_player
       can :self_maintain, HurdlePlayer
+    elsif user.official
+      # Official can only edit scores they manage
+      can :manage, Score, :wattball_match => { :event => { :official => user.official } }
+      can :create, Score
     end
 
     # All users have these rights

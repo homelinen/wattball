@@ -45,4 +45,19 @@ class WattballMatch < ActiveRecord::Base
   def calculate_score(team)
      scores.includes(:wattball_player).where(:wattball_players => {:team_id => team}).sum(:amount) 
   end
+
+  def teams
+    [ team1, team2 ]
+  end
+
+  # Get an array of players for a match
+  def players
+    # Build two arrays of players
+    cur_players = teams.map do |team|
+      team.wattball_players
+    end
+
+    # Combine the arrays
+    cur_players.flatten! 
+  end
 end

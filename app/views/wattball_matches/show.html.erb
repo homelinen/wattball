@@ -23,8 +23,14 @@
   </div>
 </p>
 
-<% # Render parent class 
-%>
+<% if current_user and current_user.official %>
+  <h3>Score Controls</h3>
+  <%= link_to "Add Scores", new_wattball_match_score_path(@wattball_match.id), :class => :btn %>
+  <%= link_to "Show Scores", wattball_match_scores_path(@wattball_match.id), :class => :btn %>
+  <br />
+<% end %>
+
+<% # Render parent class %>
 <% @event = @wattball_match.event %>
 <%= render :template => 'events/show' %>
 

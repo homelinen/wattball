@@ -23,7 +23,9 @@ Wattball::Application.routes.draw do
 
   resources :scores
 
-  resources :wattball_matches, :only => [:index, :show]
+  resources :wattball_matches, :only => [:index, :show] do
+    resources :scores, :only => [:index, :new]
+  end
 
   match "contact" => "sport_centers#contact", :as => :sport_center, :via => "get"
 
