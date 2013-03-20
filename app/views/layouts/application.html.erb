@@ -28,9 +28,9 @@
 							if params[:controller] == "events"
                                                         	%> class="active"<% 
 							end 
-								%>><%= link_to("Calendar", events_path) %></li>
+								%>><%= link_to("Events", events_path) %></li>
 
-                <li><%= link_to "Results", wattball_matches_path %></a></li>
+                <li><%= link_to "Results", results_teams_path %></a></li>
 						<li<%
                                                 if params[:controller] == "teams"
                                                         %> class="active"<%
