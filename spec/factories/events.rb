@@ -98,7 +98,7 @@ FactoryGirl.define do
   end
 
   factory :score do
-    wattball_match { Dummy.getRandom(WattballMatch) || FactoryGirl.create(WattballMatch) 
+    wattball_match { Dummy.getRandom(WattballMatch) || FactoryGirl.create(:wattball_match) 
  }
     # Pick a random player from this events teams, this is maybe a model method
     wattball_player { WattballPlayer.all.sample }

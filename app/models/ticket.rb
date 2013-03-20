@@ -13,6 +13,8 @@ class Ticket < ActiveRecord::Base
   validates :adults, :numericality => { :greater_than => 0 }
   validates :concessions, :numericality => { :greater_than => 0 }
 
+  validate :valid_not_sold_out
+
   # Sum the totals
   def ticket_count
     adults + concessions
@@ -47,5 +49,15 @@ class Ticket < ActiveRecord::Base
 
   def barcode
     (self.hash + user.hash + start.hash).abs
+  end
+
+  # Check that the tickets bought don't go over the daily ticket limit
+  def valid_not_sold_out
+    
+    ticket_count = Ticket.where(:competition_id => competition_id).sum("adults") + Ticket.where(:competition_id => competition_id).sum("concessions")
+
+    if ticket_count + adults + concessions > competition.ticket_limit
+      errors.add(:sold_out, "All tickets are sold out, sorry.")
+    end
   end
 end

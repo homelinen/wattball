@@ -6,9 +6,9 @@ class ScoresController < ApplicationController
   def index
 
     if params[:wattball_match_id]
-      @scores = Score.where(:wattball_match_id => params[:wattball_match_id])
+      @scores = Score.order(:created_at).where(:wattball_match_id => params[:wattball_match_id])
     else 
-      @scores = Score.all
+      @scores = Score.order(:created_at).all
     end
 
     respond_to do |format|
