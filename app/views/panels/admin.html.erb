@@ -10,8 +10,9 @@
   <% if is_admin %>
     <li>
     <%= link_to "Staff", staffs_path, :class => 'btn btn-info' %> 
-    <li>
+    </li>
   <% end %>
+  <li>
     <%= link_to "Wattball Players", wattball_players_path, :class => 'btn btn-info' %>
   </li>
   <li>
@@ -62,7 +63,7 @@
   Blogs
 </h2>
 
-<ul class="admin-panel">
+<ul class="admin-panel panel">
   <li>
   <%= link_to "Blogs", blogs_path, :class => 'btn btn-info' %>
   </li>
