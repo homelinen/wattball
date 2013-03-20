@@ -48,6 +48,7 @@ Wattball::Application.routes.draw do
   get 'users', :to => 'home#index'
 
   get 'admin', :to => 'admin#index'
+  get 'official_panel', :to => 'panels#official', :via => 'get'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

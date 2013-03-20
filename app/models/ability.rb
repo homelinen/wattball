@@ -20,6 +20,7 @@ class Ability
       # Official can only edit scores they manage
       can :manage, Score, :wattball_match => { :event => { :official => user.official } }
       can :create, Score
+      can :panel, :official
     end
 
     # All users have these rights
