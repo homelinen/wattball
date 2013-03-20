@@ -48,8 +48,11 @@
 					
           <ul class="nav pull-right">
 							<% if user_signed_in? %>
-                <% if current_user.admin? or current_user.staff %>
-                  <li><%= link_to "Admin", admin_panel_path %></li>
+                <% if current_user.admin? or current_user.staff
+                  panel_name = "Admin" if current_user.admin?
+                  panel_name = "Staff" if current_user.staff 
+                %>
+                  <li><%= link_to panel_name, admin_panel_path %></li>
                 <% elsif current_user.official %>
                   <li><%= link_to "Official", official_panel_path %></li>
                 <% else %>
