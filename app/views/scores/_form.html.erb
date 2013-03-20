@@ -13,19 +13,28 @@
 
   <div class="field">
     <%= f.label :wattball_player %><br />
-    <% #TODO: Shouldn't show every player ever. Maybe pick a match then update player list?
-        # JS? %>
-    <% player_array = WattballPlayer.all.map { |player| [ player.user.name, player.id ] } %>
+
+    <% if @score.wattball_match_id
+      players = WattballMatch.find(@score.wattball_match_id).players
+      else
+        WattballPlayer.all
+      end %>
+    <% player_array = players.map { |player| [ player.user.name, player.id ] } %>
     <%= f.select :wattball_player_id, player_array %>
   </div>
   <div class="field">
     <%= f.label :wattball_match %><br />
-    <% match_array = WattballMatch.all.map { |match| [ wattball_match_name(match), match.id ] } %>
+    <% if @score.wattball_match_id 
+        matches = WattballMatch.where :id =>  @score.wattball_match_id
+      else
+        matches = WattballMatch.all
+      end
+      match_array = matches.map { |match| [ wattball_match_name(match), match.id ] } %>
     <%= f.select :wattball_match_id, match_array %>
   </div>
   <div class="field">
-    <%= f.label :amount %><br />
-    <%= f.number_field :amount %>
+    <%= f.label :number_of_goals %><br />
+    <%= f.number_field :amount, :value => 1 %>
   </div>
   <div class="actions">
     <%= f.submit %>
