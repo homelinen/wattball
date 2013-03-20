@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_one :hurdle_player
   has_one :official
   has_one :staff
+  has_many :tickets
 
   def default_values
       self.admin = false if self.admin.nil?

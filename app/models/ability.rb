@@ -12,6 +12,8 @@ class Ability
     elsif user.staff
       can :create, Team
       can :create, User
+      
+      can :panel, :admin
     elsif user.wattball_player
       can :self_maintain, WattballPlayer
     elsif user.hurdle_player

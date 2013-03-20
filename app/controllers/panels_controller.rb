@@ -11,4 +11,10 @@ class PanelsController < ApplicationController
 
     render 'official'
   end
+
+  def user
+    authorize :panel, :user
+
+    render 'user'
+  end
 end
