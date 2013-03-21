@@ -4,7 +4,7 @@ require 'date'
 module RoundRobin
 
 
-	def generate
+	def generate(tour)
 	
 		#Test generator
 		#create schedule using teams in the db
@@ -12,12 +12,9 @@ module RoundRobin
 		#Get all the teams
 		
 		#tour = Tournament.joins(:sport).where("sports.name = 'Wattball'").first
-		tour = params[:tournament]
 		
-		teams = Team.all
+		teams = tour.teams
 
-		#Get tournament start date {Impossible}
-		
 		start = tour.startDate
 		
 		#Get fields names
@@ -26,6 +23,36 @@ module RoundRobin
 		schedule = RRSchedule::Schedule.new(
 			:teams => teams,
 			:rules => [
+						RRSchedule::Rule.new(
+							:wday => 0,
+							:gt => ["11:00AM","02:00PM"],
+							:ps => fields
+						),
+						RRSchedule::Rule.new(
+							:wday => 1,
+							:gt => ["11:00AM","02:00PM"],
+							:ps => fields
+						),
+						RRSchedule::Rule.new(
+							:wday => 2,
+							:gt => ["11:00AM","02:00PM"],
+							:ps => fields
+						),
+						RRSchedule::Rule.new(
+							:wday => 3,
+							:gt => ["11:00AM","02:00PM"],
+							:ps => fields
+						),
+						RRSchedule::Rule.new(
+							:wday => 4,
+							:gt => ["11:00AM","02:00PM"],
+							:ps => fields
+						),
+						RRSchedule::Rule.new(
+							:wday => 5,
+							:gt => ["11:00AM","02:00PM"],
+							:ps => fields
+						),
 						RRSchedule::Rule.new(
 							:wday => 6,
 							:gt => ["11:00AM","02:00PM"],
@@ -40,47 +67,23 @@ module RoundRobin
 		
 		schedule.gamedays.each do |gd|
 			gd.games.each do |game|
-				match = WattballMatch.create(:team1 => game.team_a, :team2 => game.team_b)
-				Event.create(:date => game.gt.strftime("%D"), :end => (game.gt + 90.minutes).strftime("%H:%M"), :start => game.gt.strftime("%H:%M"), :tournament_id => tour.id)
+				event = Event.new(:start => DateTime.parse("#{gd.date} #{game.gt}"), :tournament_id => tour.id)
+				event.venue = game.ps
+				event.status = "scheduled"
+				event.save
+				
+				match = WattballMatch.new(:team1 => game.team_a, :team2 => game.team_b)
+				match.event_id = event.id
+				match.save
+				
+				event.wattball_match = match
+				#Event.create(:date => game.gt.strftime("%D"), :end => (game.gt + 90.minutes).strftime("%H:%M"), :start => game.gt.strftime("%H:%M"), :tournament_id => tour.id)
+				
 			end
 		end
-		
-		
-		
-		
-		
 	end
-
-	def genFake
 	
-	schedule=RRSchedule::Schedule.new(:teams => [
-		%w(A1 A2 A3 A4 A5 A6 A7 A8),
-		%w(B1 B2 B3 B4 B5 B6 B7 B8)
-	  ],
-
-	  #Setup some scheduling rules
-	  :rules => [
-		RRSchedule::Rule.new(:wday => 3, :gt => ["7:00PM","9:00PM"], :ps => ["field #1", "field #2"]),
-		RRSchedule::Rule.new(:wday => 5, :gt => ["7:00PM"], :ps => ["field #1"])
-	  ],
-
-	  #First games are played on...
-	  :start_date => Date.parse("2010/10/13"),
-
-	  #array of dates to exclude
-	  :exclude_dates => [Date.parse("2010/11/24"),Date.parse("2010/12/15")],
-
-	  #Number of times each team must play against each other (default is 1)
-	  :cycles => 1,
-
-	  #Shuffle team order before each cycle. Default is true
-	  :shuffle => true
-	)
-
-	schedule.generate
-	puts schedule.to_s
-		
-	end
+	module_function :generate
 
 end
 
