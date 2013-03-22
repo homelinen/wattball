@@ -12,9 +12,10 @@ class Team < ActiveRecord::Base
 
   accepts_nested_attributes_for :user
 
-  validates_presence_of :user, :teamName, :tournament, :org_tag
+  validates_presence_of :user, :teamName, :tournament, :org_tag, :phone_number
   validates_associated :tournament, :user
 
+  validates :website, :format => { :with => /https?:\/\/[a-zA-Z\-]+?(\.[a-zA-Z\-]+)+/, :message => "Not a valid URL (Needs http://)" }
   # Check the wattball id is a H followed by 6 numbers, exactly
   validates :org_tag, :format => { :with => /^H[0-9]{6}$/, 
     :message => "ID should be a \"H\" followed by 6 numbers" }
