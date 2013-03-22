@@ -27,7 +27,19 @@
   <h3>Score Controls</h3>
   <%= link_to "Add Scores", new_wattball_match_score_path(@wattball_match.id), :class => :btn %>
   <%= link_to "Show Scores", wattball_match_scores_path(@wattball_match.id), :class => :btn %>
-  <%= link_to "Assign/Unassign Official", edit_wattball_match_path(@wattball_match), :class => :btn %>
+
+  <% # Set the message for the Edit Button
+    if @wattball_match.event.official == current_user.official
+      official_opt_status = "Opt Out"
+    elsif @wattball_match.event.official.nil?
+      official_opt_status = "Opt In"
+    else 
+      official_opt_status = nil
+    end %>
+
+    <% if official_opt_status %>
+      <%= link_to official_opt_status, edit_wattball_match_path(@wattball_match), :class => :btn %>
+    <% end %>
   <br />
 <% end %>
 
