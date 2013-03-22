@@ -51,7 +51,7 @@ FactoryGirl.define do
   end
 
   factory :wattball_match do
-    association event, status: 'played'
+    association :event, factory: :event, status: 'played'
     team1 { Dummy.getRandom(Team) || FactoryGirl.build(:team) }
     team2 { Dummy.getRandom(Team) || FactoryGirl.build(:team) }
   end
