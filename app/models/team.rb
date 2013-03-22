@@ -28,11 +28,11 @@ class Team < ActiveRecord::Base
 
     points = 0
     wattball_matches_as_team1.each do |match|
-      points += match.points(1)
+      points += match.points(1) || 0
     end
 
     wattball_matches_as_team2.each do |match|
-      points += match.points(2)
+      points += match.points(2) || 0
     end
 
     points
