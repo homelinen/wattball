@@ -18,14 +18,14 @@ FactoryGirl.create :sport_center
 FactoryGirl.create(:tournament, :name => "Wattball Tournament")
 
 # Create 4 teams of 11 players
-(1..4).each do |i|
-    team = FactoryGirl.create(:team)
-    FactoryGirl.create_list(:wattball_player, 11, team: team)
-end
+#(1..4).each do |i|
+    #team = FactoryGirl.create(:team)
+    #FactoryGirl.create_list(:wattball_player, 11, team: team)
+#end
 
-FactoryGirl.create_list(:wattball_match, 4)
+#FactoryGirl.create_list(:wattball_match, 4)
 
-FactoryGirl.create_list(:score, 8)
+#FactoryGirl.create_list(:score, 8)
 
 # Hurdle seed, 8 players, 2 rounds and 8 times
 FactoryGirl.create(:tournament, :name => "Hurdle Tournament", 
