@@ -16,7 +16,7 @@ Wattball::Application.routes.draw do
   match "about" => "sport_centers#show", :id => 1
   match "sport_centers" => "sport_centers#show", :id => 1
 
-  resources :hurdle_times, :only => [:index, :show]
+  resources :hurdle_times
 
   resources :hurdle_matches, :only => [:index, :show] do
     # Can't create new times, they are generated with matches
