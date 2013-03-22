@@ -19,9 +19,9 @@ module HurdleMatchesHelper
 
       if time.nil?
         # Could possibly get the athletes previous time
-        timestring = "No time"
+        timestring = "TBA"
       else
-        timestring = time_to_mins_and_secs time
+        timestring = times.nice_time
       end
 
       content += timestring
