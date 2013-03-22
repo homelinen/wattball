@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317174600) do
+ActiveRecord::Schema.define(:version => 20130322030358) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -191,10 +191,12 @@ ActiveRecord::Schema.define(:version => 20130317174600) do
     t.string   "badge_content_type"
     t.integer  "badge_file_size"
     t.datetime "badge_updated_at"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "tournament_id"
     t.string   "org_tag",            :default => ""
+    t.string   "phone_number",       :default => "000000"
+    t.string   "website"
   end
 
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"
