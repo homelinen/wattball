@@ -6,6 +6,13 @@
   <% column :team1 do |team|
     team.teamName 
   end %>
+  <% column :title => 'Score' do |match|
+    if match.result
+      match.result.join(" - ")
+    else 
+      " - "
+    end
+  end %>
   <% column :team2 do |team|
     team.teamName 
   end %>

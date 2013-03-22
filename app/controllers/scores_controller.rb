@@ -4,7 +4,12 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.all
+
+    if params[:wattball_match_id]
+      @scores = Score.order(:created_at).where(:wattball_match_id => params[:wattball_match_id])
+    else 
+      @scores = Score.order(:created_at).all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,6 +32,10 @@ class ScoresController < ApplicationController
   # GET /scores/new.json
   def new
     @score = Score.new
+
+    if params[:wattball_match_id]
+      @score.wattball_match_id = params[:wattball_match_id]
+    end
 
     respond_to do |format|
       format.html # new.html.erb

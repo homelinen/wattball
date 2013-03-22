@@ -12,10 +12,17 @@ class Ability
     elsif user.staff
       can :create, Team
       can :create, User
+      
+      can :panel, :admin
     elsif user.wattball_player
       can :self_maintain, WattballPlayer
     elsif user.hurdle_player
       can :self_maintain, HurdlePlayer
+    elsif user.official
+      # Official can only edit scores they manage
+      can :manage, Score, :wattball_match => { :event => { :official => user.official } }
+      can :create, Score
+      can :panel, :official
     end
 
     # All users have these rights
@@ -26,6 +33,8 @@ class Ability
 
     # Everyone can read everything
     can :read, :all
+    can :results, Team
+
     cannot :index, WattballPlayer unless user.privileged?
 
     cannot :manage, Ticket if !user.registered?

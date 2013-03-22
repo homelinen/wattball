@@ -16,6 +16,15 @@ class TeamsController < ApplicationController
     end
   end
 
+  def results
+    @teams = Team.rank
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @teams}
+    end
+  end
+
   # GET /teams/1
   # GET /teams/1.json
   def show

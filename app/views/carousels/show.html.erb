@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= image_tag @carousel.banner_image.url(:medium) %>
+<p>
+  <b>Title:</b>
+  <%= @carousel.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @carousel.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_carousel_path(@carousel) %> |
+<%= link_to 'Back', carousels_path %>

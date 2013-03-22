@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315222542) do
+ActiveRecord::Schema.define(:version => 20130317174600) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(:version => 20130315222542) do
   end
 
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
+
+  create_table "carousels", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "banner_image_file_name"
+    t.string   "banner_image_content_type"
+    t.integer  "banner_image_file_size"
+    t.datetime "banner_image_updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "competitions", :force => true do |t|
     t.string   "name"
