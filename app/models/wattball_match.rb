@@ -68,17 +68,17 @@ class WattballMatch < ActiveRecord::Base
     first = 0
     res = self.result
 
-    if team == 1
-      first_team = res[0]
-      sec_team = res[1]
-    elsif team == 2
-      first_team = res[1]
-      sec_team = res[0]
-    else 
-      raise "Invalid Team chosen"
-    end
-
     if res
+      if team == 1
+        first_team = res[0]
+        sec_team = res[1]
+      elsif team == 2
+        first_team = res[1]
+        sec_team = res[0]
+      else 
+        raise "Invalid Team chosen"
+      end
+
       # Compare the results
       outcome = first_team <=> sec_team
 
