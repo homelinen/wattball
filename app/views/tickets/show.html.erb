@@ -33,11 +33,13 @@
   <%= number_to_currency @ticket.total_price %>
 </p>
 
-
 <div class="actions">
-  <%= link_to 'Print', '#', :onclick => "window.print();" %>
+<p>
+  <%= link_to 'Print', '#', :onclick => "window.print();", :class => "btn-large btn-info" %>
   <br />
+</p>
 
-  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-  <%= link_to 'Back', tickets_path %>
+<p>
+  <%= link_to 'Ticket History', tickets_path %>
+</p>
 </div>

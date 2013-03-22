@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTloTdH0qxiAkckRGjMq55EqH4jycu5MM&sensor=true"></script>
+  <%= javascript_include_tag 'gmaps'%>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <%= content_tag :h1, @sport_center.name %>
@@ -24,6 +29,9 @@
   <%= "#{@sport_center.contact.name}" %>
 </p>
 
+<div id="map">
+
+</div>
 
 <% if current_user and current_user.privileged? %>
   <%= link_to 'Edit', edit_sport_center_path(@sport_center) %> |
