@@ -12,20 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :hurdle_player_id %><br />
-
-    <% if @hurdle_time.hurdle_match_id
-        players = HurdleMatch.find(@hurdle_time.hurdle_match_id).hurdle_players
-      else
-        players = HurdlePlayer.all
-      end %>
-    <% player_array = players.map { |player| [ player.user.name, player.id ] } %>
-    <%= f.select :hurdle_player_id, player_array %>
-  </div>
-
-  <div class="field">
-    <%= f.label :hurdle_match %>
-    <%= f.collection_select :hurdle_match_id, HurdleMatch.all, :id, :name %>
+    <%= f.hidden_field :hurdle_match_id %>
   </div>
   <div class="field">
     <fieldset>
@@ -37,10 +24,6 @@
         <%= time_form.select :seconds, (0..59) %>
       <% end %>
     </fieldset>
-  </div>
-  <div class="field">
-    <%= f.label :lane %><br />
-    <%= f.number_field :lane, :value => 1 %>
   </div>
   <div class="actions">
     <%= f.submit %>

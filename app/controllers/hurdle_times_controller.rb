@@ -2,7 +2,12 @@ class HurdleTimesController < ApplicationController
   # GET /hurdle_times
   # GET /hurdle_times.json
   def index
-    @hurdle_times = HurdleTime.order('hurdle_match_id, lane').all
+
+    @hurdle_times = HurdleTime.order('hurdle_match_id, lane')
+
+    if params[:hurdle_match_id]
+      @hurdle_times = @hurdle_times.where(:hurdle_match_id => params[:hurdle_match_id])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,39 +26,9 @@ class HurdleTimesController < ApplicationController
     end
   end
 
-  # GET /hurdle_times/new
-  # GET /hurdle_times/new.json
-  def new
-    @hurdle_time = HurdleTime.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @hurdle_time }
-    end
-  end
-
   # GET /hurdle_times/1/edit
   def edit
     @hurdle_time = HurdleTime.find(params[:id])
-  end
-
-  # POST /hurdle_times
-  # POST /hurdle_times.json
-  def create
-
-    @hurdle_time = HurdleTime.new(params[:hurdle_time])
-
-    @hurdle_time.time = (params[:time][:minutes].to_i * 60) + params[:time][:seconds].to_i
-
-    respond_to do |format|
-      if @hurdle_time.save
-        format.html { redirect_to @hurdle_time, notice: 'Hurdle time was successfully created.' }
-        format.json { render json: @hurdle_time, status: :created, location: @hurdle_time }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @hurdle_time.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /hurdle_times/1
@@ -62,7 +37,11 @@ class HurdleTimesController < ApplicationController
     @hurdle_time = HurdleTime.find(params[:id])
 
     time = (params[:time][:minutes].to_i * 60) + params[:time][:seconds].to_i
-    params[:hurdle_time].store :time, time
+    if params[:hurdle_time]
+      params[:hurdle_time].store :time, time
+    else
+      params[:hurdle_time] = {}.store :time, time
+    end
 
     respond_to do |format|
       if @hurdle_time.update_attributes(params[:hurdle_time])
