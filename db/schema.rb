@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322030358) do
+ActiveRecord::Schema.define(:version => 20130322143618) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20130322030358) do
   create_table "hurdle_times", :force => true do |t|
     t.integer  "hurdle_player_id"
     t.integer  "hurdle_match_id"
-    t.time     "time"
+    t.integer  "time"
     t.integer  "lane"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false

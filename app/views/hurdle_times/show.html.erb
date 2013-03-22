@@ -12,14 +12,17 @@
 <% end %>
 <p>
   <b>Time:</b>
-  <%= time_to_mins_and_secs @hurdle_time.time %>
+  <% if @hurdle_time.time %>
+    <%= @hurdle_time.nice_time %>
+  <% else %>
+    TBA
+  <% end %>
 </p>
 
 <p>
   <b>Lane:</b>
   <%= @hurdle_time.lane %>
 </p>
-
 
 <%= link_to 'Edit', edit_hurdle_time_path(@hurdle_time) %> |
 <%= link_to 'Back', hurdle_times_path %>

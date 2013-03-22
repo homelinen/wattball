@@ -9,8 +9,12 @@
   <% column :hurdle_player do |player|
     player.user.name
   end %>
-  <% column :time do |time|
-    time_to_mins_and_secs(time)
+  <% column :title => 'Time' do |time|
+    if time.time
+      time.nice_time
+    else
+      "TBA"
+    end
   end%>
   <% column :lane %>
   <% column :title => "Action" do |hurdle_time|

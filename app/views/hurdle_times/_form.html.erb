@@ -15,7 +15,7 @@
     <%= f.label :hurdle_player_id %><br />
 
     <% if @hurdle_time.hurdle_match_id
-        players = HurdleMatch.find(@hurdle_time.hurdle_match_id).players
+        players = HurdleMatch.find(@hurdle_time.hurdle_match_id).hurdle_players
       else
         players = HurdlePlayer.all
       end %>
@@ -25,11 +25,18 @@
 
   <div class="field">
     <%= f.label :hurdle_match %>
-    <%= f.collection_select :hurdle_match, HurdleMatch.all, :id, :name %>
+    <%= f.collection_select :hurdle_match_id, HurdleMatch.all, :id, :name %>
   </div>
   <div class="field">
-    <%= f.label :time %><br />
-    <%= f.time_select :time, :include_hours => false, :include_seconds => true %>
+    <fieldset>
+      <legend>Time</legend>
+      <%= fields_for :time do |time_form| %>
+        <%= time_form.label :minutes %>
+        <%= time_form.select :minutes, (0..10) %>
+        <%= time_form.label :seconds %>
+        <%= time_form.select :seconds, (0..59) %>
+      <% end %>
+    </fieldset>
   </div>
   <div class="field">
     <%= f.label :lane %><br />

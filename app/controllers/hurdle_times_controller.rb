@@ -40,7 +40,10 @@ class HurdleTimesController < ApplicationController
   # POST /hurdle_times
   # POST /hurdle_times.json
   def create
+
     @hurdle_time = HurdleTime.new(params[:hurdle_time])
+
+    @hurdle_time.time = (params[:time][:minutes].to_i * 60) + params[:time][:seconds].to_i
 
     respond_to do |format|
       if @hurdle_time.save
@@ -57,6 +60,9 @@ class HurdleTimesController < ApplicationController
   # PUT /hurdle_times/1.json
   def update
     @hurdle_time = HurdleTime.find(params[:id])
+
+    time = (params[:time][:minutes].to_i * 60) + params[:time][:seconds].to_i
+    params[:hurdle_time].store :time, time
 
     respond_to do |format|
       if @hurdle_time.update_attributes(params[:hurdle_time])

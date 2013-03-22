@@ -1,6 +1,7 @@
 class HurdleMatch < ActiveRecord::Base
   belongs_to :event
   has_many :hurdle_times
+  has_many :hurdle_players, :through => :hurdle_times
 
   accepts_nested_attributes_for :event 
 
