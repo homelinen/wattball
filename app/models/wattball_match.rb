@@ -5,7 +5,9 @@ class WattballMatch < ActiveRecord::Base
   belongs_to :team1, :class_name => Team
   belongs_to :team2, :class_name => Team
 
-  attr_accessible :team1, :team2
+  attr_accessible :team1, :team2, :event_attributes
+
+  accepts_nested_attributes_for :event
 
   validates_presence_of :team1, :team2, :event
 

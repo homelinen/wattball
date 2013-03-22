@@ -21,7 +21,7 @@ Wattball::Application.routes.draw do
 
   resources :scores
 
-  resources :wattball_matches, :only => [:index, :show] do
+  resources :wattball_matches, :only => [:index, :show, :edit, :update] do
     resources :scores, :only => [:index, :new]
   end
 

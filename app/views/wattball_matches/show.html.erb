@@ -27,6 +27,7 @@
   <h3>Score Controls</h3>
   <%= link_to "Add Scores", new_wattball_match_score_path(@wattball_match.id), :class => :btn %>
   <%= link_to "Show Scores", wattball_match_scores_path(@wattball_match.id), :class => :btn %>
+  <%= link_to "Assign/Unassign Official", edit_wattball_match_path(@wattball_match), :class => :btn %>
   <br />
 <% end %>
 

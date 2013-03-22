@@ -12,7 +12,11 @@
     event.status
   end %>
   <% t.column :event, :title => "Referee" do |event| %>
-    <% link_to event.official.user.name, official_path(event.official) %>
+    <% if event.official %>
+      <% link_to event.official.user.name, official_path(event.official) %>
+    <% else %>
+      Unassigned
+    <% end %>
   <% end %>
   <% t.column :event, :title => "Tournament" do |event| %>
     <% event.tournament.name %>

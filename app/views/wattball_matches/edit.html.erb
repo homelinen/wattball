@@ -1,6 +1,30 @@
 <h1>Editing wattball_match</h1>
 
-<%= render 'form' %>
+<%= form_for(@wattball_match) do |f| %>
+
+  <div class="field">
+    <% officials = nil
+      if current_user.official
+        officials = [current_user.official]
+      else 
+        officials = Officials.all
+      end %>
+
+      <%= f.fields_for :event do |event_form| %>
+        <% officials_list = officials.map do |official| 
+          ["#{official.user.name}",
+          official.id]  
+        end %>
+
+        <% # Allow no one to be assigned %>
+        <% officials_list = [["Unassigned", nil]] + officials_list %>
+
+        <%= event_form.select(:official_id, officials_list) %>
+      <% end %>
+  </div>
+
+  <%= f.submit :value => "Update Match" %>
+<% end %>
 
 <%= link_to 'Show', @wattball_match %> |
 <%= link_to 'Back', wattball_matches_path %>
