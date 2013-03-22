@@ -1,0 +1,29 @@
+<h1>Listing Hurdle time</h1>
+
+<%= table_for @hurdle_times, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
+  <% column :hurdle_match do |match|
+    match.name
+  end %>
+  <% column :hurdle_player do |player|
+    player.user.name
+  end %>
+  <% column :time do |time|
+    time_to_mins_and_secs(time)
+  end%>
+  <% column :lane %>
+  <% column :title => "Action" do |hurdle_time|
+    link_to "Show", hurdle_time
+  end %>
+  <% if current_user and current_user.privileged? %>
+    <% column :title => "Action" do |hurdle_time|
+      link_to "Edit", edit_hurdle_time_path(hurdle_time)
+    end %>
+    <% column :title => "Action" do |hurdle_time|
+      link_to "Destroy", hurdle_time, method: :delete, data: { confirm: 'Are you sure?' }
+    end %>
+  <% end %>
+<% end %>
+
+<%= link_to 'New Hurdle time', new_hurdle_time_path %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= link_to @hurdle_time.hurdle_player.user.name, @hurdle_time.hurdle_player %>'s Time</h1>
+
+<p>
+  <b>Hurdle match:</b>
+  <%= link_to @hurdle_time.hurdle_match.name, @hurdle_time.hurdle_match %>
+</p>
+
+<% if @hurdle_time.position_result %>
+  <p><%= @hurdle_time.position_result %></p>
+<% end %>
+<p>
+  <b>Time:</b>
+  <%= time_to_mins_and_secs @hurdle_time.time %>
+</p>
+
+<p>
+  <b>Lane:</b>
+  <%= @hurdle_time.lane %>
+</p>
+
+
+<%= link_to 'Edit', edit_hurdle_time_path(@hurdle_time) %> |
+<%= link_to 'Back', hurdle_times_path %>

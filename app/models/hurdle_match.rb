@@ -9,4 +9,9 @@ class HurdleMatch < ActiveRecord::Base
   def name
     "Heat: #{self.event.number_of_event}"
   end
+
+  # Rank the times for the event
+  def rank
+    hurdle_times.order(:time)
+  end
 end
