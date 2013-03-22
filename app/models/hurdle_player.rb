@@ -20,4 +20,8 @@ class HurdlePlayer < ActiveRecord::Base
       errors.add(:dob, "You must be 18 to enter this event.")
     end
   end
+
+  def nice_time
+    Time.at(previous_time).utc.strftime('%-M:%Ss')
+  end
 end

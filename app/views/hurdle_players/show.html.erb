@@ -26,11 +26,11 @@
   <b>Previous time:</b>
   <%=
     if not @hurdle_player.hurdle_times.empty?
-      time_to_mins_and_secs(@hurdle_player.hurdle_times.order('created_at').first.time) +
+      @hurdle_player.hurdle_times.order('created_at').first.nice_time +
         " for " +
         @hurdle_player.hurdle_times.order('created_at').first.hurdle_match.name
     else
-      @hurdle_player.previous_time 
+      @hurdle_player.nice_time 
     end %>
 </p>
 

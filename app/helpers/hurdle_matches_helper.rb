@@ -13,7 +13,7 @@ module HurdleMatchesHelper
     list = ""
 
     match.hurdle_times.each do |times|
-      content = "#{link_to times.hurdle_player.user.name, times.hurdle_player} - "
+      content = times.hurdle_player.user.name + " - "
 
       time = times.time
 
@@ -26,7 +26,7 @@ module HurdleMatchesHelper
 
       content += timestring
       # Create a new li containing the tracked time
-      list += content_tag(:li, content.html_safe)
+      list += content_tag(:li, link_to(content.html_safe, times))
     end
 
     content_tag(:ul, list.html_safe)

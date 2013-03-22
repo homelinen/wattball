@@ -37,10 +37,10 @@
                                                 end
                                                         %>><%= link_to("Teams", teams_path) %></li>
     <li<%
-                                                if params[:controller] == "hurdle_player"
+                                                if params[:controller] == "hurdle_matches"
                                                         %> class="active"<%
                                                 end
-                                                        %>><%= link_to("Hurdlers", hurdle_players_path) %></li>
+                                                        %>><%= link_to("Hurdles", hurdle_matches_path) %></li>
 						
                                                         <li><%= link_to 'About us', about_path %></li>
                                                         <li><%= link_to "Contact", sport_center_path %></li>            
