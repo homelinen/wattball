@@ -1,6 +1,21 @@
 <h1>Editing wattball_player</h1>
 
-<%= render 'form' %>
+<%= form_for(@wattball_player) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+
+  <fieldset>
+    <% @wattball_player.build_contact unless @wattball_player.contact %>
+
+    <h4><%= f.label :emergency_contact %></h4>
+    <%= f.fields_for :contact do |contact_form| %>
+      <%= render 'emergency_contact_form', :f => contact_form %>
+    <% end %>
+  </fieldset>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @wattball_player %> |
 <%= link_to 'Back', wattball_players_path %>
