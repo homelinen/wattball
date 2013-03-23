@@ -3,7 +3,7 @@
   <% end %>
   <div class="row-fluid home">
     <div class="span4 thumbnail">
-      <h2>Results</h2>
+      <h2>Recent Results</h2>
       <% list = "" %>
       <% # Only find the results, not all %>
       <% matches = WattballMatch.most_recent(5).where(:events => {:status => 'played'})
@@ -45,15 +45,21 @@
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
       <div class="home-events">
-	      <h3>Next 5 Wattball Matches:</h3>
         <ul>
           <% # Change the period, to 2.weeks with a limit? %>
-          <% WattballMatch.most_recent(5).each do |match| %>
-            <%= content_tag :li, "#{wattball_match_name(match)}"%>
+          <% Event.upcoming.limit(6).each do |event| %>
+            <% info = event_info(event) 
+            if info %>
+              <li><%= info.html_safe %></li>
+              <% end %>
           <% end %>
         </ul>
 
-	  </div>
+        <div class="bottom">
+          <hr />
+          <p><%= link_to("View all Events", events_path) %></p>
+        </div>
+      </div>
     </div>
   </div>
 

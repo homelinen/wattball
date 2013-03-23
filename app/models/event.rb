@@ -29,6 +29,21 @@ class Event < ActiveRecord::Base
       errors.add(:start, "can't be in the past")
     end
   end
+  
+  def name
+    if wattball_match
+      wattball_match.name
+    elsif hurdle_match
+      hurdle_match.name
+    end
+  end
+
+  def type
+    type = WattballMatch if wattball_match
+    type = HurdleMatch if hurdle_match
+
+    type
+  end
 
   def self.get_match_list(date)
     event = Event.on_date(date);
@@ -38,6 +53,11 @@ class Event < ActiveRecord::Base
       []
     end
   end
+
+  def self.upcoming
+    events = Event.order(:start).where('start > ?', Date.today)
+  end
+
 
   # Get ids for events on given date
   def self.on_date(date)
