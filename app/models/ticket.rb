@@ -10,10 +10,11 @@ class Ticket < ActiveRecord::Base
   validates_associated :user
 
   validate :valid_date
-  validates :adults, :numericality => { :greater_than => 0 }
-  validates :concessions, :numericality => { :greater_than => 0 }
+  validates :adults, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :concessions, :numericality => { :greater_than_or_equal_to => 0 }
 
   validate :valid_not_sold_out
+  validate :valid_amount
 
   # Sum the totals
   def ticket_count
@@ -31,7 +32,6 @@ class Ticket < ActiveRecord::Base
   def total_price
     adult_price + concession_price
   end
-      
 
   # Ensure at least one ticket has been purchased
   def valid_amount 

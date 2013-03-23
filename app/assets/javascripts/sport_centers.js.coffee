@@ -1,3 +1,19 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$(document).ready(->
+  
+  if $('#map').length
+    centerLong = 55.908887
+    centerLat = -3.318558
+
+    url = GMaps.staticMapURL({
+      size: [610, 300],
+      lat: centerLong,
+      lng: centerLat,
+      zoom: 13,
+      markers: [
+        {lat: centerLong, lng: centerLat}
+      ]
+    })
+
+    $('<img/>').attr('src', url)
+      .appendTo('#map')
+)
