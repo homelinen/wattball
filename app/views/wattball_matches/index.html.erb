@@ -1,7 +1,7 @@
 <h1>Listing Wattball Matches</h1>
 
 <%= table_for @wattball_matches, :html => {
-  :class => "table table-bordered"
+  :class => "table table-bordered table-striped"
 } do |t| -%>
   <% column :team1 do |team|
     team.teamName 
