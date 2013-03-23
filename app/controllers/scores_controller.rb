@@ -55,6 +55,7 @@ class ScoresController < ApplicationController
 
     respond_to do |format|
       if @score.save
+        @score.update_event_status
         format.html { redirect_to @score, notice: 'Score was successfully created.' }
         format.json { render json: @score, status: :created, location: @score }
       else
@@ -71,6 +72,7 @@ class ScoresController < ApplicationController
 
     respond_to do |format|
       if @score.update_attributes(params[:score])
+
         format.html { redirect_to @score, notice: 'Score was successfully updated.' }
         format.json { head :no_content }
       else
