@@ -6,7 +6,7 @@
       <h2>Results</h2>
       <% list = "" %>
       <% # Only find the results, not all %>
-      <% matches = WattballMatch.most_recent(5)
+      <% matches = WattballMatch.most_recent(5).where(:events => {:status => 'played'})
         if not matches.empty?
           matches.each do |match|
 
@@ -26,7 +26,7 @@
       <%= list.html_safe %>
       <div class="bottom">
         <hr />
-        <p><%= link_to("View all Results", events_path) %></p>
+        <p><%= link_to("View all Results", wattball_matches_path) %></p>
       </div>
     </div>
     <div class="span4 thumbnail">
@@ -39,7 +39,6 @@
     </ul>
     <div class="bottom">
         <hr />
-
         <%= link_to "More", blogs_path %>
     </div>
     </div>

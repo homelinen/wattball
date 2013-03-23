@@ -13,7 +13,7 @@ class WattballMatch < ActiveRecord::Base
 
   def self.most_recent(lim)
     lim = 0 if lim == nil
-    WattballMatch.joins(:event).where(:events => {:status => 'played'}).order(:start).limit(lim)
+    WattballMatch.joins(:event).order(:start).limit(lim)
   end
 
   def name
