@@ -16,7 +16,7 @@ module HurdleSchedule
 			day2(tour)
 			return 0
 		else
-			Rails.logger.debug("debug::" +"day"+ round)
+			#Rails.logger.debug("debug::" +"day %d", round)
 			dayN(tour, round)
 			return 0
 		end
@@ -60,7 +60,7 @@ module HurdleSchedule
 		
 		#If there are no players with no time, go straight to day2
 		if rounds[0] == 0
-			day2
+			day2(tour)
 			return nil
 		end
 		
@@ -89,7 +89,7 @@ module HurdleSchedule
 		heats = players.in_groups((players.size/8.0).ceil, false)
 		
 		for heat in heats
-			fillHeat(players, 2, tour)
+			fillHeat(heat, 2, tour)
 		end
 	end
 	
@@ -97,7 +97,7 @@ module HurdleSchedule
 		#get (players / 2) + ((players / 2) % 8) fastest players from day N-1.
 		players = []
 		
-		tour.events.where(:round => currentRound).each do |event|
+		tour.events.where(:round => round).each do |ev|
 			ev.hurdle_match.hurdle_times.each do |t|
 				players.append(t.hurdle_player)
 	        end
@@ -132,7 +132,7 @@ module HurdleSchedule
 			end
 		end
 		
-		#Collect all players in a heat into a single array and pass it to #makeHeat
+		#Collect all players in a heat into a single array and pass it to ::fillHeat
 		heat = Array.new(8)
 		# do number of heats times
 		(0...(rounds[0].count)).to_a.each do |x| 
@@ -140,7 +140,7 @@ module HurdleSchedule
 			8.times do |y|
 				heat[y] = rounds[y][x]
 			end
-			fillHeat(heat, max+1, tour)
+			fillHeat(heat, round+1, tour)
 		end
 	end
 	
@@ -149,17 +149,12 @@ module HurdleSchedule
 		  *Assumes players are in lane order, 1->8.
 		  *Fill it with players.'''
 		  
-		  	'''Person cannot race more than once per day.
-		   '''
 		
-		#Get all blank events, then sort them by start date, soonest at the top.
+		#Get all blank events, then sort them by start date, soonest at the top
 		blankEvent = tour.events.where(:round => round, :status => "pending")
 		blankEvent.sort_by!{|u| u.start }
 		
-		#Buggy
 		blankEvent = blankEvent.first
-		#Needs to look for first event that does conflict with requirement
-		# "Person cannot race more than once per day."
 		
 		players.each_with_index do |player, lane|
 			ht = HurdleTime.new({:lane => (lane+1)})
@@ -199,7 +194,7 @@ module HurdleSchedule
 		
 		rounds.each_with_index do |round, index|
 			(round / 8).times do
-				time = getNextTime(times, tour, gTs)
+				time = getNextTime(times, tour, gTs, index+1)
 				times.append(makeBlankHeat(tour, index+1, time))
 				times.sort_by!{|t|t.start}
 			end
@@ -220,16 +215,19 @@ module HurdleSchedule
 		return event
 	end
 	
-	def getNextTime(usedTimes, tour, gameTimes)
+	def getNextTime(usedTimes, tour, gameTimes, round)
 		time = tour.startDate
 		startDate = time.to_datetime
 		duration = (tour.sport.length).minutes
 		
+		startDate += roundConflict(round, tour, startDate)
 		#Test if the first time is below the first used time
 		# or above the last used time.
 		firstTime = startDate.to_datetime + gameTimes.first
 		return firstTime if usedTimes.length == 0
 		return firstTime if (firstTime + duration) < (usedTimes.first.start)
+		
+		
 		
 		begin
 			gameTimes.each do |gt|
@@ -254,6 +252,7 @@ module HurdleSchedule
 				end
 			end
 			startDate += 1.day
+			startDate += roundConflict(round, tour, startDate)
 		end while true
 		''' Issues:
 				use of a single duration value prevents use of single
@@ -262,6 +261,22 @@ module HurdleSchedule
 				if event ends on the same minute
 		'''
 		
+	end
+	
+	def roundConflict(round, tour, time)
+		#Returns number of days to move forward because of conflicts due to
+		# Req: A person should not race more than once per day
+		usedTimes = tour.events.where('events.round not in (?)', round)
+		usedTimes.uniq!{|u|u.start.to_date}
+		usedTimes.sort_by!{|u|u}.reverse!
+		added = 0
+		
+		time = time.to_date
+		until(usedTimes.select{|u|u.start.to_date == time}).empty?
+			time += 1.day
+			added += 1
+		end 
+		return added.days
 	end
 	
 	def getUsedTimes(tour)
@@ -310,14 +325,15 @@ module HurdleSchedule
 			#Check if the current rounds times are all filled in.
 			#Error a round with a nil hurdle time is found.
 			events.each do |event|
-				event.hurdle_match.hurdle_times.each do |time|
-					if time.time == nil
+				event.hurdle_match.hurdle_times.each do |t|
+					if t.time == nil
 						raise "Event has nil time. All times just be filled before the players in the next round can be decided."
 					end
 				end
 			end
 			
 			#Check if the next round has no heats filled in
+			
 			if tour.events.where(:round => round+1).first.hurdle_match.hurdle_times.empty?
 				return round
 			end
@@ -326,7 +342,7 @@ module HurdleSchedule
 		#Something really weird just happened.
 		raise "This error should not occur.\n Scheduling has failed at: \nfunction: getNextRound"
 	end
-	module_function :generate, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime
+	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime
 end
 	
 	
