@@ -17,20 +17,42 @@
     <%= f.hidden_field :status, :value => :pending %>
     <%= f.hidden_field :competition_id %>
   </div>
-  <div class="field">
-    <%= label :num, :adults_number %><br />
-    <%= f.number_field :adults, :value => 1 %> 
-    - Cost per ticket: <%= content_tag :span, number_to_currency(@ticket.competition.adult_price), :id => "adult_price" %>
-  </div>
-  <div class="field">
-    <%= label :num, :concess_number %><br />
-    <%= f.number_field :concessions, :value => 0 %>
-    - Cost per ticket: <%= content_tag :span, number_to_currency(@ticket.competition.concession_price), :id => "concession_price" %>
-  </div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td><strong>TYPE</strong></td>
+      <td><strong>PRICE</strong></td>
+      <td><strong>QUANTITY</strong></td>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td>Adult</td>
+      <td>
+        <%= content_tag :span, number_to_currency(@ticket.competition.adult_price), :id => "adult_price" %>
+      </td>
+      <td>
+        <%= f.select :adults, (0..10), :value => 1 %>
+      </td>
+    </tr>
+    <tr>
+      <td>Concession</td>
+      <td>
+        <%= content_tag :span, number_to_currency(@ticket.competition.concession_price), :id => "concession_price" %>
+      </td>
+      <td>
+        <%= f.select :concessions, (0..10), :value => 1 %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
   <div class="field total">
-    Total: <span id="total_price"></span>
+    <b>Total:</b> <span id="total_price"></span>
   </div>
   <div class="actions">
-    <%= f.submit :value => "Buy Ticket" %>
+    <%= f.submit :value => "Buy Ticket", :class => "btn-info btn-large" %>
   </div>
 <% end %>
