@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>User:</b>
-  <%= @team.user.name %>
-</p>
-
-<p>
-  <b>Teamname:</b>
+<h1>
   <%= @team.teamName %>
-</p>
+</h1>
 
 <p>
   <b>Badge:</b>
   <%= image_tag @team.badge.url(:thumb) %>
 </p>
+
+<p>
+  <%= link_to "Homepage", @team.website if @team.website %>
+</p>
+
+<% if current_user and current_user.privileged %>
+  <p>
+    Phone Number: <%= @team.phone_number %>
+  </p>
+<% end %>
 
 <p>
   <b>Players</b>
@@ -26,7 +28,6 @@
     <% end %>
   </ul>
 </p>
-
     
 <p>
   <b>Matches:</b>
@@ -39,13 +40,24 @@
 </p>
 
 <p>
+  <b>Manager:</b>
+  <%= @team.user.name %>
+</p>
+
+<% if current_user && current_user.privileged? %>
+  <p>
+    <b>Wattball ID:</b>
+    <%= @team.org_tag %>
+  </p>
+<% end %>
+
+<p>
   <% if @team.tournament %>
     Registered for
     <%= link_to @team.tournament.name, @team.tournament %>.
   <% else %>
     Not Registered for a Tournament (Can't happen).
   <% end %>
-
 </p>
 
 

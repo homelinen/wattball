@@ -2,29 +2,35 @@
 
 <p>
   <b>User:</b>
-  <%= @wattball_player.user %>
+  <%= @wattball_player.user.name %>
 </p>
 
 <p>
-  <b>Dob:</b>
-  <%= @wattball_player.dob %>
+  <b>Team:</b>
+  <%= link_to @wattball_player.team.teamName, @wattball_player.team %>
 </p>
 
 <p>
-  <b>Phone number:</b>
-  <%= @wattball_player.phone_number %>
+  <b>Goals:</b>
+  <%= recent_goals @wattball_player %>
 </p>
 
-<p>
-  <b>Contact:</b>
-  <%= @wattball_player.contact %>
-</p>
+<% if current_user && current_user.privileged? %>
+  <p>
+    <b>Dob:</b>
+    <%= @wattball_player.dob %>
+  </p>
 
-<p>
-  <b>Org tag:</b>
-  <%= @wattball_player.org_tag %>
-</p>
+  <p>
+    <b>Phone number:</b>
+    <%= @wattball_player.phone_number %>
+  </p>
 
+  <p>
+    <b>Contact:</b>
+    <%= @wattball_player.contact.name %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_wattball_player_path(@wattball_player) %> |
 <%= link_to 'Back', wattball_players_path %>

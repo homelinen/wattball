@@ -1,6 +1,6 @@
 class Official < ActiveRecord::Base
   belongs_to :user
-  has_many :event
+  has_many :events
 
   attr_accessible :phone, :user_attributes 
   

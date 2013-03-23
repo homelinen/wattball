@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312223802) do
+ActiveRecord::Schema.define(:version => 20130322143618) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -51,6 +51,26 @@ ActiveRecord::Schema.define(:version => 20130312223802) do
   end
 
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
+
+  create_table "carousels", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "banner_image_file_name"
+    t.string   "banner_image_content_type"
+    t.integer  "banner_image_file_size"
+    t.datetime "banner_image_updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "competitions", :force => true do |t|
+    t.string   "name"
+    t.integer  "ticket_limit"
+    t.decimal  "adult_price",      :precision => 4, :scale => 2, :default => 0.0
+    t.decimal  "concession_price", :precision => 4, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
+  end
 
   create_table "contacts", :force => true do |t|
     t.string   "name"
@@ -104,7 +124,7 @@ ActiveRecord::Schema.define(:version => 20130312223802) do
   create_table "hurdle_times", :force => true do |t|
     t.integer  "hurdle_player_id"
     t.integer  "hurdle_match_id"
-    t.time     "time"
+    t.integer  "time"
     t.integer  "lane"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
@@ -144,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20130312223802) do
     t.integer  "contact_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.text     "about"
   end
 
   add_index "sport_centers", ["contact_id"], :name => "index_sport_centers_on_contact_id"
@@ -173,27 +194,29 @@ ActiveRecord::Schema.define(:version => 20130312223802) do
     t.string   "badge_content_type"
     t.integer  "badge_file_size"
     t.datetime "badge_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "tournament_id"
+    t.string   "org_tag",            :default => ""
+    t.string   "phone_number",       :default => "000000"
+    t.string   "website"
   end
 
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"
   add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
 
   create_table "tickets", :force => true do |t|
-    t.datetime "start"
-    t.datetime "end"
+    t.date     "start"
     t.integer  "user_id"
-    t.integer  "tournament_id"
-    t.string   "dsc"
-    t.integer  "adults_number"
-    t.integer  "concess_number"
+    t.string   "status"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "competition_id"
+    t.integer  "adults"
+    t.integer  "concessions"
   end
 
-  add_index "tickets", ["tournament_id"], :name => "index_tickets_on_tournament_id"
+  add_index "tickets", ["competition_id"], :name => "index_tickets_on_competition_id"
   add_index "tickets", ["user_id"], :name => "index_tickets_on_user_id"
 
   create_table "tournaments", :force => true do |t|
@@ -202,12 +225,12 @@ ActiveRecord::Schema.define(:version => 20130312223802) do
     t.date     "endDate"
     t.integer  "sport_id"
     t.integer  "max_competitors"
-    t.decimal  "adult_ticket_price",      :precision => 2, :scale => 0
-    t.decimal  "concession_ticket_price", :precision => 2, :scale => 0
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "competition_id"
   end
 
+  add_index "tournaments", ["competition_id"], :name => "index_tournaments_on_competition_id"
   add_index "tournaments", ["sport_id"], :name => "index_tournaments_on_sport_id"
 
   create_table "users", :force => true do |t|
@@ -260,7 +283,6 @@ ActiveRecord::Schema.define(:version => 20130312223802) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.integer  "contact_id"
-    t.string   "org_tag"
     t.date     "dob"
     t.integer  "phone_number"
     t.datetime "created_at",   :null => false

@@ -1,12 +1,152 @@
 <!DOCTYPE html>
-<html>
 <head>
   <title>Wattball</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+        <%= link_to [image_tag("logo.png", :alt => ""), "Wattball"].join(" ").html_safe, root_path, :class => :brand %>
+					<div class="nav-collapse">
+					<ul class="nav">
+						<li<% 
+							if params[:controller] == "home" 
+								%> class="active"<% 
+							end 
+              %>><%= link_to "Home", root_path %></li>
+						<li<% 
+							if params[:controller] == "events"
+                                                        	%> class="active"<% 
+							end 
+								%>><%= link_to("Events", events_path) %></li>
+
+                <li><%= link_to "Results", results_teams_path %></a></li>
+						<li<%
+                                                if params[:controller] == "teams"
+                                                        %> class="active"<%
+                                                end
+                                                        %>><%= link_to("Teams", teams_path) %></li>
+    <li<%
+                                                if params[:controller] == "hurdle_matches"
+                                                        %> class="active"<%
+                                                end
+                                                        %>><%= link_to("Hurdles", hurdle_matches_path) %></li>
+						
+                                                        <li><%= link_to 'About us', about_path %></li>
+                                                        <li><%= link_to "Contact", sport_center_path %></li>            
+					</ul>
+					
+          <ul class="nav pull-right">
+							<% if user_signed_in? %>
+                <% if current_user.admin? or current_user.staff
+                  panel_name = "Admin" if current_user.admin?
+                  panel_name = "Staff" if current_user.staff 
+                %>
+                  <li><%= link_to panel_name, admin_panel_path %></li>
+                <% elsif current_user.official %>
+                  <li><%= link_to "Official", official_panel_path %></li>
+                <% else %>
+                  <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% end %>
+                <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
+              <% else %>
+
+                <li><%= link_to 'Register', new_user_registration_path %></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-black"></i>Login <b class="caret"></b></a>
+                  <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+
+                    <%= render 'users/sessions/form', :layout => true %>
+                  </div><!-- div dropdown  -->
+                </li>
+              <% end %>					
+          </ul>
+             		
+        </div>
+			</div>
+		</div>
+	</div>
+<!-- NavBar End -->
+		<!--Start Carousel-->
+			<!-- ScriptLocation: /tmpl/scripts/carousel.php -->
+				<div id="myCarousel" class="carousel slide">
+          <div class="carousel-inner">
+            <% carousel_images = Carousel.all.each do |carousel|
+              image = image_tag(carousel.banner_image.url(:large), :alt => carousel.title)
+              header = content_tag :h4, carousel.title %>
+
+              <% if Carousel.first == carousel %>
+                <div class="item active">
+              <% else %>
+                <div class="item">
+              <% end %>
+              <%= "#{image}".html_safe %>
+              <%= content_tag :div, "#{header}\
+              <p>#{carousel.description}</p>".html_safe, :class => "carousel-caption" %>
+              </div>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
+        </div>
+        <!--End Carousel-->
+
+	<div class="container">
+
+      <% if flash[:notice] %>
+        <p class="notice"><%= flash[:notice] %></p>
+      <% end %>
+  		<p><%= render_breadcrumbs %></p>
+		<hr/>
+		<%= yield %>
+
+	      <hr>
+<footer class="footer">
+      <div class="container">
+      <a href="#">Back to top</a>
+        <p>All rights reserved to Heriot-Watt Sports Centre for Exercise.</p>
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">RailsDrive 2012-13</a>
+        <ul class="footer-links">
+          <li><a href="contact.html">Contact Sports Centre</a></li>
+          <li class="muted">-</li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+        <a href="http://www2.macs.hw.ac.uk/~nt78/bootstrap/index.html">Designed by RailsDrive</p>
+     			 </div>
+    		</footer>
+
+	</div>	
+
+    <script>
+$('.carousel').carousel({
+  interval: 5000
+})
+</script>
+<script>
+$(function() {
+  // Setup drop down menu
+  $('.dropdown-toggle').dropdown();
+ 
+  // Fix input element click problem
+  $('.dropdown input, .dropdown label').click(function(e) {
+    e.stopPropagation();
+  });
+});
+</script>
+
+
+<!--
+Old HTML
 <div class="container-narrow">
 <div class="navbar nav-pills">
   <div class="navbar-inner main-menu">
@@ -35,7 +175,7 @@
       <li<% if params[:controller] == "wattball_player" %>
            class="active"
            <% end %>
-                ><%= link_to("Athletes", wattball_players_path) %></li>
+                ><%= link_to("Athletes", hurdle_players_path) %></li>
       <li><a href="/">Gallery</a></li>
       <% # This should be more dynamic
     %>
@@ -44,7 +184,6 @@
     </ul>
   </div>
 </div>
-
 <div class="container">
   <% if flash[:notice] %>
     <p class="notice"><%= flash[:notice] %></p>
@@ -52,20 +191,19 @@
   <% if flash[:alert] %>
     <p class="alert"><%= flash[:alert] %></p>
   <% end %>
-  <p><%= render_breadcrumbs %></p>
+  <p class="breadcrumbs"><%= render_breadcrumbs %></p>
 
 <%= yield %>
 
 </div>
 
 <hr>
-
-<!-- FOOTER -->
   <footer>
   	<% @controller_name %>
     <p class="pull-right"><a href="#">Back to top</a></p>
     <p>Copyright 2012 © RailsDrive. All rights reserved.</p>
   </footer>
-</div>      
+</div>
+-->      
 </body>
 </html>

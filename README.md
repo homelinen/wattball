@@ -12,14 +12,15 @@ These instructions are for Linux, not sure if any relevance to Windows
 2. cd into the newly created repo
 3. Run `bundle install` which will download and install all of the gemfiles
    necessary to run the app.
-4. Run `rake db:setup` to setup a blank development database in the `db/`
-   folder.
-5. (Optional) - run `rake dummy:base` to generate a base set of data to work
-   with.
+4. Run `rake db:setup` to setup the development server and populate with some seed data.
 6. Run `rails server` or `rails s` to run the application.
 7. Visit localhost:3000
 8. Login as `user@example.com` with password `changeme` to get access to
    everything.
+
+## Checking Permissions ##
+
+All the dummy users have the password `sekret` if you want to use those.
 
 ## Tests ##
 

@@ -52,4 +52,8 @@ class Event < ActiveRecord::Base
 
     ids
   end
+
+  def self.next_event
+    Event.where('start > ?', Date.today).first
+  end
 end

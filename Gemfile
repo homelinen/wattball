@@ -53,7 +53,8 @@ gem "cancan", '~> 1.6.9'
 # File uploads
 gem "paperclip", "~> 3.0"
 
-gem 'jquery-rails', '~> 2.0.1'
+gem 'jquery-rails', '~> 2.2.1'
+gem "jquery-ui-rails", "~> 4.0.2"
 
 gem "breadcrumbs_on_rails", "~> 2.3.0"
 

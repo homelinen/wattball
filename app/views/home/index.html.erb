@@ -1,17 +1,33 @@
+  <% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
   <div class="row-fluid home">
     <div class="span4 thumbnail">
       <h2>Results</h2>
       <% list = "" %>
       <% # Only find the results, not all %>
-      <% WattballMatch.details(5).each do |match|
+      <% matches = WattballMatch.most_recent(5)
+        if not matches.empty?
+          matches.each do |match|
 
-        scores = Score.match_score(match)
-        list += content_tag :li, "#{match.team1.teamName} #{scores[0]} -  #{scores[1]} #{match.team2.teamName}"
-
-      end %>
-      <%= content_tag :ul, list.html_safe %>
-      <hr />
-      <p><%= link_to("View all Results", events_path) %></p>
+            scores = match.result
+            if scores
+              list += "\n\t\t" + content_tag(:div, 
+                (content_tag(:div, "#{match.team1.teamName}", :class => 'span5')+"\n\t\t"+
+                content_tag(:div, "#{scores[0]} -  #{scores[1]}", :class => 'span2')+
+                content_tag(:div, "#{match.team2.teamName}", :class => 'span5 right' )
+                ), :class => "row-fluid"
+              )
+            end
+          end 
+        else
+          list = "No matches have been played, yet."
+        end %>
+      <%= list.html_safe %>
+      <div class="bottom">
+        <hr />
+        <p><%= link_to("View all Results", events_path) %></p>
+      </div>
     </div>
     <div class="span4 thumbnail">
       <h2>News Feed</h2>
@@ -21,16 +37,19 @@
         <%= content_tag :li, render(:template => 'blogs/show') %>
       <% end %>
     </ul>
-    <%= link_to "More", blogs_path %>
-   </div>
+    <div class="bottom">
+        <hr />
+
+        <%= link_to "More", blogs_path %>
+    </div>
+    </div>
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
       <div class="home-events">
 	      <h3>Next 5 Wattball Matches:</h3>
         <ul>
           <% # Change the period, to 2.weeks with a limit? %>
-          <% # FIXME: Get rid of this join %>
-          <% WattballMatch.details(5).each do |match| %>
+          <% WattballMatch.most_recent(5).each do |match| %>
             <%= content_tag :li, "#{wattball_match_name(match)}"%>
           <% end %>
         </ul>

@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource
 
   add_breadcrumb "teams", :teams_path
-  add_breadcrumb "user", :team_path, :only => %w(show edit)
+  add_breadcrumb "team", :team_path, :only => %w(show edit)
 
   # GET /teams
   # GET /teams.json
@@ -13,6 +13,15 @@ class TeamsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @teams }
+    end
+  end
+
+  def results
+    @teams = Team.rank
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @teams}
     end
   end
 

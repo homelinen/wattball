@@ -6,13 +6,17 @@
         end %>
   <% end %>
   <% t.column :event, :title => "Start" do |event| %>
-    <% event.start %>
+    <% [get_time_of_event(event.start), get_date_for_event(event.start)].join(" on ")  %>
   <% end %>
   <% t.column :event, :title => "Status" do |event| 
     event.status
   end %>
   <% t.column :event, :title => "Referee" do |event| %>
-    <% link_to event.official.user.name, official_path(event.official) %>
+    <% if event.official %>
+      <% link_to event.official.user.name, official_path(event.official) %>
+    <% else %>
+      Unassigned
+    <% end %>
   <% end %>
   <% t.column :event, :title => "Tournament" do |event| %>
     <% event.tournament.name %>
