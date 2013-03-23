@@ -27,7 +27,7 @@ Wattball::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'homelinen.org',
-    :user_name            => 'hw-sports',
+    :user_name            => 'hw-sports@homelinen.org',
     :password             => 'macsports',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
