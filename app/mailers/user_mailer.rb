@@ -1,9 +1,8 @@
 class UserMailer < ActionMailer::Base
-  default from: "hw@homelinen.org"
+  default from: "hw-sports@homelinen.org"
 
-  def confirm_ticket(user, url)
-    @user = user
-    @url = url
-    mail(:to => user.email, :suject => "Your Ticket Order")
+  def confirm_ticket(ticket)
+    @ticket = ticket
+    mail(:to => ticket.user.email, :subject => "Your Ticket Order")
   end
 end

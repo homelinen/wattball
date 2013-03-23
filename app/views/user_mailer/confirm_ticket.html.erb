@@ -4,13 +4,16 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Your Ticket Order, <%= @user.name %></h1>
+    <h1>Your Ticket Order, <%= @ticket.user.name %></h1>
     <p>
-      Thank you for ordering a ticket for [event].
+    Thank you for ordering a ticket for the day of <%= @ticket.start %>.
     </p>
     <p>
-    You can view your ticket here <%= @url %>. And your recent purchases here:
-    <%= tickets_path %>
+    You can view your ticket here <%= ticket_url(@ticket, :host => "wattball.homelinen.org") %>. And your recent purchases here:
+    <%= tickets_url(:host => "wattball.homelinen.org") %>
+    </p>
+    <p>
+    Please remember to print your ticket and bring it along!
     </p>
   </body>
 </html>
