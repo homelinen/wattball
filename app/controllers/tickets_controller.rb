@@ -60,6 +60,8 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
+
+        UserMailer.confirm_ticket(@ticket.user, ticket_path(@ticket))
         format.html { redirect_to @ticket, notice: 'Thank you for your purchase.' }
         format.json { render json: @ticket, status: :created, location: @ticket }
       else

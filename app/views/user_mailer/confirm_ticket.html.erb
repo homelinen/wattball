@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Your Ticket Order, <%= @user.name %></h1>
+    <p>
+      Thank you for ordering a ticket for [event].
+    </p>
+    <p>
+    You can view your ticket here <%= @url %>. And your recent purchases here:
+    <%= tickets_path %>
+    </p>
+  </body>
+</html>
