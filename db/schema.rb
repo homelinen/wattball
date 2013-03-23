@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20130322143618) do
     t.string   "status"
     t.integer  "official_id"
     t.integer  "tournament_id"
+    t.integer  "round"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "venue_id"
@@ -114,8 +115,10 @@ ActiveRecord::Schema.define(:version => 20130322143618) do
     t.string   "sex"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "tournament_id"
   end
 
+  add_index "hurdle_players", ["tournament_id"], :name => "index_hurdle_players_on_tournament_id"
   add_index "hurdle_players", ["user_id"], :name => "index_hurdle_players_on_user_id"
 
   create_table "hurdle_times", :force => true do |t|
