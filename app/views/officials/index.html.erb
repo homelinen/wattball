@@ -1,16 +1,18 @@
 <h1>Listing officials</h1>
 
-<table>
+<table class="table table-bordered">
   <tr>
+    <th>Email</th>
     <th>User</th>
     <th>Phone</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Destroy</th>
   </tr>
 
 <% @officials.each do |official| %>
   <tr>
+    <td><%= official.user.email %></td>
     <td><%= official.user.first_name + " " + official.user.last_name %></td>
     <td><%= official.phone %></td>
     <td><%= link_to 'Show', official %></td>
