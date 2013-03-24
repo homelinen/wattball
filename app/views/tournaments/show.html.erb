@@ -1,9 +1,8 @@
-<p>
-  <b>Name:</b>
-  <%= @tournament.name %>
-</p>
-
-<p>
+<div class="row">
+  <div class="span12">
+    <h1><%= @tournament.name %></h1>
+    <div class="well">
+      <p>
   <b>Startdate:</b>
   <%= @tournament.startDate %>
 </p>
@@ -24,16 +23,20 @@
 </p>
 
 <p>
-  <b>Events</b>
-  <ul>
+  <b>Events :</b>
+    <div class="offset1">
     <% Event.where(:tournament_id => @tournament.id).each do |event| %>
         <% match = WattballMatch.find(:first, :conditions => ["event_id = ?", event.id]) %>
         <% if !match.nil? %>
-          <%= content_tag :li, wattball_match_name(match)  %>
+          <%= content_tag :p, event_info(event).html_safe  %>
           <% # Add more type checks here, eg: :hurdle_match %>
         <% end %>
     <% end %>
-  </ul>
-
+   </div>
+</p>
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>
+    </div>
+  </div>
+</div>
+

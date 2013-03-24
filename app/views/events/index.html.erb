@@ -2,7 +2,7 @@
 <% if !@events.empty? %>
   <% calendar = calendar(:year => @events.first.start.year, :month => @events.first.start.month, :first_day_of_week => 1) do |d|
     events = Event.get_match_list(d).map do |e|
-      content_tag :li, link_to(e.name, e)
+      content_tag :p, link_to(e.name, e)
     end
 
     if events.length > 0

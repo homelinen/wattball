@@ -1,10 +1,10 @@
-<h1>Listing Hurdle Matches</h1>
+<h1>Hurdle Matches</h1>
 
 <%= table_for @hurdle_matches, :html => {
   :class => "table table-bordered"
 } do |t| -%>
   <% column :event, :title => "Details" do |event| %>
-    <% link_to("Heat #{event.number_of_event}", event) + " at #{get_time_of_event event.start} on #{get_date_for_event event.start.to_date}"%>
+    <% "Heat #{event.number_of_event} at #{get_time_of_event event.start} on #{get_date_for_event event.start.to_date}"%>
   <% end %>
   <% column :title => "Hurdle Times" do |match| %>
     <% link_to "Times", hurdle_match_hurdle_times_path(match) %>

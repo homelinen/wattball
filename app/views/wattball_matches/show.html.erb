@@ -1,30 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Tournament:</b>
-  <%= link_to @wattball_match.event.tournament.name, tournament_path(@wattball_match.event.tournament)%>
-</p>
-
-<p>
-  <b>Team1:</b>
-  <% team1 = @wattball_match.team1 %>
-  <div class="team-badge">
-    <%= image_tag team1.badge.url(:thumb) if team1.badge? %>
-    <%= link_to team1.teamName, team_path(team1) %>
-  </div>
-</p>
-
-<p>
-  <b>Team2:</b>
-  <% team2 = @wattball_match.team2 unless @wattball_match.team2.nil?%>
-  <div class="team-badge">
-    <%= image_tag team2.badge.url(:thumb) if team2.badge?%>
-    <%= link_to team2.teamName, team_path(team2) %>
-  </div>
-</p>
-
-<% if current_user and current_user.official %>
-  <h3>Score Controls</h3>
+<div class="row">
+  <div class="span12">
+    <h1>
+      <% team1 = @wattball_match.team1 %>
+      <% team2 = @wattball_match.team2 %>
+      <%= link_to team1.teamName, team_path(team1) %> vs <%= link_to team2.teamName, team_path(team2) %>
+    </h1>
+    <p>
+      <b>Tournament:</b>
+      <%= link_to @wattball_match.event.tournament.name, tournament_path(@wattball_match.event.tournament)%>
+    </p>
+    </hr>
+    <div class="well">
+      <% if current_user and current_user.official %>
+      <h3>Score Controls</h3>
   <%= link_to "Add Scores", new_wattball_match_score_path(@wattball_match.id), :class => :btn %>
   <%= link_to "Show Scores", wattball_match_scores_path(@wattball_match.id), :class => :btn %>
 
@@ -33,18 +23,20 @@
       official_opt_status = "Opt Out"
     elsif @wattball_match.event.official.nil?
       official_opt_status = "Opt In"
-    else 
+    else
       official_opt_status = nil
     end %>
 
     <% if official_opt_status %>
       <%= link_to official_opt_status, edit_wattball_match_path(@wattball_match), :class => :btn %>
     <% end %>
-  <br />
-<% end %>
+    <br />
+    <% end %>
+      <% # Render parent class %>
+      <% @event = @wattball_match.event %>
+      <%= render :template => 'events/show' %>
+      | <%= link_to 'Back', wattball_matches_path %>
 
-<% # Render parent class %>
-<% @event = @wattball_match.event %>
-<%= render :template => 'events/show' %>
-
-<%= link_to 'Back', wattball_matches_path %>
+    </div>
+  </div>
+</div>

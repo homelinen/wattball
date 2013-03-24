@@ -16,6 +16,14 @@
 .right{
 	text-align:right;
 }
+.navbar li.btn-group {
+	margin-top: 0px;
+}
+.navbar li.btn-group a{
+	background: none;
+	border: none;
+	margin: 0px;
+}
 .home .thumbnail{
         position: relative;
 }
@@ -41,4 +49,7 @@
 	position: relative;
 	left: -15px;
 
+}
+.container h1 a{
+	color: #555;
 }

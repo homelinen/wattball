@@ -1,13 +1,17 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span12">
+    <h1><%= @hurdle_match.name %></h1>
+    <div class="well">
+      <p>
+        <b>Hurdle times:</b>
+        <%= print_times(@hurdle_match) %>
+      </p>
+      <% # Render parent class %>
+      <% @event = @hurdle_match.event %>
+      <%= render :template => 'events/show' %>
+      | <%= link_to 'Back', hurdle_matches_path %>
+    </div>
+  </div>
+</div>
 
-<p>
-<b>Hurdle times:</b>
-<%= print_times(@hurdle_match) %>
-</p>
-
-<% # Render parent class 
-%>
-<% @event = @hurdle_match.event %>
-<%= render :template => 'events/show' %>
-
-<%= link_to 'Back', hurdle_matches_path %>

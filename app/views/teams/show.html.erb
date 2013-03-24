@@ -8,7 +8,7 @@
       <p>
         <%= link_to "Homepage", @team.website if @team.website %>
       </p>
-      <% if current_user and current_user.privileged %>
+      <% if current_user and current_user.privileged? %>
       <p>
         Phone Number: <%= @team.phone_number %>
       </p>
