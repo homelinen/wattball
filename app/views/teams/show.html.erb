@@ -11,7 +11,7 @@
   <%= link_to "Homepage", @team.website if @team.website %>
 </p>
 
-<% if current_user and current_user.privileged %>
+<% if current_user and current_user.privileged? %>
   <p>
     Phone Number: <%= @team.phone_number %>
   </p>
@@ -31,11 +31,10 @@
     
 <p>
   <b>Matches:</b>
-  <% list = "" %>
-  <% @team.wattball_matches.each do |match|
-    list += content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match)
-  end %>
-  <%= content_tag :ul, list.html_safe %>
+  <ul>
+    <% @team.wattball_matches.each do |match| %>
+      <%= content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match) %>
+    <% end %>
   </ul>
 </p>
 
@@ -55,11 +54,11 @@
   <% if @team.tournament %>
     Registered for
     <%= link_to @team.tournament.name, @team.tournament %>.
-  <% else %>
-    Not Registered for a Tournament (Can't happen).
   <% end %>
 </p>
 
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
+<% if current_user and (current_user.privileged? or current_user.team == @team) %>
+  <%= link_to 'Edit', edit_team_path(@team) %> |
+<% end %>
 <%= link_to 'Back', teams_path %>

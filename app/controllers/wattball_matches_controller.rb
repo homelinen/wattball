@@ -4,7 +4,7 @@ class WattballMatchesController < ApplicationController
   # GET /wattball_matches
   # GET /wattball_matches.json
   def index
-    @wattball_matches = WattballMatch.all
+    @wattball_matches = WattballMatch.order(:updated_at)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -18,5 +18,5 @@
     <% end %>
   <% end %>
   <% t.column :event, :title => "Tournament" do |event| %>
-    <% event.tournament.name %>
+    <% link_to event.tournament.name, event.tournament %>
   <% end %>
