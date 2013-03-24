@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315222542) do
+ActiveRecord::Schema.define(:version => 20130322143618) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(:version => 20130315222542) do
   end
 
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
+
+  create_table "carousels", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "banner_image_file_name"
+    t.string   "banner_image_content_type"
+    t.integer  "banner_image_file_size"
+    t.datetime "banner_image_updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "competitions", :force => true do |t|
     t.string   "name"
@@ -110,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20130315222542) do
   create_table "hurdle_times", :force => true do |t|
     t.integer  "hurdle_player_id"
     t.integer  "hurdle_match_id"
-    t.time     "time"
+    t.integer  "time"
     t.integer  "lane"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
@@ -180,10 +191,12 @@ ActiveRecord::Schema.define(:version => 20130315222542) do
     t.string   "badge_content_type"
     t.integer  "badge_file_size"
     t.datetime "badge_updated_at"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "tournament_id"
     t.string   "org_tag",            :default => ""
+    t.string   "phone_number",       :default => "000000"
+    t.string   "website"
   end
 
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"

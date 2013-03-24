@@ -24,14 +24,28 @@
 
 <p>
   <b>Previous time:</b>
-  <%= @hurdle_player.previous_time %>
+  <%=
+    if not @hurdle_player.hurdle_times.empty?
+      @hurdle_player.hurdle_times.order('created_at').first.nice_time +
+        " for " +
+        @hurdle_player.hurdle_times.order('created_at').first.hurdle_match.name
+    else
+      @hurdle_player.nice_time 
+    end %>
 </p>
 
 <p>
   <b>Sex:</b>
-  <%= @hurdle_player.sex %>
+  <%= print_sex @hurdle_player.sex %>
 </p>
 
+<h2>Match Times</h2>
+
+<% matches = @hurdle_player.hurdle_times.map do |times|
+  content_tag :li, link_to(times.hurdle_match.name, times.hurdle_match)
+end %>
+
+<%= content_tag :ul, matches.join(" ").html_safe %>
 
 <%= link_to 'Edit', edit_hurdle_player_path(@hurdle_player) %> |
 <%= link_to 'Back', hurdle_players_path %>

@@ -1,26 +1,58 @@
-  <% if flash[:alert] %>
+<% content_for :carousel do %>
+		<!--Start Carousel-->
+			<!-- ScriptLocation: /tmpl/scripts/carousel.php -->
+				<div id="myCarousel" class="carousel slide">
+          <div class="carousel-inner">
+            <% carousel_images = Carousel.all.each do |carousel|
+              image = image_tag(carousel.banner_image.url(:large), :alt => carousel.title)
+              header = content_tag :h4, carousel.title %>
+
+              <% if Carousel.first == carousel %>
+                <div class="item active">
+              <% else %>
+                <div class="item">
+              <% end %>
+              <%= "#{image}".html_safe %>
+              <%= content_tag :div, "#{header}\
+              <p>#{carousel.description}</p>".html_safe, :class => "carousel-caption" %>
+              </div>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
+        </div>
+        <!--End Carousel-->
+<% end %>
+
+<% if flash[:alert] %>
     <p class="alert"><%= flash[:alert] %></p>
   <% end %>
   <div class="row-fluid home">
     <div class="span4 thumbnail">
-      <h2>Results</h2>
+      <h2>Recent Results</h2>
       <% list = "" %>
       <% # Only find the results, not all %>
-      <% WattballMatch.details(5).each do |match|
+      <% matches = WattballMatch.most_recent(5).where(:events => {:status => 'played'})
+        if not matches.empty?
+          matches.each do |match|
 
-        scores = Score.match_score(match)
-	list += "\n\t\t" + content_tag(:div, 
-        	(content_tag(:div, "#{match.team1.teamName}", :class => 'span5')+"\n\t\t"+
-		content_tag(:div, "#{scores[0]} -  #{scores[1]}", :class => 'span2')+
-		content_tag(:div, "#{match.team2.teamName}", :class => 'span5 right' )
-		), :class => "row-fluid"
-		
-	)
-      end %>
+            scores = match.result
+            if scores
+              list += "\n\t\t" + content_tag(:div, 
+                (content_tag(:div, "#{match.team1.teamName}", :class => 'span5')+"\n\t\t"+
+                content_tag(:div, "#{scores[0]} -  #{scores[1]}", :class => 'span2')+
+                content_tag(:div, "#{match.team2.teamName}", :class => 'span5 right' )
+                ), :class => "row-fluid"
+              )
+            end
+          end 
+        else
+          list = "No matches have been played, yet."
+        end %>
       <%= list.html_safe %>
       <div class="bottom">
         <hr />
-        <p><%= link_to("View all Results", events_path) %></p>
+        <p><%= link_to("View all Results", wattball_matches_path) %></p>
       </div>
     </div>
     <div class="span4 thumbnail">
@@ -33,23 +65,27 @@
     </ul>
     <div class="bottom">
         <hr />
-
         <%= link_to "More", blogs_path %>
     </div>
     </div>
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
       <div class="home-events">
-	      <h3>Next 5 Wattball Matches:</h3>
         <ul>
           <% # Change the period, to 2.weeks with a limit? %>
-          <% # FIXME: Get rid of this join %>
-          <% WattballMatch.details(5).each do |match| %>
-            <%= content_tag :li, "#{wattball_match_name(match)}"%>
+          <% Event.upcoming.limit(6).each do |event| %>
+            <% info = event_info(event) 
+            if info %>
+              <li><%= info.html_safe %></li>
+              <% end %>
           <% end %>
         </ul>
 
-	  </div>
+        <div class="bottom">
+          <hr />
+          <p><%= link_to("View all Events", events_path) %></p>
+        </div>
+      </div>
     </div>
   </div>
 

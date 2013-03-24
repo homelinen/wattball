@@ -1,52 +1,43 @@
-<%= form_for(@wattball_player) do |f| %>
-  <% if @wattball_player.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@wattball_player.errors.count, "error") %> prohibited this wattball_player from being saved:</h2>
+<% if @wattball_player.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@wattball_player.errors.count, "error") %> prohibited this wattball_player from being saved:</h2>
 
-      <ul>
-      <% @wattball_player.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <% @wattball_player.build_user unless @wattball_player.user %>
-    <%= f.fields_for :user do |user_details_form| %>
-      <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form } %>
+    <ul>
+    <% @wattball_player.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
     <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :team %><br/ >
-
-    <% # Get this in a controller 
-    %>
-    <% teams = Team.all.map { |team| 
-      ["#{team.teamName}",
-      team.user.id]  
-    } %>
-    <%= f.select(:team_id, teams) %>
-  </div>
-  <div class="field">
-    <%= f.label :date_of_birth %><br />
-    <%= f.date_select :dob %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.number_field :phone_number %>
-  </div>
-
-  <div class="field">
-    <% @wattball_player.build_contact unless @wattball_player.contact %>
-
-    <h4><%= f.label :emergency_contact %></h4>
-    <%= f.fields_for :contact do |contact_form| %>
-      <%= render 'emergency_contact_form', :f => contact_form %>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+    </ul>
   </div>
 <% end %>
+
+<fieldset>
+
+  <% @wattball_player.build_user unless @wattball_player.user %>
+  <%= f.fields_for :user do |user_details_form| %>
+    <%= render :partial => 'users/registrations/user_info', :locals => { :f => user_details_form  } %>
+  <% end %>
+
+</fieldset>
+
+
+<div class="field">
+  <%= f.label :team %><br/ >
+
+  <% # Get this in a controller 
+  %>
+  <% teams = Team.all.map { |team| 
+    ["#{team.teamName}",
+    team.id]  
+  } %>
+  <%= f.select(:team_id, teams) %>
+</div>
+<div class="field">
+  <%= f.label :date_of_birth %><br />
+  <%= f.date_select :dob, :start_year => (Date.today.year - 100) %>
+</div>
+<div class="field">
+  <%= f.label :phone_number %><br />
+  <%= f.number_field :phone_number %>
+</div>
+
+

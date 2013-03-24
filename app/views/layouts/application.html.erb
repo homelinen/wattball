@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -23,32 +24,41 @@
 							if params[:controller] == "home" 
 								%> class="active"<% 
 							end 
-								%>><a href="/">Home</a></li>
+              %>><%= link_to "Home", root_path %></li>
 						<li<% 
 							if params[:controller] == "events"
                                                         	%> class="active"<% 
 							end 
-								%>><%= link_to("Calendar", events_path) %></li>
+								%>><%= link_to("Events", events_path) %></li>
 
-						<li><a href="/scores">Results</a></li>
+                <li><%= link_to "Results", results_teams_path %></a></li>
 						<li<%
                                                 if params[:controller] == "teams"
                                                         %> class="active"<%
                                                 end
                                                         %>><%= link_to("Teams", teams_path) %></li>
     <li<%
-                                                if params[:controller] == "hurdle_player"
+                                                if params[:controller] == "hurdle_matches"
                                                         %> class="active"<%
                                                 end
-                                                        %>><%= link_to("Hurdlers", hurdle_players_path) %></li>
+                                                        %>><%= link_to("Hurdles", hurdle_matches_path) %></li>
 						
                                                         <li><%= link_to 'About us', about_path %></li>
-						<li><a href="/contact">Contact</a></li>            
+                                                        <li><%= link_to "Contact", sport_center_path %></li>            
 					</ul>
 					
           <ul class="nav pull-right">
 							<% if user_signed_in? %>
-                <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% if current_user.admin? or current_user.staff
+                  panel_name = "Admin" if current_user.admin?
+                  panel_name = "Staff" if current_user.staff 
+                %>
+                  <li><%= link_to panel_name, admin_panel_path %></li>
+                <% elsif current_user.official %>
+                  <li><%= link_to "Official", official_panel_path %></li>
+                <% else %>
+                  <li><%= link_to current_user.name, edit_user_registration_path %></li>
+                <% end %>
                 <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
               <% else %>
 
@@ -67,38 +77,8 @@
 			</div>
 		</div>
 	</div>
-<!-- NavBar End -->
-		<!--Start Carousel-->
-			<!-- ScriptLocation: /tmpl/scripts/carousel.php -->
-				<div id="myCarousel" class="carousel slide">
-			<div class="carousel-inner">
-			  <div class="item active">
-				<%= image_tag("featured/22.jpg", :alt => "") %>
-				<div class="carousel-caption">
-				  <h4>First Thumbnail label</h4>
-				  <p>Some more description to edit ;P</p>
-				</div>
-			  </div>
-			  <div class="item">
-				<%= image_tag("featured/11.jpg", :alt => "") %>
-				<div class="carousel-caption">
-				  <h4>Wattball Hurdling</h4>
-				  <p>Description of the image you can edit</p>
-				</div>
-			  </div>
-			  <div class="item">
-				<%= image_tag("featured/33.jpg", :alt => "") %>
-				<div class="carousel-caption">
-				  <h4>Third Thumbnail label</h4>
-				  <p>Description of the image you can edit</p>
-				</div>
-			  </div>
-			</div>
-			<a class="left carousel-control" href="#myCarousel" data-slide="prev"><%= image_tag("arrow.png", :alt => "Arrow") %></a>
-			<a class="right carousel-control" href="#myCarousel" data-slide="next"><%= image_tag("arrow2.png", :alt => "Arrow") %></a>
-			</div>
-		<!--End Carousel-->
-		
+  <%= yield :carousel %>
+
 	<div class="container">
 
       <% if flash[:notice] %>

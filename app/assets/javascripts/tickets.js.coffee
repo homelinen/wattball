@@ -4,9 +4,17 @@
 
 totalPrice = ->
   adultCount = $('#ticket_adults').val()
-  adultPrice = $('#adult_price').text().substring(1)
-
   concessCount = $('#ticket_concessions').val()
+
+  if adultCount < 0
+    $('#ticket_adults').val(0)
+    adultCount = 0
+
+  if concessCount < 0
+    $('#ticket_concessions').val(0)
+    concessCount = 0
+
+  adultPrice = $('#adult_price').text().substring(1)
   concessPrice = $('#concession_price').text().substring(1)
 
   total = (adultCount * adultPrice) + (concessCount * concessPrice)

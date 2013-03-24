@@ -1,6 +1,7 @@
 Wattball::Application.routes.draw do
-  resources :competitions
+  resources :carousels
 
+  resources :competitions
 
   resources :blogs
 
@@ -15,12 +16,18 @@ Wattball::Application.routes.draw do
   match "about" => "sport_centers#show", :id => 1
   match "sport_centers" => "sport_centers#show", :id => 1
 
+  resources :hurdle_times
 
-  resources :hurdle_matches, :only => [:index, :show]
+  resources :hurdle_matches, :only => [:index, :show] do
+    # Can't create new times, they are generated with matches
+    resources :hurdle_times, :except => [:create, :new]
+  end
 
   resources :scores
 
-  resources :wattball_matches, :only => [:index, :show]
+  resources :wattball_matches, :only => [:index, :show, :edit, :update] do
+    resources :scores, :only => [:index, :new]
+  end
 
   match "contact" => "sport_centers#contact", :as => :sport_center, :via => "get"
 
@@ -33,7 +40,13 @@ Wattball::Application.routes.draw do
 
   resources :officials
 
-  resources :teams
+  resources :teams do
+
+    collection do
+      get 'results'
+    end
+  end
+
   resources :wattball_players
   resources :hurdle_players
 
@@ -41,6 +54,10 @@ Wattball::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get 'users', :to => 'home#index'
+
+  get 'admin_panel', :to => 'panels#admin'
+  get 'official_panel', :to => 'panels#official'
+  get 'user_panel', :to => 'panels#user'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

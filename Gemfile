@@ -31,6 +31,7 @@ end
 group :production do
       gem "mysql2", "~> 0.3.11"
       gem "thin", "~> 1.5.0"
+      gem "mail"
 end
 
 gem "rspec-rails", "~> 2.0", :group => [:test, :development]

@@ -8,6 +8,16 @@
 </p>
 
 <p>
+  <%= link_to "Homepage", @team.website if @team.website %>
+</p>
+
+<% if current_user and current_user.privileged %>
+  <p>
+    Phone Number: <%= @team.phone_number %>
+  </p>
+<% end %>
+
+<p>
   <b>Players</b>
   <ul class="playerList">
     <% # FIXME: Get this out of here %>

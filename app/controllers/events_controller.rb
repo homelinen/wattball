@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    date = params[:date] || Date.today
+    date = params[:date] || Event.next_event.start
     date = date.to_date
     date_start = Date.new(date.year,date.month,1)
     date_end = Date.civil(date.year,date.month,-1)

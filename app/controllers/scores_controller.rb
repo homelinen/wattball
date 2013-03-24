@@ -4,7 +4,12 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.all
+
+    if params[:wattball_match_id]
+      @scores = Score.order(:created_at).where(:wattball_match_id => params[:wattball_match_id])
+    else 
+      @scores = Score.order(:created_at).all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,6 +33,10 @@ class ScoresController < ApplicationController
   def new
     @score = Score.new
 
+    if params[:wattball_match_id]
+      @score.wattball_match_id = params[:wattball_match_id]
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @score }
@@ -46,6 +55,7 @@ class ScoresController < ApplicationController
 
     respond_to do |format|
       if @score.save
+        @score.update_event_status
         format.html { redirect_to @score, notice: 'Score was successfully created.' }
         format.json { render json: @score, status: :created, location: @score }
       else
@@ -62,6 +72,7 @@ class ScoresController < ApplicationController
 
     respond_to do |format|
       if @score.update_attributes(params[:score])
+
         format.html { redirect_to @score, notice: 'Score was successfully updated.' }
         format.json { head :no_content }
       else

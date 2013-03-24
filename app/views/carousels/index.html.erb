@@ -1,0 +1,22 @@
+<h1>Listing Carousel</h1>
+
+<%= table_for @carousels, :html => { 
+  :class => "table table-bordered table-striped" 
+} do -%>
+  <% column :title %>
+  <% column :description %>
+  <% column :banner_image do |banner| 
+    image_tag banner.url(:medium)
+  end %>
+  <% column :title => "Action" do |carousel|
+    link_to "Show", carousel
+  end %>
+  <% column :title => "Action" do |carousel|
+    link_to "Edit", edit_carousel_path(carousel)
+  end %>
+  <% column :title => "Action" do |carousel|
+    link_to "Destroy", carousel, method: :delete, data: { confirm: 'Are you sure?' }
+  end %>
+<% end %>
+
+<%= link_to 'New Carousel', new_carousel_path %>

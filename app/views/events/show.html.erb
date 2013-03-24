@@ -19,7 +19,11 @@
 
 <p>
   <b>Official:</b>
-  <%= link_to @event.official.user.name, @event.official %>
+  <% if @event.official %>
+    <%= link_to @event.official.user.name, @event.official %>
+  <% else %>
+    Unassigned
+  <% end %>
 </p>
 
 <p>

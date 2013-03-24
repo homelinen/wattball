@@ -42,7 +42,7 @@ FactoryGirl.define do
 
   factory :event do
     start { generate(:time) + 1.months.from_now + rand(12).days }
-    status 'Scheduled'
+    status 'scheduled'
 
     # This will create a new official for every event
     official
@@ -51,7 +51,7 @@ FactoryGirl.define do
   end
 
   factory :wattball_match do
-    event
+    association :event, factory: :event, status: 'played'
     team1 { Dummy.getRandom(Team) || FactoryGirl.build(:team) }
     team2 { Dummy.getRandom(Team) || FactoryGirl.build(:team) }
   end
@@ -98,7 +98,7 @@ FactoryGirl.define do
   end
 
   factory :score do
-    wattball_match { Dummy.getRandom(WattballMatch) || FactoryGirl.create(WattballMatch) 
+    wattball_match { Dummy.getRandom(WattballMatch) || FactoryGirl.create(:wattball_match) 
  }
     # Pick a random player from this events teams, this is maybe a model method
     wattball_player { WattballPlayer.all.sample }

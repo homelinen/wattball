@@ -1,0 +1,9 @@
+Your Ticket Order, <%= @ticket.user.name %>
+===============================================
+ 
+Thank you for ordering a ticket for [event].
+ 
+You can view your ticket here 
+<%= ticket_url(@ticket, :host => "wattball.homelinen.org") %>
+. And your recent purchases here:
+<%= tickets_url(:host => "wattball.homelinen.org") %>

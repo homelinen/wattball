@@ -1,0 +1,3 @@
+class WattballResultsController < ApplicationController
+
+end

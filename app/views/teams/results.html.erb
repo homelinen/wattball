@@ -1,0 +1,22 @@
+<h1>Results</h1>
+
+<hr>
+
+<%= table_for @teams, :html => { :class => "table table-bordered table-ranked" } do -%>
+  <% if current_user && current_user.privileged? %>
+    <% column :org_tag, :title => "Wattball ID"  %>
+  <% end %>
+  <% column :teamName %>
+  <% column :title => 'Total Points' do |team|
+    team.total_points
+  end %>
+  <% column :user, :title => "Manager Name" do |user| %>
+    <% user.name %>
+  <% end %>
+  <% column :badge do |badge| %>
+    <% image_tag badge.url(:thumb) %>
+  <% end %>
+  <% column :title => "Actions" do |team| %>
+    <% link_to "Show", team %>
+  <% end %>
+<% end %>
