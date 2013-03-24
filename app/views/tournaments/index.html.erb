@@ -1,5 +1,5 @@
 <h1>Listing tournaments</h1>
-
+<% is_admin = current_user.admin? %>
 <%= table_for @tournaments, :html => {
   :class => "table table-bordered"
 } do -%>
@@ -17,8 +17,10 @@
   <% column :title => "Actions" do |tournament| %>
     <% link_to "Show", tournament %>
   <% end %>
+  <% if is_admin %>
   <% column :title => "Actions" do |tournament| %>
     <% button_to "Schedule", { :action => "schedule", :id => tournament.id }, :confirm => "Are you sure?", :method => :schedule unless tournament == nil %>
+  <% end %>
   <% end %>
 <% end %>
 
