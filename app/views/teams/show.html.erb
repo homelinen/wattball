@@ -30,9 +30,18 @@
 </p>
     
 <p>
-  <b>Matches:</b>
+  <b>Played Matches:
   <ul>
-    <% @team.wattball_matches.each do |match| %>
+    <% @team.played_matches.each do |match| %>
+      <%= content_tag :li, link_to(wattball_match_result(match), match) %>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <b>Upcoming Matches:</b>
+  <ul>
+    <% @team.upcoming_matches.each do |match| %>
       <%= content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match) %>
     <% end %>
   </ul>

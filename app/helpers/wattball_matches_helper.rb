@@ -8,4 +8,17 @@ module WattballMatchesHelper
       on #{get_date_for_event wattball_match.event.start}
     )
   end
+
+  # Take a Wattball match and print:
+  # Team1 | 0 - 0 | Team 2
+  def wattball_match_result(match)
+    [
+      match.team1.teamName,
+      [
+        match.result.join(" - ")
+
+      ],
+      match.team2.teamName
+    ].join(" ")
+  end
 end
