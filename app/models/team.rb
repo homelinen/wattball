@@ -25,6 +25,7 @@ class Team < ActiveRecord::Base
     self.wattball_matches_as_team1 + self.wattball_matches_as_team2
   end
 
+  # Add up all the points a team has been awarded from matches
   def total_points
 
     points = 0
@@ -39,9 +40,23 @@ class Team < ActiveRecord::Base
     points
   end
 
+  # Calculate the total goal difference accrued by the team
+  def goal_difference
+    total_diff = 0
+
+    wattball_matches_as_team1.each do |match|
+      total_diff = match.goal_difference[0]
+    end
+
+    wattball_matches_as_team2.each do |match|
+      total_diff += match.goal_difference[1]
+    end
+       
+    total_diff
+  end
+
   # Make a list of teams and their result
   def self.rank
-    teams = Team.all.sort_by { |team| team.total_points }
-    teams.reverse.values_at 0..2
+    teams = Team.all.sort_by { |team| -team.total_points }
   end
 end
