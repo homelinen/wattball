@@ -1,22 +1,22 @@
 <h1>Listing tournaments</h1>
-
-<%= table_for @tournaments, :html => {
-  :class => "table table-bordered"
-} do -%>
-  <% column :name %>
-  <% column :startDate, :title => "Start" do |date| %>
-    <% date.strftime "%d/%m/%y" %>
-  <% end %>
-  <% column :endDate, :title => "End" do |date| %>
-    <% date.strftime "%d/%m/%y" %>
-  <% end %>
-  <% column :sport do |sport| %>
-    <% sport.name %>
-  <% end %>
-  <% column :max_competitors %>
-  <% column :title => "Actions" do |tournament| %>
-    <% link_to "Show", tournament %>
-  <% end %>
-<% end %>
-
+<div class="well">
+  <table class="table table-hover table-striped table-bordered table-clickable table-center">
+    <thead>
+      <tr class="info">
+        <th>Name</th>
+        <th>Sport</th>
+        <th>Dates</th>
+      </tr>
+    </thead>
+    <tbody>
+  <% @tournaments.each do |tournament| %>
+      <tr onclick="document.location = '<%= tournaments_path %>/<%= tournament.id %>';">
+        <td><%= tournament.name %></td>
+        <td><%= tournament.sport.name %></td>
+        <td>from <%= tournament.startDate.strftime "%d/%m" %> to <%= tournament.endDate.strftime "%d/%m/%Y" %></td>
+      </tr>
+  <% end %>   
+    </body>
+  </table>
+</div>
 <%= link_to 'New Tournament', new_tournament_path %>

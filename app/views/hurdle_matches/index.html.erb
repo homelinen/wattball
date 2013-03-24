@@ -1,18 +1,22 @@
-<h1>Hurdle Matches</h1>
-
-<%= table_for @hurdle_matches, :html => {
-  :class => "table table-bordered"
-} do |t| -%>
-  <% column :event, :title => "Details" do |event| %>
-    <% "Heat #{event.number_of_event} at #{get_time_of_event event.start} on #{get_date_for_event event.start.to_date}"%>
-  <% end %>
-  <% column :title => "Hurdle Times" do |match| %>
-    <% link_to "Times", hurdle_match_hurdle_times_path(match) %>
-  <% end %>
-  <% render :partial => 'events/table', :locals => { :t=> t } %>
-  <% column :title => "Actions" do |wattball_match| %>
-    <% link_to 'Show', wattball_match %>
-  <% end %>
-<% end %>
-
+<h1>Results fo Hurdle Matches</h1>
+<div class="well">
+  <table class="table table-hover table-striped table-bordered table-clickable table-center">
+    <thead>
+      <tr class="info">
+        <th>Name</th>
+        <th>Venue</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+  <% @hurdle_matches.each do |match| %>
+      <tr onclick="document.location = '<%= hurdle_matches_path %>/<%= match.id %>';">
+        <td><%= match.name %></td>
+	<td><%= match.event.venue.name %></td>
+        <td><%= get_date_for_event(match.event.start) %></td>
+      </tr>
+  <% end %>    
+    </body>
+  </table>
+</div>
 <%= link_to 'Back', events_path %>

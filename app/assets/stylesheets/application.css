@@ -16,6 +16,10 @@
 .right{
 	text-align:right;
 }
+table.table-center td,
+table.table-center th{
+	text-align: center;
+}
 .navbar li.btn-group {
 	margin-top: 0px;
 }
@@ -52,4 +56,7 @@
 }
 .container h1 a{
 	color: #555;
+}
+.table-clickable tbody tr{
+	cursor: pointer;
 }

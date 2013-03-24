@@ -1,26 +1,29 @@
-<h1>Wattball Matches</h1>
-
-<%= table_for @wattball_matches, :html => {
-  :class => "table table-bordered"
-} do |t| -%>
-  <% column :team1 do |team|
-    team.teamName 
-  end %>
-  <% column :title => 'Score' do |match|
-    if match.result
-      match.result.join(" - ")
-    else 
-      " - "
-    end
-  end %>
-  <% column :team2 do |team|
-    team.teamName 
-  end %>
-  <% render :partial => 'events/table', :locals => { :t=> t } %>
-  <% column :title => "Actions" do |wattball_match| %>
-    <% link_to 'Show', wattball_match %>
+<h1>Results for Wattball Matches</h1>
+<div class="well">
+  <table class="table table-hover table-striped table-bordered table-clickable table-center">
+    <thead>
+      <tr class="info">
+        <th>Team 1</th>
+        <th>Result</th>
+        <th>Team 2</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+  <% @wattball_matches.each do |match| %>
+     <tr onclick="document.location = '<%= wattball_matches_path %>/<%= match.id %>';">
+        <td><%= match.team1.teamName %></td>
+        <td><%=  if match.result
+                   match.result.join(" - ")
+                 else
+                   " - "
+                 end
+      %></td>
+        <td><%= match.team2.teamName %></td>
+        <td><%= get_date_for_event(match.event.start) %></td>
+     </tr>
   <% end %>
-<% end %>
-<br />
-
+    </body>
+  </table>
+</div>
 <%= link_to 'Back', events_path %>
