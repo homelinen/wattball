@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   # NOTE: Does event need to know this?
   has_many :hurdle_times, :through => :hurdle_match
 
-  attr_accessible :date, :end, :start, :status, :official_id, :tournament_id, :round
+  attr_accessible :date, :end, :start, :status, :official_id, :tournament_id, :round, :official
 
   validates_presence_of :start, :status, :tournament, :venue
 

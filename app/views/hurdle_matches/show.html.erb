@@ -10,5 +10,24 @@
 <% @event = @hurdle_match.event %>
 <%= render :template => 'events/show' %>
 
+<% if current_user and current_user.official %>
+  <h3>Score Controls</h3>
+  <%= link_to "Show Times", hurdle_match_hurdle_times_path(@hurdle_match.id), :class => :btn %>
+
+  <% # Set the message for the Edit Button
+    if @hurdle_match.event.official == current_user.official
+      official_opt_status = "Opt Out"
+    elsif @hurdle_match.event.official.nil?
+      official_opt_status = "Opt In"
+    else 
+      official_opt_status = nil
+    end %>
+
+    <% if official_opt_status %>
+      <%= link_to official_opt_status, edit_hurdle_match_path(@hurdle_match), :class => :btn %>
+    <% end %>
+  <br />
+<% end %>
+
 <%= link_to 'Hurdles', hurdle_matches_path %> |
 <%= link_to 'Calendar', events_path %>
