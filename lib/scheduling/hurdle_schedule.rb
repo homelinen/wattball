@@ -355,7 +355,7 @@ module HurdleSchedule
 		tickets = player.user.tickets
 		eStart = event.start.to_date
 		
-		issuedTickets = player.tickets.where(:status => "Free")
+		issuedTickets = player.user.tickets.where(:status => "Free")
 		issuedTickets.sort_by!{|u|u.start}
 		unless issuedTickets.empty?
 			issuedTickets.each do |x|
