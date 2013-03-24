@@ -13,7 +13,7 @@ module HurdleSchedule
 		
 		if round == 1
 			Rails.logger.debug("debug::" +"day2")
-			day2(tour)
+			day2(tour, 2)
 			return 0
 		else
 			#Rails.logger.debug("debug::" +"day %d", round)
@@ -28,7 +28,7 @@ module HurdleSchedule
 	'''	Get a list of all hurdlers without times and schedule them for races.
 		Lane allocation is random.
 		
-		Also creates entire tournaments events, which latter days scheules
+		Also creates entire tournaments events, which latter days schedules
 		 use.
 		
 		'''
@@ -50,7 +50,7 @@ module HurdleSchedule
 				end
 				players = players[0,x]
 			else
-			players = players[0,8]
+              players = players[0,8]
 		   end
 		end
 		rounds.append(8)
@@ -59,8 +59,8 @@ module HurdleSchedule
 		makeBlankEvents(tour, rounds)
 		
 		#If there are no players with no time, go straight to day2
-		if rounds[0] == 0
-			day2(tour)
+		if players_with_no_time.empty?
+			day2(tour, 1)
 			return nil
 		end
 		
@@ -76,7 +76,7 @@ module HurdleSchedule
 	
 	end
 	
-	def day2(tour)
+	def day2(tour, round)
 		#Everyone races
 		#Uneven number of athletes
 		#Random lanes
@@ -87,9 +87,9 @@ module HurdleSchedule
 	
 		#Split into n heats as evenly as possible.
 		heats = players.in_groups((players.size/8.0).ceil, false)
-		
+
 		for heat in heats
-			fillHeat(heat, 2, tour)
+			fillHeat(heat, round, tour)
 		end
 	end
 	
@@ -162,17 +162,21 @@ module HurdleSchedule
 			ht.hurdle_match_id = blankEvent.hurdle_match.id
 			ht.hurdle_player_id = player.id
 			ht.save
+			freeTicket(tour, player, blankEvent
+			)
 		end
 		
 		blankEvent.status = "scheduled"
 		blankEvent.save
 	end
 	
+	
 	def makeBlankEvents(tour, rounds)
 		#rounds index = round, rounds[x] = numbers of players in that round.
 		#Eg. rounds = [10, 32, 16, 8]
 		#First number may be lower as day 0 gets a time for players without one.
-	
+		rounds.shift if rounds.first == 0
+			
 		#Makes all needed blank events for the tournament.
 		#round number round?, associated to tour
 		#status => "pending"
@@ -193,7 +197,7 @@ module HurdleSchedule
 		
 		
 		rounds.each_with_index do |round, index|
-			(round / 8).times do
+			((rounds[index] / 8.0).ceil).times do
 				time = getNextTime(times, tour, gTs, index+1)
 				times.append(makeBlankHeat(tour, index+1, time))
 				times.sort_by!{|t|t.start}
@@ -204,6 +208,11 @@ module HurdleSchedule
 	
 	def makeBlankHeat(tour, round, time)
 		event = Event.new({:status => "pending", :tournament_id => tour.id, :round => round, :start => time})
+
+        if Venue.count < 1
+          print "Must create a venue before making a schedule"
+        end
+
 		ven = tour.sport.venues.first
 		event.venue_id = ven.id
 		event.save
@@ -342,6 +351,32 @@ module HurdleSchedule
 		#Something really weird just happened.
 		raise "This error should not occur.\n Scheduling has failed at: \nfunction: getNextRound"
 	end
+	
+	def freeTicket(tour, player, event)
+		tickets = player.user.tickets
+		eStart = event.start.to_date
+		
+		issuedTickets = player.user.tickets.where(:status => "Free")
+		issuedTickets.sort_by!{|u|u.start}
+		unless issuedTickets.empty?
+			issuedTickets.each do |x|
+				return nil if x.start == eStart
+			end
+		end
+		
+		2.times do
+			t = Ticket.new
+			t.start = eStart
+			t.user_id = player.user_id
+			t.status = "Free"
+			t.competition_id = tour.competition_id
+			t.adults = 1
+			t.concessions = 0
+			t.save
+		end
+		
+	end
+	
 	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime
 end
 	

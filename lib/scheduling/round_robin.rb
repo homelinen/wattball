@@ -77,13 +77,43 @@ module RoundRobin
 				match.save
 				
 				event.wattball_match = match
+				
+				
+				freeTicket(tour, match.team1.user, event)
+				freeTicket(tour, match.team2.user, event)
+				
 				#Event.create(:date => game.gt.strftime("%D"), :end => (game.gt + 90.minutes).strftime("%H:%M"), :start => game.gt.strftime("%H:%M"), :tournament_id => tour.id)
 				
 			end
 		end
+
 	end
 	
-	module_function :generate
+	def freeTicket(tour, player, event)
+		eStart = event.start.to_date
+		
+		issuedTickets = player.tickets.where(:status => "Free")
+		issuedTickets.sort_by!{|u|u.start}
+		unless issuedTickets.empty?
+			issuedTickets.each do |x|
+				return nil if x.start == eStart
+			end
+		end
+		
+		25.times do
+			t = Ticket.new
+			t.start = eStart
+			t.user_id = player.id
+			t.status = "Free"
+			t.competition_id = tour.competition_id
+			t.adults = 1
+			t.concessions = 0
+			t.save
+		end
+		
+	end
+	
+	module_function :generate, :freeTicket
 
 end
 

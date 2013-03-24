@@ -2,7 +2,7 @@ class HurdleTime < ActiveRecord::Base
   belongs_to :hurdle_player
   belongs_to :hurdle_match
 
-  attr_accessible :time
+  attr_accessible :time, :lane
   attr_accessible :hurdle_player_id, :hurdle_match_id
 
   # Get the result of this time
