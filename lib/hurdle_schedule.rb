@@ -50,7 +50,7 @@ module HurdleSchedule
 				end
 				players = players[0,x]
 			else
-			players = players[0,8]
+              players = players[0,8]
 		   end
 		end
 		rounds.append(8)
@@ -88,8 +88,9 @@ module HurdleSchedule
 		#Split into n heats as evenly as possible.
 		heats = players.in_groups((players.size/8.0).ceil, false)
 		
+        round = getNextRound(tour)+1
 		for heat in heats
-			fillHeat(heat, 2, tour)
+			fillHeat(heat, round, tour)
 		end
 	end
 	
@@ -204,6 +205,11 @@ module HurdleSchedule
 	
 	def makeBlankHeat(tour, round, time)
 		event = Event.new({:status => "pending", :tournament_id => tour.id, :round => round, :start => time})
+
+        if Venue.count < 1
+          raise "Must create a venue before making a schedule"
+        end
+
 		ven = tour.sport.venues.first
 		event.venue_id = ven.id
 		event.save

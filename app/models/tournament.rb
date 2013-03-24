@@ -4,6 +4,7 @@ class Tournament < ActiveRecord::Base
 
   has_many :events
   has_many :teams
+  has_many :hurdle_players
 
   attr_accessible :endDate, :max_competitors, :name, :startDate, :sport_id, :competition_id
 

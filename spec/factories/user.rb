@@ -85,5 +85,6 @@ FactoryGirl.define do
     phone_number { Faker::PhoneNumber.phone_number }
     previous_time { Time.at(1.minute + rand(60).seconds) }
     sex { %w( m f ).sample }
+    tournament { Tournament.last || FactoryGirl.create(:tournament) }
   end
 end
