@@ -45,7 +45,7 @@ class HurdleTimesController < ApplicationController
 
     respond_to do |format|
       if @hurdle_time.update_attributes(params[:hurdle_time])
-        format.html { redirect_to @hurdle_time, notice: 'Hurdle time was successfully updated.' }
+        format.html { redirect_to hurdle_match_hurdle_times_path(@hurdle_time.hurdle_match), notice: 'Hurdle time was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
