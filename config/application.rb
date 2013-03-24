@@ -61,7 +61,8 @@ module Wattball
 
     # Autoload files in lib
     config.autoload_paths += %W(#{config.root}/lib/helpers)
-
+    config.autoload_paths += %W(#{config.root}/lib/scheduling)
+    
     config.generators do |g|
       g.assets false
       g.helper false

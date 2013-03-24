@@ -1,5 +1,9 @@
 class TournamentsController < ApplicationController
+  include RoundRobin
+  include HurdleSchedule
+
   load_and_authorize_resource
+
 
   # GET /tournaments
   # GET /tournaments.json
@@ -82,4 +86,25 @@ class TournamentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def schedule
+	@tournament = Tournament.find(params[:id])
+	if @tournament.sport != nil
+		case @tournament.sport.name.strip.downcase
+		when "wattball"
+			RoundRobin.generate(@tournament)
+			@tournaments = Tournament.all
+			render action: "index"
+		when "hurdling"
+			HurdleSchedule.generate(@tournament)
+			@tournaments = Tournament.all
+			render action: "index"
+		else
+			@tournaments = Tournament.all
+			render action: "index"
+			#Tournament scheduler not found, make sure sport is either Wattball or Hurdling
+		end
+	end
+  end
+  
 end

@@ -35,6 +35,7 @@ Wattball::Application.routes.draw do
   match 'calendar/(:date)' => 'events#index', :as => :events
 
   resources :tournaments
+  match 'tournaments/schedule/:id' => 'tournaments#schedule'
 
   resources :sports
 
