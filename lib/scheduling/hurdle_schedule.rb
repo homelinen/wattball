@@ -170,6 +170,7 @@ module HurdleSchedule
 		blankEvent.save
 	end
 	
+	
 	def makeBlankEvents(tour, rounds)
 		#rounds index = round, rounds[x] = numbers of players in that round.
 		#Eg. rounds = [10, 32, 16, 8]
@@ -196,7 +197,7 @@ module HurdleSchedule
 		
 		
 		rounds.each_with_index do |round, index|
-			(rounds[index] / 8).times do
+			((rounds[index] / 8.0).ceil).times do
 				time = getNextTime(times, tour, gTs, index+1)
 				times.append(makeBlankHeat(tour, index+1, time))
 				times.sort_by!{|t|t.start}
