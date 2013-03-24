@@ -14,26 +14,28 @@ User.create({first_name: 'admin', password: 'changeme', email: 'user@example.com
 
 FactoryGirl.create :sport_center
 
+FactoryGirl.create :sport, :name => "wattball", :length => 90
+FactoryGirl.create :sport, :name => "hurdling", :length => 20
+
 # Create the tournaments
+# REMOVEME: For final
 FactoryGirl.create(:tournament, :name => "Wattball Tournament")
 
 # Create 4 teams of 11 players
+# REMOVEME: For final
 (1..4).each do |i|
     team = FactoryGirl.create(:team)
     FactoryGirl.create_list(:wattball_player, 11, team: team)
 end
 
+# REMOVEME: For final
 FactoryGirl.create_list(:wattball_match, 4)
-
 FactoryGirl.create_list(:score, 8)
 
 # Hurdle seed, 8 players, 2 rounds and 8 times
+# REMOVEME: For final
 FactoryGirl.create(:tournament, :name => "Hurdle Tournament", 
-                   :sport => FactoryGirl.create(
-                     :sport, 
-                     :name => "hurdles"
-                    )
-                  )
+                   :sport => Sport.last)
 
 
 FactoryGirl.create_list(:hurdle_player, 8)
