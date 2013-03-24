@@ -30,3 +30,15 @@
 	position:relative;
 	bottom: 12px;
 }
+.home .home-events .info{
+	font-size: 12px;
+	position: relative;
+	padding-left: 15px;
+}
+.home .home-events .info a{
+	color: #000;
+	font-size: 15px;
+	position: relative;
+	left: -15px;
+
+}

@@ -87,8 +87,6 @@
   		<p><%= render_breadcrumbs %></p>
 		<hr/>
 		<%= yield %>
-
-	      <hr>
 <footer class="footer">
       <div class="container">
       <a href="#">Back to top</a>
@@ -121,67 +119,5 @@ $(function() {
   });
 });
 </script>
-
-
-<!--
-Old HTML
-<div class="container-narrow">
-<div class="navbar nav-pills">
-  <div class="navbar-inner main-menu">
-    <a class="brand" href="/">Wattball</a>
-    <ul class="nav pull-right">
-      <% if user_signed_in? %>
-        <li><%= link_to current_user.name, edit_user_registration_path %></li>
-        <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
-      <% else %>
-        <li><%= link_to('Login', new_user_session_path) %></li>
-      <% end %>
-    </ul>
-    <ul class="nav">
-  	<li<% if params[:controller] == "home" %>
-	   class="active"
-	   <% end %>
-		><a href="/">Home</a></li>
-      <li<% if params[:controller] == "events" %>
-           class="active"
-           <% end %>
-                ><%= link_to("Calendar", events_path) %></li>
-      <li<% if params[:controller] == "teams" %>
-           class="active"
-           <% end %>
-                ><%= link_to("Teams", teams_path) %></li>
-      <li<% if params[:controller] == "wattball_player" %>
-           class="active"
-           <% end %>
-                ><%= link_to("Athletes", hurdle_players_path) %></li>
-      <li><a href="/">Gallery</a></li>
-      <% # This should be more dynamic
-    %>
-      <li><a href="/about">About us</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </div>
-</div>
-<div class="container">
-  <% if flash[:notice] %>
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
-  <% if flash[:alert] %>
-    <p class="alert"><%= flash[:alert] %></p>
-  <% end %>
-  <p class="breadcrumbs"><%= render_breadcrumbs %></p>
-
-<%= yield %>
-
-</div>
-
-<hr>
-  <footer>
-  	<% @controller_name %>
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>Copyright 2012 © RailsDrive. All rights reserved.</p>
-  </footer>
-</div>
--->      
 </body>
 </html>

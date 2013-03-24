@@ -1,4 +1,4 @@
-<% content_for :carousel do %>
+<% if(false) #content_for :carousel do %>
 		<!--Start Carousel-->
 			<!-- ScriptLocation: /tmpl/scripts/carousel.php -->
 				<div id="myCarousel" class="carousel slide">
@@ -65,21 +65,19 @@
     </ul>
     <div class="bottom">
         <hr />
-        <%= link_to "More", blogs_path %>
+        <p><%= link_to "More", blogs_path %></p>
     </div>
     </div>
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
       <div class="home-events">
-        <ul>
           <% # Change the period, to 2.weeks with a limit? %>
           <% Event.upcoming.limit(6).each do |event| %>
             <% info = event_info(event) 
             if info %>
-              <li><%= info.html_safe %></li>
+        <div class="info"><%= info.html_safe %></div>
               <% end %>
           <% end %>
-        </ul>
 
         <div class="bottom">
           <hr />
