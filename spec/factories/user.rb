@@ -80,7 +80,7 @@ FactoryGirl.define do
 
   factory :hurdle_player do
     user
-    dob { Dummy.fake_time_from((18..24).to_a.sample.year.ago) }
+    dob { Dummy.fake_time_from((19..24).to_a.sample.year.ago) }
     nationality 'British'
     phone_number { Faker::PhoneNumber.phone_number }
     previous_time { Time.at(1.minute + rand(60).seconds) }
