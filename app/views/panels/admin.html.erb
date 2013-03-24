@@ -2,11 +2,15 @@
 
 <h1>Admin Panel</h1>
 
-<h2>Users</h2>
+<div class="row well">
+  <div class="span12">
+    <div class="row">
+      <div class="span5 right">
+        <h2 class="cat-admin">Users</h2>
 
-<ul class="admin-panel panel">
+         <ul class="admin-panel panel">
 
-  <li><%= link_to "Edit Self", edit_user_registration_path, :class => 'btn' %></li>
+  <li><%= link_to "Edit Self", edit_user_registration_path, :class => 'btn btn-info img-rounded' %></li>
   <% if is_admin %>
     <li>
     <%= link_to "Staff", staffs_path, :class => 'btn btn-info' %> 
@@ -25,8 +29,12 @@
     <%= link_to "Tickets Sold", tickets_path, :class => 'btn btn-info' %>
   </li>
 </ul>
+  
+    </div>
+     <div class="span5 offset1">
 
-<h2>
+
+<h2 class="cat-admin">
   Sport Center and Tournaments
 </h2>
 
@@ -52,17 +60,21 @@
     <%= link_to "Sports", sports_path, :class => 'btn btn-info' %>
   </li>
 </ul>
-
+      </div>
+    </div>
+    <div class="row">
+      <div class="span5 right">
 <% if is_admin %>
-  <h2>
+  <h2 class="cat-admin">
     Scheduling
   </h2>
 
   <p>Coming Soon</p>
 <% end %>
+      </div>
+      <div class="span5 offset1">
 
-
-<h2>
+<h2 class="cat-admin">
   Blogs
 </h2>
 
@@ -74,3 +86,7 @@
   <%= link_to "New Post", new_blog_path, :class => 'btn btn-info' %>
   </li>
 </ul>
+      </div>
+    </div>
+  </div>
+</div>
