@@ -162,6 +162,8 @@ module HurdleSchedule
 			ht.hurdle_match_id = blankEvent.hurdle_match.id
 			ht.hurdle_player_id = player.id
 			ht.save
+			freeTicket(tour, player, blankEvent
+			)
 		end
 		
 		blankEvent.status = "scheduled"
@@ -348,6 +350,32 @@ module HurdleSchedule
 		#Something really weird just happened.
 		raise "This error should not occur.\n Scheduling has failed at: \nfunction: getNextRound"
 	end
+	
+	def freeTicket(tour, player, event)
+		tickets = player.user.tickets
+		eStart = event.start.to_date
+		
+		issuedTickets = player.tickets.where(:status => "Free")
+		issuedTickets.sort_by!{|u|u.start}
+		unless issuedTickets.empty?
+			issuedTickets.each do |x|
+				return nil if x.start == eStart
+			end
+		end
+		
+		2.times do
+			t = Ticket.new
+			t.start = eStart
+			t.user_id = player.user_id
+			t.status = "Free"
+			t.competition_id = tour.competition_id
+			t.adults = 1
+			t.concessions = 0
+			t.save
+		end
+		
+	end
+	
 	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime
 end
 	
