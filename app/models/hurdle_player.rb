@@ -5,11 +5,12 @@ class HurdlePlayer < ActiveRecord::Base
 
   # organistationTag means an ID, avoiding naming errors here
   attr_accessible :dob, :nationality, :phone_number, :previous_time, :team_id, :user, :user_attributes, :sex
+  # :tournament_id attribute added through migration.
 
-  validates_inclusion_of :sex, :in => %w( m f )
+  #validates_inclusion_of :sex, :in => %w( m f )
 
-  validates_associated :user
-  validates_presence_of :user, :dob, :nationality, :phone_number
+  #validates_associated :user
+  #validates_presence_of :user, :dob, :nationality, :phone_number
 
   validate :valid_dob
 
