@@ -9,7 +9,7 @@ class HurdleMatchesController < ApplicationController
   def index
 
     # Horrible sort by date
-    @hurdle_matches = HurdleMatch.joins(:event).order(:start).all
+    @hurdle_matches = HurdleMatch.joins(:event).order("start DESC").all
 
     respond_to do |format|
       format.html # index.html.erb

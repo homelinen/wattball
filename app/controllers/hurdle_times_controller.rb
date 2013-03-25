@@ -1,9 +1,11 @@
 class HurdleTimesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /hurdle_times
   # GET /hurdle_times.json
   def index
 
-    @hurdle_times = HurdleTime.order('hurdle_match_id, lane')
+    @hurdle_times = HurdleTime.order('time, hurdle_match_id, lane')
 
     if params[:hurdle_match_id]
       @hurdle_times = @hurdle_times.where(:hurdle_match_id => params[:hurdle_match_id])
