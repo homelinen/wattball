@@ -93,8 +93,8 @@ class TournamentsController < ApplicationController
       case @tournament.sport.name.strip.downcase
       when "wattball"
         RoundRobin.generate(@tournament)
-        rediredct_to 'show'
-      when "hurdling"
+        render action: "index"
+      when "hurdles"
         HurdleSchedule.generate(@tournament)
         @tournaments = Tournament.all
         render action: "index"
