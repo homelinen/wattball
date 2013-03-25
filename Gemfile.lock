@@ -172,6 +172,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rrschedule (0.3.3)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -266,6 +267,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  rrschedule
   rspec-rails (~> 2.0)
   rvm-capistrano
   sass-rails (~> 3.2.3)
