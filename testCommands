@@ -1,0 +1,133 @@
+def next(events, tour)
+max = tour.events.maximum(:round)
+currentRound = nil
+max.times do |round|
+round+=1
+events = tour.events.where(:round => round)
+events.each do |event|
+event.hurdle_match.hurdle_times.each do |time|
+if time.time == nil
+print time.id, " has no time" 
+end
+end
+end
+if tour.events.where(:round => round+1).first.hurdle_match.hurdle_times.empty?
+return round
+end
+end
+end
+
+def check(events)
+x = 1
+events.each do |e|
+e.hurdle_match.hurdle_times.each do |t|
+print "nil time: ", time, "\n" if t.time == nil
+end
+end
+end
+
+def fill(events)
+x = Time.parse("00:01")
+events.each do |e|
+e.status = "finished"
+e.save
+e.hurdle_match.hurdle_times.each do |t|
+t.time = x
+x+=11.seconds
+t.save
+end
+end
+end
+
+def fillRound(tour, round)
+fill(tour.events.where(:round => round))
+end
+
+Event.destroy_all
+HurdleMatch.destroy_all
+WattballMatch.destroy_all
+Team.destroy_all
+HurdlePlayer.destroy_all
+c = Competition.new
+c.name = "Test"
+c.ticket_limit = 20000
+c.adult_price = 4
+c.concession_price = 2
+c.save
+
+tour = Tournament.new({:max_competitors => 10, :name => "TestTour", :sport_id => 2})
+tour.competition_id = Competition.last.id
+tour.startDate = Date.parse("25/3/2013")
+tour.endDate = tour.startDate+1.year
+tour.save
+FactoryGirl.create_list(:hurdle_player, 10, :tournament_id => Tournament.last.id, :previous_time => 1)
+include HurdleSchedule
+
+s = tour.sport
+s.length = 20
+s.save
+v = Venue.new
+v.sport_id = tour.sport.id
+v.name = "TestVenue"
+v.sport_center_id = SportCenter.first.id
+v.capacity = 2000
+v.save
+
+HurdleSchedule.generate(Tournament.last)
+fillRound(tour, 1)
+HurdleSchedule.generate(Tournament.last)
+fillRound(tour, 2)
+HurdleSchedule.generate(Tournament.last)
+fillRound(tour, 3)
+HurdleSchedule.generate(Tournament.last)
+fillRound(tour, 4)
+HurdleSchedule.generate(Tournament.last)
+fillRound(tour, 5)
+
+HurdleSchedule.getNextRound(tour)
+
+tour.events.each do |e|
+print "#",e.start, " ", e.round, " ", e.status ,"\n"
+end
+
+tour.events.where(:status => "finished").each do |e|
+print e.start, " ", e.round, " ", e.status ,"\n"
+end
+
+def printR(round, tour)
+tour.events.where(:round => round).each do |event|
+event.hurdle_match.hurdle_times.each do |ht|
+print ht.lane, ": ", ht.time.strftime("%m"), "!  "
+end
+print "\n"
+end
+end
+
+
+
+Event.destroy_all
+HurdleMatch.destroy_all
+WattballMatch.destroy_all
+Team.destroy_all
+
+competition_id = Competition.first.id
+
+tour = Tournament.new({:max_competitors => 8, :name => "TestTour", :sport_id => 1})
+tour.competition_id = Competition.first.id
+tour.startDate = Date.today
+tour.endDate = Date.today + 1.year
+tour.save
+
+s = tour.sport
+s.length = 20
+s.save
+v = Venue.new
+v.sport_id = tour.sport.id
+v.name = "TestVenue"
+v.sport_center_id = SportCenter.first.id
+v.capacity = 2000
+v.save
+
+FactoryGirl.create_list(:team, 8, :tournament_id => tour.id)
+include RoundRobin
+RoundRobin.generate(Tournament.last)
