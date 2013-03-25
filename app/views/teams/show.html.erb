@@ -51,16 +51,27 @@
 
         <div class="span4 offset1">
           <h2>
-            Matches :
+            Played Matches :
           </h2>
           <div class="well">
-            <table>
-       <% list = "" %>
-       <% @team.wattball_matches.each do |match|
-        list += content_tag :tr, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match)
-      end %>
-              <%= list.html_safe %>
-            </table>
+            <ul>
+              <% @team.played_matches.each do |match| %>
+                <%= content_tag :li, link_to(wattball_match_result(match), match) %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="span4 offset1">
+          <h2>
+            Upcoming Matches:
+          </h2>
+          <div class="well">
+            <ul>
+              <% @team.upcoming_matches.each do |match| %>
+                <%= content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match) %> 
+              <% end %>
+            </ul>
           </div>
         </div>
      </div>
