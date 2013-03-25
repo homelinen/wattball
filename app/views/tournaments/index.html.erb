@@ -1,5 +1,5 @@
 <h1>Listing tournaments</h1>
-<% is_admin = current_user.admin? %>
+<% is_admin = current_user and current_user.admin? %>
 <%= table_for @tournaments, :html => {
   :class => "table table-bordered"
 } do |tournament| -%>
