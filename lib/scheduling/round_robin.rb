@@ -18,7 +18,7 @@ module RoundRobin
 		start = tour.startDate
 		
 		#Get fields names
-		fields = Venue.joins(:sport).where("sports.name = 'Wattball'")
+		fields = tour.sport.venues
 		
 		schedule = RRSchedule::Schedule.new(
 			:teams => teams,
