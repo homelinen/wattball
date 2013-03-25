@@ -28,6 +28,18 @@
         <% end %>
     <% end %>
    </div>
+<p class="pagination-centered">
+    <%= if (@tournament.competitors == nil || @tournament.competitors < @tournament.max_competitors)
+         if @tournament.sport.nice_name == "wattball"
+           link_to("Register for Wattball", new_wattball_player_path, :class => 'btn btn-info btn-large')
+         elsif @tournament.sport.nice_name == "hurdles"
+           link_to "Register for Hurdling", new_hurdle_player_path, :class => 'btn btn-info btn-large'
+         else
+           @tournament.sport.nice_name
+         end
+       else
+         "Registration closed".html_safe
+       end %>
 </p>
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>
