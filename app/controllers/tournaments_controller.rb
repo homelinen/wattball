@@ -88,23 +88,22 @@ class TournamentsController < ApplicationController
   end
   
   def schedule
-	@tournament = Tournament.find(params[:id])
-	if @tournament.sport != nil
-		case @tournament.sport.name.strip.downcase
-		when "wattball"
-			RoundRobin.generate(@tournament)
-			@tournaments = Tournament.all
-			render action: "index"
-		when "hurdling"
-			HurdleSchedule.generate(@tournament)
-			@tournaments = Tournament.all
-			render action: "index"
-		else
-			@tournaments = Tournament.all
-			render action: "index"
-			#Tournament scheduler not found, make sure sport is either Wattball or Hurdling
-		end
-	end
+    @tournament = Tournament.find(params[:id])
+    if @tournament.sport != nil
+      case @tournament.sport.name.strip.downcase
+      when "wattball"
+        RoundRobin.generate(@tournament)
+        rediredct_to 'show'
+      when "hurdling"
+        HurdleSchedule.generate(@tournament)
+        @tournaments = Tournament.all
+        render action: "index"
+      else
+        @tournaments = Tournament.all
+        render action: "index", :notice => "No scheduler found."
+        #Tournament scheduler not found, make sure sport is either Wattball or Hurdling
+      end
+    end
   end
   
 end

@@ -6,6 +6,8 @@
         <th>Position</th>
         <th>Name</th>
         <th>Badge</th>
+        <th>Points</th>
+        <th>Goal Difference</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +17,8 @@
         <td><%= count += 1 %></td>
         <td><%= team.teamName %></td>
         <td><%= image_tag team.badge.url(:thumb) %></td>
+        <td><%= team.total_points %></td>
+        <td><%= team.goal_difference %></td>
       </tr>
   <% end %>
     </body>

@@ -29,6 +29,11 @@
     <% end %>
    </div>
 </p>
+
+<% if current_user and current_user.privileged? %>
+  <h3>Admin Controls</h3>
+  <%= button_to "Schedule", { :action => "schedule", :id => @tournament.id  }, :confirm => "Are you sure?", :method => :schedule, :class => :btn %>
+<% end %>
 <%= link_to 'Edit', edit_tournament_path(@tournament) %> |
 <%= link_to 'Back', tournaments_path %>
     </div>
