@@ -2,7 +2,21 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    date = params[:date] || Event.next_event.start
+
+    # Set the start date for the calendar
+    date = params[:date]
+    if date.nil?
+
+      # If no date specified, try the next active event 
+      event_date = Event.next_event
+      if event_date
+        date = event_date.start
+      else
+        # No events, just go to today
+        date = Date.today
+      end
+    end
+
     date = date.to_date
     date_start = Date.new(date.year,date.month,1)
     date_end = Date.civil(date.year,date.month,-1)
