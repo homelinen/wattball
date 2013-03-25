@@ -9,12 +9,12 @@
       </tr>
     </thead>
     <tbody>
-  <% count = 0 %
+  <% count = 0 %>
   <% @teams.each do |team| %>
       <tr onclick="document.location = '<%= teams_path %>/<%= team.id %>';">
+        <td><%= count += 1 %></td>
         <td><%= team.teamName %></td>
         <td><%= image_tag team.badge.url(:thumb) %></td>
-        <td>count += 1</td>
       </tr>
   <% end %>
     </body>
