@@ -12,11 +12,8 @@
     number_to_currency price
   end %>
   <% column :title => "Tickets Sold" do |competition|
-
-    if current_user.admin? %>
-      <b>Ticket Count</b> <%= Ticket.competion.id %>
-    <% end %>
-  <% end %>
+    Ticket.total_tickets(competition.id)
+  end %>
   <% column :title => "Action" do |competition|
     link_to "Show", competition
   end %>
