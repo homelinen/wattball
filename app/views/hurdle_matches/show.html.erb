@@ -8,7 +8,7 @@
         <%= print_times(@hurdle_match) %>
       </p>
 
-      <% if current_user and current_user.official %>
+      <% if current_user and (current_user.privileged? or current_user.official) %>
           <h3>Score Controls</h3>
           <%= link_to "Show Times", hurdle_match_hurdle_times_path(@hurdle_match.id), :class => :btn %>
          
