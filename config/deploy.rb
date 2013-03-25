@@ -17,7 +17,7 @@ set :deploy_via, :remote_cache
 
 server "dracula.homelinen.org", :app, :web, :db, :primary => true
 
-set :user => "homelinen"
+set :user, "homelinen"
 set :deploy_to, "/srv/ruby/#{application}"
 
 ssh_options[:forward_agent] = true
