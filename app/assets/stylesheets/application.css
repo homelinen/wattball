@@ -12,13 +12,19 @@
  *= require_tree .
  *= require 'calendar_styles/blue'
  */
-
+.a{
+	color: #444;
+}
 .right{
 	text-align:right;
 }
 table.table-center td,
 table.table-center th{
 	text-align: center;
+	vertical-align: middle;
+}
+table.table-non-bordered td{
+	border: none;
 }
 .navbar li.btn-group {
 	margin-top: 0px;

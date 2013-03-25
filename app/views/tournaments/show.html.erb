@@ -3,13 +3,8 @@
     <h1><%= @tournament.name %></h1>
     <div class="well">
       <p>
-  <b>Startdate:</b>
-  <%= @tournament.startDate %>
-</p>
-
-<p>
-  <b>Enddate:</b>
-  <%= @tournament.endDate %>
+  <b>Dates :</b>
+  from <%= @tournament.startDate.strftime "%d/%m" %> to <%= @tournament.endDate.strftime "%d/%m/%Y" %>
 </p>
 
 <p>

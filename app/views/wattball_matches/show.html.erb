@@ -2,17 +2,29 @@
 
 <div class="row">
   <div class="span12">
-    <h1>
       <% team1 = @wattball_match.team1 %>
       <% team2 = @wattball_match.team2 %>
-      <%= link_to team1.teamName, team_path(team1) %> vs <%= link_to team2.teamName, team_path(team2) %>
-    </h1>
-    <p>
-      <b>Tournament:</b>
-      <%= link_to @wattball_match.event.tournament.name, tournament_path(@wattball_match.event.tournament)%>
-    </p>
-    </hr>
     <div class="well">
+      <table class="table table-non-bordered table-center">
+        <tr>
+	  <td>
+            <h2><%= link_to team1.teamName, team_path(team1), 'class' => 'a' %></h2>
+            <br/>
+            <%= image_tag team1.badge.url(:thumb) %>
+          </td>
+          <td><h2><%=  if @wattball_match.result
+                   @wattball_match.result.join(" - ")
+                 else
+                   " - "
+                 end
+        %></h2></td>
+          <td>
+            <h2><%= link_to team2.teamName, team_path(team2), 'class' => 'a' %></h2>
+            <br/>
+            <%= image_tag team2.badge.url(:thumb) %>
+          </td>
+        </tr>
+      </table>
       <% if current_user and current_user.official %>
       <h3>Score Controls</h3>
   <%= link_to "Add Scores", new_wattball_match_score_path(@wattball_match.id), :class => :btn %>
@@ -32,6 +44,10 @@
     <% end %>
     <br />
     <% end %>
+      <p>
+        <b>Tournament:</b>
+        <%= link_to @wattball_match.event.tournament.name, tournament_path(@wattball_match.event.tournament)%>
+      </p>
       <% # Render parent class %>
       <% @event = @wattball_match.event %>
       <%= render :template => 'events/show' %>
