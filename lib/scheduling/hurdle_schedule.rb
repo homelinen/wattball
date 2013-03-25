@@ -377,7 +377,7 @@ module HurdleSchedule
 		
 	end
 	
-	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime
+	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime, :fillHeat, :getNextRound, :freeTicket
 end
 	
 	
