@@ -1,26 +1,23 @@
 <h1>WattBall Teams</h1>
-
-<hr>
-
-<% count = 0 %>
-<%= table_for @teams, :html => { :class => "table table-bordered table-striped" } do -%>
-  <% column :title => "Position" do |team|
-    count += 1
-  end %>
-  <% column :org_tag, :title => "Wattball ID" if current_user && current_user.privileged? %>
-  <% column :teamName %>
-  <% column :badge do |badge| %>
-    <% image_tag badge.url(:thumb) %>
+<div class="well">
+  <table class="table table-hover table-striped table-bordered table-clickable table-center">
+    <thead>
+      <tr class="info">
+        <th>Position</th>
+        <th>Name</th>
+        <th>Badge</th>
+      </tr>
+    </thead>
+    <tbody>
+  <% count = 0 %>
+  <% @teams.each do |team| %>
+      <tr onclick="document.location = '<%= teams_path %>/<%= team.id %>';">
+        <td><%= count += 1 %></td>
+        <td><%= team.teamName %></td>
+        <td><%= image_tag team.badge.url(:thumb) %></td>
+      </tr>
   <% end %>
-  <% column :title => "Points" do |team|
-    team.total_points
-  end %>
-  <% column :title => "Goal Difference" do |team|
-    team.goal_difference
-  end %>
-  <% column :title => "Actions" do |team| %>
-    <% link_to "Show", team %>
-  <% end %>
-<% end %>
-
+    </body>
+  </table>
+</div>
 <%= link_to 'New Team', new_team_path %>

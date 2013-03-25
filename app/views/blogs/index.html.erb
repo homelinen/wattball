@@ -1,27 +1,19 @@
-<h1>Listing blogs</h1>
-
-<table class="table table-bordered">
+<h1>News</h1>
+<div class="well">
+<table class="table table-hover table-striped table-bordered table-clickable table-center">
   <tr>
     <th>Title</th>
-    <th>Body</th>
     <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Date</th>
   </tr>
 
 <% @blogs.each do |blog| %>
-  <tr>
+  <tr onclick="document.location = '<%= blogs_path %>/<%= blog.id %>';">
     <td><%= blog.title %></td>
-    <td><%= blog.body %></td>
     <td><%= blog.user.name %></td>
-    <td><%= link_to 'Show', blog %></td>
-    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-    <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= blog.created_at.strftime "%d/%m/%y" %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
 <%= link_to 'New Blog', new_blog_path %>
+</div>
