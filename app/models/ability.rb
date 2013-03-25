@@ -24,8 +24,12 @@ class Ability
       can :create, Score
       can :panel, :official
 
+      can :update, HurdleTime
       # Can only edit events they own or are nil
       can :update, WattballMatch do |match|
+        match.event.official.nil? or match.event.official == user.official 
+      end
+      can :update, HurdleMatch do |match|
         match.event.official.nil? or match.event.official == user.official 
       end
     end

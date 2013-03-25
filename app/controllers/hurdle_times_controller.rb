@@ -1,9 +1,11 @@
 class HurdleTimesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /hurdle_times
   # GET /hurdle_times.json
   def index
 
-    @hurdle_times = HurdleTime.order('hurdle_match_id, lane')
+    @hurdle_times = HurdleTime.order('time, hurdle_match_id, lane')
 
     if params[:hurdle_match_id]
       @hurdle_times = @hurdle_times.where(:hurdle_match_id => params[:hurdle_match_id])
@@ -45,7 +47,7 @@ class HurdleTimesController < ApplicationController
 
     respond_to do |format|
       if @hurdle_time.update_attributes(params[:hurdle_time])
-        format.html { redirect_to @hurdle_time, notice: 'Hurdle time was successfully updated.' }
+        format.html { redirect_to hurdle_match_hurdle_times_path(@hurdle_time.hurdle_match), notice: 'Hurdle time was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -18,7 +18,7 @@ Wattball::Application.routes.draw do
 
   resources :hurdle_times
 
-  resources :hurdle_matches, :only => [:index, :show] do
+  resources :hurdle_matches, :only => [:index, :show, :edit, :update] do
     # Can't create new times, they are generated with matches
     resources :hurdle_times, :except => [:create, :new]
   end
@@ -35,6 +35,7 @@ Wattball::Application.routes.draw do
   match 'calendar/(:date)' => 'events#index', :as => :events
 
   resources :tournaments
+  match 'tournaments/schedule/:id' => 'tournaments#schedule'
 
   resources :sports
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322143618) do
+ActiveRecord::Schema.define(:version => 20130324174121) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20130322143618) do
     t.datetime "updated_at",    :null => false
     t.integer  "venue_id"
     t.datetime "start"
+    t.integer  "round"
   end
 
   add_index "events", ["official_id"], :name => "index_events_on_official_id"
@@ -114,8 +115,10 @@ ActiveRecord::Schema.define(:version => 20130322143618) do
     t.string   "sex"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "tournament_id"
   end
 
+  add_index "hurdle_players", ["tournament_id"], :name => "index_hurdle_players_on_tournament_id"
   add_index "hurdle_players", ["user_id"], :name => "index_hurdle_players_on_user_id"
 
   create_table "hurdle_times", :force => true do |t|

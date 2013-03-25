@@ -12,7 +12,7 @@ module HurdleMatchesHelper
 
     list = ""
 
-    match.hurdle_times.each do |times|
+    match.hurdle_times.order(:time).each do |times|
       content = times.hurdle_player.user.name + " - "
 
       time = times.time

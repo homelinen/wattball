@@ -2,15 +2,22 @@
 
 <hr>
 
+<% count = 0 %>
 <%= table_for @teams, :html => { :class => "table table-bordered table-striped" } do -%>
+  <% column :title => "Position" do |team|
+    count += 1
+  end %>
   <% column :org_tag, :title => "Wattball ID" if current_user && current_user.privileged? %>
-  <% column :user, :title => "Manager Name" do |user| %>
-    <% user.name %>
-  <% end %>
   <% column :teamName %>
   <% column :badge do |badge| %>
     <% image_tag badge.url(:thumb) %>
   <% end %>
+  <% column :title => "Points" do |team|
+    team.total_points
+  end %>
+  <% column :title => "Goal Difference" do |team|
+    team.goal_difference
+  end %>
   <% column :title => "Actions" do |team| %>
     <% link_to "Show", team %>
   <% end %>

@@ -81,21 +81,41 @@ class WattballMatch < ActiveRecord::Base
         raise "Invalid Team chosen"
       end
 
+      p first_team <=> sec_team
       # Compare the results
       outcome = first_team <=> sec_team
 
       if outcome > 0
         # Win
-        3
+        result = 3
       elsif outcome < 0
-        # Draw
-        0
-      else 
         # Loss
-        1
+        result = 0
+      else 
+        # Draw
+        result = 1
       end
     else
-      nil
+      result = nil
     end
+
+    result
+  end
+
+
+  # Calculate the difference between goals of the two teams
+  #
+  # Returns an array of differences, [team1, team2]
+  def goal_difference
+     diff = points(1) - points(2)
+
+     diff_1 = diff
+     diff_1 = 0 if diff_1 < 0
+
+     # The goal difference for second team is the inverse
+     diff_2 = -diff
+     diff_2 = 0 if diff_2 < 0
+
+     [diff_1, diff_2]
   end
 end

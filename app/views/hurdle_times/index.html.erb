@@ -20,7 +20,7 @@
   <% column :title => "Action" do |hurdle_time|
     link_to "Show", hurdle_match_hurdle_time_path(hurdle_time.hurdle_match, hurdle_time)
   end %>
-  <% if current_user and current_user.privileged? %>
+  <% if current_user and (current_user.official or current_user.privileged?) %>
     <% column :title => "Action" do |hurdle_time|
       link_to "Edit", edit_hurdle_match_hurdle_time_path(hurdle_time.hurdle_match, hurdle_time)
     end %>
