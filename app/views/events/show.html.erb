@@ -32,6 +32,16 @@
 </p>
 <br/>
 <p class="pagination-centered">
+  <%= if @event.status != 'played' && ( @event.tournament.competitors == nil || @event.tournament.competitors < @event.tournament.max_competitors)
+         if @event.tournament.sport.nice_name == "wattball"
+           link_to("Register for Wattball", new_wattball_player_path, :class => 'btn btn-info btn-large')
+         elsif @event.tournament.sport.nice_name == "hurdles"
+           link_to "Register for Hurdling", new_hurdle_player_path, :class => 'btn btn-info btn-large'
+         end
+       else
+         "Registration closed".html_safe
+       end %>
+  <span class="hspacer"/>
   <button class="btn btn-info btn-large" 
     onclick="window.location = '<%= buy_ticket_path :event => @event.id %>'">Buy a Ticket for this event</button></p>
 <%= link_to 'Edit', edit_event_path(@event) %>

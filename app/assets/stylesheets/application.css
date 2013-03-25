@@ -18,6 +18,9 @@
 .right{
 	text-align:right;
 }
+.hspacer{
+	margin-left: 30px;
+}
 table.table-center td,
 table.table-center th{
 	text-align: center;
