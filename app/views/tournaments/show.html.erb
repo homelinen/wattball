@@ -21,10 +21,11 @@
   <b>Events :</b>
     <div class="offset1">
     <% Event.where(:tournament_id => @tournament.id).each do |event| %>
-        <% match = WattballMatch.find(:first, :conditions => ["event_id = ?", event.id]) %>
+        <% match = event.wattball_match %>
+        <% match = event.hurdle_match unless match %>
+
         <% if !match.nil? %>
           <%= content_tag :p, event_info(event).html_safe  %>
-          <% # Add more type checks here, eg: :hurdle_match %>
         <% end %>
     <% end %>
    </div>
