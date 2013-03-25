@@ -54,10 +54,13 @@ class Ticket < ActiveRecord::Base
   # Check that the tickets bought don't go over the daily ticket limit
   def valid_not_sold_out
     
-    ticket_count = Ticket.where(:competition_id => competition_id).sum("adults") + Ticket.where(:competition_id => competition_id).sum("concessions")
-
+    ticket_count = Ticket.total_tickets competition_id
     if ticket_count + adults + concessions > competition.ticket_limit
       errors.add(:sold_out, "All tickets are sold out, sorry.")
     end
+  end
+
+  def self.total_tickets(competition_id)
+    Ticket.where(:competition_id => competition_id).sum("adults") + Ticket.where(:competition_id => competition_id).sum("concessions")
   end
 end
