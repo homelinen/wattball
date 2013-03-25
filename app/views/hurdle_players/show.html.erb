@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>User:</b>
-  <%= @hurdle_player.user.name %>
-</p>
+<div class="row">
+  <h1><%= @hurdle_player.user.name %></h1>
+  <div class="span12 well">
 
 <% if current_user && current_user.privileged? %>
   <p>
@@ -49,3 +48,5 @@ end %>
 
 <%= link_to 'Edit', edit_hurdle_player_path(@hurdle_player) %> |
 <%= link_to 'Back', hurdle_players_path %>
+  </div>
+</div>

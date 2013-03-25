@@ -1,35 +1,22 @@
-<h1>Listing tournaments</h1>
-<% is_admin = current_user and current_user.admin? %>
-<%= table_for @tournaments, :html => {
-  :class => "table table-bordered"
-} do |tournament| -%>
-  <% column :name %>
-  <% column :startDate, :title => "Start" do |date| %>
-    <% date.strftime "%d/%m/%y" %>
-  <% end %>
-  <% column :endDate, :title => "End" do |date| %>
-    <% date.strftime "%d/%m/%y" %>
-  <% end %>
-  <% column :max_competitors %>
-    <% column :title => "Sign Up!" do |tournament|
-      if tournament.competitors < tournament.max_competitors
-        if tournament.sport.nice_name == "wattball"
-          link_to "Register for Wattball", new_wattball_player_path, :class => :btn
-        elsif tournament.sport.nice_name == "hurdling"
-          link_to "Register for Hurdling", new_hurdle_player_path, :class => :btn
-        end
-      else
-        "CLOSED".html_safe
-      end 
-    end %>
-  <% column :title => "Actions" do |tournament| %>
-    <% link_to "Show", tournament %>
-  <% end %>
-  <% if is_admin %>
-  <% column :title => "Actions" do |tournament| %>
-    <% button_to "Schedule", { :action => "schedule", :id => tournament.id }, :confirm => "Are you sure?", :method => :schedule unless tournament == nil %>
-  <% end %>
-  <% end %>
-<% end %>
-
+<h1>Tournaments</h1>
+<div class="well">
+  <table class="table table-hover table-striped table-bordered table-clickable table-center">
+    <thead>
+      <tr class="info">
+        <th>Name</th>
+        <th>Sport</th>
+        <th>Dates</th>
+      </tr>
+    </thead>
+    <tbody>
+  <% @tournaments.each do |tournament| %>
+      <tr onclick="document.location = '<%= tournaments_path %>/<%= tournament.id %>';">
+        <td><%= tournament.name %></td>
+        <td><%= tournament.sport.name %></td>
+        <td>from <%= tournament.startDate.strftime "%d/%m" %> to <%= tournament.endDate.strftime "%d/%m/%Y" %></td>
+      </tr>
+  <% end %>   
+    </body>
+  </table>
+</div>
 <%= link_to 'New Tournament', new_tournament_path %>

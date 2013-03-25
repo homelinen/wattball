@@ -12,9 +12,27 @@
  *= require_tree .
  *= require 'calendar_styles/blue'
  */
-
+.a{
+	color: #444;
+}
 .right{
 	text-align:right;
+}
+table.table-center td,
+table.table-center th{
+	text-align: center;
+	vertical-align: middle;
+}
+table.table-non-bordered td{
+	border: none;
+}
+.navbar li.btn-group {
+	margin-top: 0px;
+}
+.navbar li.btn-group a{
+	background: none;
+	border: none;
+	margin: 0px;
 }
 .home .thumbnail{
         position: relative;
@@ -29,4 +47,33 @@
 .home .thumbnail .bottom p{
 	position:relative;
 	bottom: 12px;
+}
+.home .home-events .info{
+	font-size: 12px;
+	position: relative;
+	padding-left: 15px;
+}
+.home .home-events .info a{
+	color: #000;
+	font-size: 15px;
+	position: relative;
+	left: -15px;
+
+}
+.container h1 a{
+	color: #555;
+}
+.table-clickable tbody tr{
+	cursor: pointer;
+}
+p.blog-user{
+	font-size: 11px;
+}
+hr.small{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.thumbnail .thumbnail-content{
+	overflow-y: auto;
+	height: 289px;
 }

@@ -25,23 +25,35 @@
 								%> class="active"<% 
 							end 
               %>><%= link_to "Home", root_path %></li>
-						<li<% 
+						<li class="btn-group<% 
 							if params[:controller] == "events"
-                                                        	%> class="active"<% 
+                                                        	%> active<% 
 							end 
-								%>><%= link_to("Events", events_path) %></li>
-
-                <li><%= link_to "Results", results_teams_path %></a></li>
+								%>">
+                                                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Events
+                                                     <span class="caret"></span>
+                                                  </a>
+                                                  <ul class="dropdown-menu">
+                                                    <li><%= link_to("Calendar", events_path) %></li>
+                                                    <li><%= link_to("Tournemants", tournaments_path) %></li>
+                                                  </ul>
+                                                </li>
+                                                <li class="btn-group<% 
+                                                       if params[:controller] == "wattball_matches" or params[:controller] == "hurdle_matches"
+                                                                %> active<%
+                                                        end
+                                                                %>"><a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Result
+                                                     <span class="caret"></span></a>
+                                                  <ul class="dropdown-menu">
+                                                    <li><%= link_to("Wattball", wattball_matches_path) %></li>
+                                                    <li><%= link_to("Hurdle", hurdle_matches_path) %></li>
+                                                  </ul>
+                                                </li>
 						<li<%
-                                                if params[:controller] == "teams"
+                                                if params[:controller] == "teams" and params[:action] != "results"
                                                         %> class="active"<%
                                                 end
                                                         %>><%= link_to("Teams", teams_path) %></li>
-    <li<%
-                                                if params[:controller] == "hurdle_matches"
-                                                        %> class="active"<%
-                                                end
-                                                        %>><%= link_to("Hurdles", hurdle_matches_path) %></li>
 						
                                                         <li><%= link_to 'About us', about_path %></li>
                                                         <li><%= link_to "Contact", sport_center_path %></li>            
@@ -85,10 +97,8 @@
         <p class="notice"><%= flash[:notice] %></p>
       <% end %>
   		<p><%= render_breadcrumbs %></p>
-		<hr/>
+		<br/>	
 		<%= yield %>
-
-	      <hr>
 <footer class="footer">
       <div class="container">
       <a href="#">Back to top</a>
@@ -121,67 +131,5 @@ $(function() {
   });
 });
 </script>
-
-
-<!--
-Old HTML
-<div class="container-narrow">
-<div class="navbar nav-pills">
-  <div class="navbar-inner main-menu">
-    <a class="brand" href="/">Wattball</a>
-    <ul class="nav pull-right">
-      <% if user_signed_in? %>
-        <li><%= link_to current_user.name, edit_user_registration_path %></li>
-        <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
-      <% else %>
-        <li><%= link_to('Login', new_user_session_path) %></li>
-      <% end %>
-    </ul>
-    <ul class="nav">
-  	<li<% if params[:controller] == "home" %>
-	   class="active"
-	   <% end %>
-		><a href="/">Home</a></li>
-      <li<% if params[:controller] == "events" %>
-           class="active"
-           <% end %>
-                ><%= link_to("Calendar", events_path) %></li>
-      <li<% if params[:controller] == "teams" %>
-           class="active"
-           <% end %>
-                ><%= link_to("Teams", teams_path) %></li>
-      <li<% if params[:controller] == "wattball_player" %>
-           class="active"
-           <% end %>
-                ><%= link_to("Athletes", hurdle_players_path) %></li>
-      <li><a href="/">Gallery</a></li>
-      <% # This should be more dynamic
-    %>
-      <li><a href="/about">About us</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </div>
-</div>
-<div class="container">
-  <% if flash[:notice] %>
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
-  <% if flash[:alert] %>
-    <p class="alert"><%= flash[:alert] %></p>
-  <% end %>
-  <p class="breadcrumbs"><%= render_breadcrumbs %></p>
-
-<%= yield %>
-
-</div>
-
-<hr>
-  <footer>
-  	<% @controller_name %>
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>Copyright 2012 © RailsDrive. All rights reserved.</p>
-  </footer>
-</div>
--->      
 </body>
 </html>

@@ -30,6 +30,7 @@
   <div class="row-fluid home">
     <div class="span4 thumbnail">
       <h2>Recent Results</h2>
+      <div class="thumbnail-content">
       <% list = "" %>
       <% # Only find the results, not all %>
       <% matches = WattballMatch.most_recent(5).where(:events => {:status => 'played'})
@@ -49,7 +50,8 @@
         else
           list = "No matches have been played, yet."
         end %>
-      <%= list.html_safe %>
+        <%= list.html_safe %>
+      </div>
       <div class="bottom">
         <hr />
         <p><%= link_to("View all Results", wattball_matches_path) %></p>
@@ -57,29 +59,28 @@
     </div>
     <div class="span4 thumbnail">
       <h2>News Feed</h2>
-      <ul>
+        <div class="thumbnail-content">
       <% Blog.order(:created_at).limit(3).each do |blog|
         @blog = blog %>
-        <%= content_tag :li, render(:template => 'blogs/show') %>
+          <hr class="small"/>
+          <%= content_tag :div, render(:template => 'blogs/show') %>
       <% end %>
-    </ul>
-    <div class="bottom">
+        </div>
+      <div class="bottom">
         <hr />
-        <%= link_to "More", blogs_path %>
-    </div>
+        <p><%= link_to "More", blogs_path %></p>
+      </div>
     </div>
     <div class="span4 thumbnail">
       <h2>Upcoming Events</h2>
-      <div class="home-events">
-        <ul>
+      <div class="home-events thumbnail-content">
           <% # Change the period, to 2.weeks with a limit? %>
           <% Event.upcoming.limit(6).each do |event| %>
             <% info = event_info(event) 
             if info %>
-              <li><%= info.html_safe %></li>
+        <div class="info"><%= info.html_safe %></div>
               <% end %>
           <% end %>
-        </ul>
 
         <div class="bottom">
           <hr />
