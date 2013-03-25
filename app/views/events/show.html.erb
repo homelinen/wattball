@@ -28,7 +28,7 @@
 
 <p>
   <b>Tournament:</b>
-  <%= @event.tournament.name %>
+  <%= link_to @event.tournament.name, tournament_path(@event.tournament)%>
 </p>
 <br/>
 <p class="pagination-centered">
