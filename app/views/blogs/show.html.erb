@@ -1,10 +1,10 @@
-<%= content_tag :h3, link_to(@blog.title, @blog) %>
+<%= content_tag :h3, link_to(@blog.title, @blog, 'class' => 'a') %>
 
 <p>
   <%= @blog.body %>
 </p>
 
-<p class="blog-user">
+<p class="blog-user right">
 <%= "#{@blog.user.name} \
 at #{@blog.created_at.strftime "%d/%m/%y"}" %>
 </p>

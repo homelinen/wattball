@@ -66,3 +66,14 @@ table.table-non-bordered td{
 .table-clickable tbody tr{
 	cursor: pointer;
 }
+p.blog-user{
+	font-size: 11px;
+}
+hr.small{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.thumbnail .thumbnail-content{
+	overflow-y: auto;
+	height: 289px;
+}
