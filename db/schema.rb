@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(:version => 20130324174121) do
   end
 
   add_index "teams", ["tournament_id"], :name => "index_teams_on_tournament_id"
-  add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
+  add_index "teams", ["user_id"], :name => "index_teams_on_User_id"
 
   create_table "tickets", :force => true do |t|
     t.date     "start"
