@@ -7,7 +7,6 @@ class CreateEvents < ActiveRecord::Migration
       t.string :status
       t.references :official
       t.references :tournament
-      t.integer :round
 
       t.timestamps
     end

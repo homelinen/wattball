@@ -66,10 +66,10 @@ ActiveRecord::Schema.define(:version => 20130324174121) do
   create_table "competitions", :force => true do |t|
     t.string   "name"
     t.integer  "ticket_limit"
-    t.decimal  "adult_price",      :precision => 2, :scale => 0
-    t.decimal  "concession_price", :precision => 2, :scale => 0
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.decimal  "adult_price",      :precision => 4, :scale => 2, :default => 0.0
+    t.decimal  "concession_price", :precision => 4, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
   end
 
   create_table "contacts", :force => true do |t|
