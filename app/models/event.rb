@@ -25,10 +25,10 @@ class Event < ActiveRecord::Base
   end
 
   def valid_start
-    if start.is_a?(DateTime)
-		errors.add(:start, 'must be in the future') if self.start < DateTime.now
-    else
-		#errors.add(:start, 'must be a valid date')
+    if start
+      if self.start < DateTime.now
+        errors.add(:start, 'must be in the future') 
+      end
     end
   end
   

@@ -11,6 +11,8 @@ class WattballMatch < ActiveRecord::Base
 
   validates_presence_of :team1, :team2, :event
 
+  validate :validate_different_teams
+
   def self.most_recent(lim)
     lim = 0 if lim == nil
     WattballMatch.joins(:event).order(:start).limit(lim)
@@ -18,6 +20,15 @@ class WattballMatch < ActiveRecord::Base
 
   def name
       "#{self.team1.teamName} vs #{self.team2.teamName}"
+  end
+
+  def validate_different_teams
+    if team1 and team2
+      if team1 == team2
+        errors.add(:team1, "not allowed to be the same as team2")
+        errors.add(:team2, "not allowed to be the same as team2")
+      end
+    end
   end
 
   # Calculate the Result of a Wattball Match
