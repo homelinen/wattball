@@ -5,21 +5,21 @@ module HurdleSchedule
 		
 		if events.count == 0
 			Rails.logger.debug("debug::" +"day1")
-			day1(tour)
-			return 0
+			return day1(tour)
 		end
 		
 		round = getNextRound(tour) 
+		return round if round.is_a? String
 		
 		if round == 1
 			Rails.logger.debug("debug::" +"day2")
-			day2(tour, 2)
-			return 0
+			return day2(tour, 2)
 		else
 			#Rails.logger.debug("debug::" +"day %d", round)
-			dayN(tour, round)
-			return 0
+			return dayN(tour, round)
 		end
+		
+		return "Did nothing. #{events.count} events found & next round is ##{round}"
 		
 	end
 
@@ -37,32 +37,33 @@ module HurdleSchedule
 		
 		#Get all players
 		players = HurdlePlayer.where(:tournament_id => tour.id)
+		return "No players registered for the tournament." if players.empty?
 		
 		#Find number of rounds & numbers of players in each.
 		#Create array of rounds, storing number of players in each round.
-		rounds = [players_with_no_time.size]
-		until players.size == 8 do
-			rounds.append(players.size)
-			unless players.size < 16
-				x = players.size / 2
-				if x%8 != 0
-					x += 8 - (x%8)
-				end
-				players = players[0,x]
-			else
-              players = players[0,8]
-		   end
+		rounds = [players_with_no_time.size, players.size]
+		rounds = [0, players.size]
+		if players.size > 8
+			begin
+				unless players.size < 16
+					x = players.size / 2
+					if x%8 != 0
+						x += 8 - (x%8)
+					end
+					players = players[0,x]
+				else
+	              players = players[0,8]
+			   end
+			   rounds.append(players.size)
+			end until players.size <= 8
 		end
-		rounds.append(8)
 		
 		#Make the blank tournaments events.
 		makeBlankEvents(tour, rounds)
 		
 		#If there are no players with no time, go straight to day2
-		if players_with_no_time.empty?
-			day2(tour, 1)
-			return nil
-		end
+		return day2(tour, 1) if players_with_no_time.empty?
+		
 		
 		#To randomise lanes, shuffle players.
 		players_with_no_time.shuffle
@@ -73,7 +74,8 @@ module HurdleSchedule
 		for heat in heats
 			fillHeat(heat, 1, tour)
 		end
-	
+		
+		return "Hurdle schedule success: #{heats.length} events scheduled over #{rounds.size} rounds"
 	end
 	
 	def day2(tour, round)
@@ -91,6 +93,8 @@ module HurdleSchedule
 		for heat in heats
 			fillHeat(heat, round, tour)
 		end
+		
+		return "Hurdle day 2 success."
 	end
 	
 	def dayN(tour, round)
@@ -142,6 +146,8 @@ module HurdleSchedule
 			end
 			fillHeat(heat, round+1, tour)
 		end
+		
+		return "DayN success, round #{round+1} scheduled."
 	end
 	
 	def fillHeat (players, round, tour)
@@ -153,6 +159,8 @@ module HurdleSchedule
 		#Get all blank events, then sort them by start date, soonest at the top
 		blankEvent = tour.events.where(:round => round, :status => "pending")
 		blankEvent.sort_by!{|u| u.start }
+		
+		return "End of tournament: No blank heats to fill in" if blankEvent.empty?
 		
 		blankEvent = blankEvent.first
 		
@@ -335,7 +343,7 @@ module HurdleSchedule
 			events.each do |event|
 				event.hurdle_match.hurdle_times.each do |t|
 					if t.time == nil
-						raise "Event has nil time. All times just be filled before the players in the next round can be decided."
+						return "All times just be filled before the players in the next round can be decided."
 					end
 				end
 			end
@@ -348,14 +356,14 @@ module HurdleSchedule
 		end
 		
 		#Something really weird just happened.
-		raise "This error should not occur.\n Scheduling has failed at: \nfunction: getNextRound"
+		return "This error should not occur.\n Scheduling has failed at: \nfunction: getNextRound"
 	end
 	
 	def freeTicket(tour, player, event)
 		tickets = player.user.tickets
 		eStart = event.start.to_date
 		
-		issuedTickets = player.tickets.where(:status => "Free")
+		issuedTickets = player.user.tickets.where(:status => "Free")
 		issuedTickets.sort_by!{|u|u.start}
 		unless issuedTickets.empty?
 			issuedTickets.each do |x|
@@ -376,7 +384,7 @@ module HurdleSchedule
 		
 	end
 	
-	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime
+	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime, :getNextRound
 end
 	
 	

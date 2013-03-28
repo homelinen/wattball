@@ -66,6 +66,10 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem "faker", "~> 1.1.2"
 gem "factory_girl_rails", "~> 4.0"
 
+#Generate ER diagram
+gem "rails-erd"
+
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
@@ -77,3 +81,4 @@ gem "factory_girl_rails", "~> 4.0"
 
 # To use debugger
 # gem 'debugger'
+

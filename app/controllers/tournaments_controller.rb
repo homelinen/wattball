@@ -20,7 +20,6 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1.json
   def show
     @tournament = Tournament.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @tournament }
@@ -88,19 +87,25 @@ class TournamentsController < ApplicationController
   end
   
   def schedule
+    message = "Schedule controller message error."
 	@tournament = Tournament.find(params[:id])
 	if @tournament.sport != nil
 		case @tournament.sport.name.strip.downcase
 		when "wattball"
-			RoundRobin.generate(@tournament)
+			message = RoundRobin.generate(@tournament)
+			
 			@tournaments = Tournament.all
+			flash[:alert] = message
 			render action: "index"
-		when "hurdling"
-			HurdleSchedule.generate(@tournament)
+		when "hurdling", "hurdles"
+			message = HurdleSchedule.generate(@tournament)
+			
 			@tournaments = Tournament.all
+			flash[:alert] = message
 			render action: "index"
 		else
 			@tournaments = Tournament.all
+			flash[:alert] = message
 			render action: "index"
 			#Tournament scheduler not found, make sure sport is either Wattball or Hurdling
 		end
