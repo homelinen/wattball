@@ -28,7 +28,60 @@ describe Team do
 
   it "should always expect a h" do
     @team.should_not allow_value(@valid_wattball_id.delete("H")).for(:org_tag).with_message("ID should be a \"H\" followed by 6 numbers")
+  end
 
+  describe "total goal diff" do
+
+    before(:each) do
+
+      @team1 = FactoryGirl.create(:team)
+      team2 = FactoryGirl.create(:team)
+
+      @player1 = FactoryGirl.create(:wattball_player, :team => @team1)
+      @player2 = FactoryGirl.create(:wattball_player, :team => team2)
+
+      @wattball_match = FactoryGirl.create(
+        :wattball_match, 
+        :team1 => @team1, 
+        :team2 => team2
+      )
+    end
+
+    def score(amount, player, match)
+      FactoryGirl.create(:score,
+                            :amount => amount, 
+                            :wattball_match => match, 
+                            :wattball_player => player
+                           )
+    end
+
+    it "should have a total goal difference" do
+
+      score(4, @wattball_match, @player1)
+      score(2, @wattball_match, @player2)
+
+      @team1.goal_difference.should eq(2)
+    end
+
+
+    it "more complicated goal difference" do
+      
+      scores_against = [4, 2]
+      scores_concede = [3, 2]
+
+      score(scores_concede[0], @wattball_match, @player2)
+
+      match = FactoryGirl.create(:wattball_match, :team1 => @team1)
+      score(scores_against[0], match, @player1)
+      score(scores_concede[1], match, FactoryGirl.create(:wattball_player, :team => Team.last))
+
+      score(scores_against[1], 
+            FactoryGirl.create(:wattball_match, :team1 => 
+                       FactoryGirl.create(:team), :team2 => @team1),
+                       FactoryGirl.create(:wattball_player, :team => Team.last))
+
+      @team1.goal_difference.should eq(scores_against.sum - scores_concede.sum)
+    end
   end
 end
 
