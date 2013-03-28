@@ -41,7 +41,7 @@ module EventsHelper
     end
 
     if link
-      "#{link.html_safe} at #{get_date_and_time(event.start)}"
+      "#{link.html_safe} #{"\n<br/>"} at #{get_date_and_time(event.start)}"
     end
   end
 end

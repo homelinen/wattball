@@ -11,6 +11,9 @@
   <% column :concession_price do |price|
     number_to_currency price
   end %>
+  <% column :title => "Tickets Sold" do |competition|
+    Ticket.total_tickets(competition.id)
+  end %>
   <% column :title => "Action" do |competition|
     link_to "Show", competition
   end %>

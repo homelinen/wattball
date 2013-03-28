@@ -25,6 +25,11 @@ class Team < ActiveRecord::Base
     self.wattball_matches_as_team1 + self.wattball_matches_as_team2
   end
 
+  def played_matches
+    WattballMatch.joins(:event).where("status = :status and (team1_id = :team or team2_id = :team)", :status => "played", :team => self)
+  end
+
+  # Add up all the points a team has been awarded from matches
   def total_points
 
     points = 0
@@ -39,9 +44,35 @@ class Team < ActiveRecord::Base
     points
   end
 
+  # Calculate the total goal difference accrued by the team
+  def goal_difference
+    total_diff = 0
+
+    wattball_matches_as_team1.each do |match|
+      total_diff += match.goal_difference[0]
+    end
+
+    wattball_matches_as_team2.each do |match|
+      total_diff += match.goal_difference[1]
+    end
+       
+    total_diff
+  end
+
   # Make a list of teams and their result
   def self.rank
-    teams = Team.all.sort_by { |team| team.total_points }
-    teams.reverse.values_at 0..2
+    teams = Team.all.sort_by { |team| -team.total_points }
+  end
+
+  # Get the matches that the current team is playing in
+  def upcoming_matches
+    matches = Event.upcoming.map do |ev| 
+      match = ev.wattball_match
+
+      # Get non-null matches that the team is playing in
+      match if match and (match.team1 == self or match.team2 == self)
+    end
+
+    matches.compact
   end
 end

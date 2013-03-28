@@ -12,4 +12,6 @@ describe HurdlePlayer do
   it { @hurdle_player.should validate_presence_of :nationality }
 
   it { @hurdle_player.should ensure_inclusion_of(:sex).in_array %w( m f ) }
+
+  it { @hurdle_player.should_not allow_value(Date.today - 17.years).for(:dob) }
 end

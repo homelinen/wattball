@@ -11,6 +11,8 @@ class WattballMatch < ActiveRecord::Base
 
   validates_presence_of :team1, :team2, :event
 
+  validate :validate_different_teams
+
   def self.most_recent(lim)
     lim = 0 if lim == nil
     WattballMatch.joins(:event).order(:start).limit(lim)
@@ -18,6 +20,15 @@ class WattballMatch < ActiveRecord::Base
 
   def name
       "#{self.team1.teamName} vs #{self.team2.teamName}"
+  end
+
+  def validate_different_teams
+    if team1 and team2
+      if team1 == team2
+        errors.add(:team1, "not allowed to be the same as team2")
+        errors.add(:team2, "not allowed to be the same as team2")
+      end
+    end
   end
 
   # Calculate the Result of a Wattball Match
@@ -81,21 +92,46 @@ class WattballMatch < ActiveRecord::Base
         raise "Invalid Team chosen"
       end
 
+      p first_team <=> sec_team
       # Compare the results
       outcome = first_team <=> sec_team
 
       if outcome > 0
         # Win
-        3
+        result = 3
       elsif outcome < 0
-        # Draw
-        0
-      else 
         # Loss
-        1
+        result = 0
+      else 
+        # Draw
+        result = 1
       end
     else
-      nil
+      result = nil
     end
+
+    result
+  end
+
+
+  # Calculate the difference between goals of the two teams
+  #
+  # Returns an array of differences, [team1, team2]
+  def goal_difference
+    p1 = calculate_score(team1)
+    p2 = calculate_score(team2)
+
+    return 0 if p1.nil? or p2.nil?
+
+     diff = p1 - p2
+
+     diff_1 = diff
+     diff_1 = 0 if diff_1 < 0
+
+     # The goal difference for second team is the inverse
+     diff_2 = -diff
+     diff_2 = 0 if diff_2 < 0
+
+     [diff_1, diff_2]
   end
 end

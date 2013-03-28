@@ -1,65 +1,84 @@
-<h1>
-  <%= @team.teamName %>
-</h1>
-
-<p>
-  <b>Badge:</b>
-  <%= image_tag @team.badge.url(:thumb) %>
-</p>
-
-<p>
-  <%= link_to "Homepage", @team.website if @team.website %>
-</p>
-
-<% if current_user and current_user.privileged %>
-  <p>
-    Phone Number: <%= @team.phone_number %>
-  </p>
-<% end %>
-
-<p>
-  <b>Players</b>
-  <ul class="playerList">
-    <% # FIXME: Get this out of here %>
-    <% @team.wattball_players.each do |player| %>
-        <li>
-          <%= link_to player.user.name, player %>
-        </li>
+<div class="row">
+  <div class="span12">
+    <h1>
+      <%= @team.teamName %>
+    </h1>
+    <div class="well">
+      <%= image_tag @team.badge.url(:thumb) %>
+      <p>
+        <%= link_to "Homepage", @team.website if @team.website %>
+      </p>
+      <% if current_user and current_user.privileged? %>
+      <p>
+        Phone Number: <%= @team.phone_number %>
+      </p>
+      <% end %>
+      <p>
+        <b>Manager:</b>
+        <%= @team.user.name %>
+      </p>
+  
+  <% if current_user && current_user.privileged? %>
+      <p>
+        <b>Wattball ID:</b>
+        <%= @team.org_tag %>
+      </p>
     <% end %>
-  </ul>
-</p>
-    
-<p>
-  <b>Matches:</b>
-  <% list = "" %>
-  <% @team.wattball_matches.each do |match|
-    list += content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match)
-  end %>
-  <%= content_tag :ul, list.html_safe %>
-  </ul>
-</p>
-
-<p>
-  <b>Manager:</b>
-  <%= @team.user.name %>
-</p>
-
-<% if current_user && current_user.privileged? %>
-  <p>
-    <b>Wattball ID:</b>
-    <%= @team.org_tag %>
-  </p>
-<% end %>
-
-<p>
+      <p>
   <% if @team.tournament %>
     Registered for
-    <%= link_to @team.tournament.name, @team.tournament %>.
+      <%= link_to @team.tournament.name, @team.tournament %>.
   <% else %>
     Not Registered for a Tournament (Can't happen).
   <% end %>
-</p>
+      </p>
 
+      <hr/>
+      <div class="row">
+        <div class="span6">
+          <table class="table">
+        <% # FIXME: Get this out of here %>
+        <% @team.wattball_players.each do |player| %>
+            <tr class="info">
+              <td>
+                <%= link_to player.user.name, player %>
+              </td>
+            </tr>
+        <% end %>
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
+          </table>
+        </div>
+
+        <div class="span4 offset1">
+          <h2>
+            Played Matches :
+          </h2>
+          <div class="well">
+            <ul>
+              <% @team.played_matches.each do |match| %>
+                <%= content_tag :li, link_to(wattball_match_result(match), match) %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="span4 offset1">
+          <h2>
+            Upcoming Matches:
+          </h2>
+          <div class="well">
+            <ul>
+              <% @team.upcoming_matches.each do |match| %>
+                <%= content_tag :li, link_to("#{match.team1.teamName} vs #{match.team2.teamName}", match) %> 
+              <% end %>
+            </ul>
+          </div>
+        </div>
+     </div>
+    </div>
+  </div>
+
+<% if current_user and (current_user.privileged? or current_user.team == @team) %>
+  <%= link_to 'Edit', edit_team_path(@team) %> |
+<% end %>
 <%= link_to 'Back', teams_path %>

@@ -36,7 +36,8 @@ class Ticket < ActiveRecord::Base
   # Ensure at least one ticket has been purchased
   def valid_amount 
     if adults < 1 && concessions < 1
-      errors.add(:ticket_count, "must buy at least one ticket")
+      errors.add(:adults, "must buy at least one adult or concession ticket")
+      errors.add(:concessions, "must buy at least one concession or adult ticket")
     end
   end
 
@@ -54,10 +55,13 @@ class Ticket < ActiveRecord::Base
   # Check that the tickets bought don't go over the daily ticket limit
   def valid_not_sold_out
     
-    ticket_count = Ticket.where(:competition_id => competition_id).sum("adults") + Ticket.where(:competition_id => competition_id).sum("concessions")
-
+    ticket_count = Ticket.total_tickets competition_id
     if ticket_count + adults + concessions > competition.ticket_limit
       errors.add(:sold_out, "All tickets are sold out, sorry.")
     end
+  end
+
+  def self.total_tickets(competition_id)
+    Ticket.where(:competition_id => competition_id).sum("adults") + Ticket.where(:competition_id => competition_id).sum("concessions")
   end
 end

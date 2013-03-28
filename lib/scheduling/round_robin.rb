@@ -19,7 +19,7 @@ module RoundRobin
 		start = tour.startDate
 		
 		#Get fields names
-		fields = Venue.joins(:sport).where("sports.name = 'Wattball'")
+		fields = tour.sport.venues
 		return "No venue. Please add a venue for the sport to schedule matches." if fields.empty?
 		
 		schedule = RRSchedule::Schedule.new(

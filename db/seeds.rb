@@ -16,35 +16,8 @@ p "Created the admin user."
 
 FactoryGirl.create :sport_center
 
-# Create the tournaments
-FactoryGirl.create(:tournament, :name => "Wattball Tournament")
+FactoryGirl.create :sport, :name => "wattball", :length => 90
+FactoryGirl.create :venue, :sport => Sport.last, :name => "Wattball Stadium"
 
-p "Created the Sport Center, tournaments and venues."
-
-# Create 4 teams of 11 players
-(1..4).each do |i|
-    team = FactoryGirl.create(:team)
-    FactoryGirl.create_list(:wattball_player, 11, team: team)
-end
-
-p "Created 4 teams of Wattball Players"
-
-#FactoryGirl.create_list(:wattball_match, 4)
-
-#FactoryGirl.create_list(:score, 8)
-
-# Hurdle seed, 8 players, 2 rounds and 8 times
-FactoryGirl.create(:tournament, :name => "Hurdle Tournament", 
-                   :sport => FactoryGirl.create(
-                     :sport, 
-                     :name => "hurdles"
-                    )
-                  )
-p "Created the Hurdle Tournament"
-
-FactoryGirl.create_list(:hurdle_player, 8)
-p "Created 8 Hurdlers"
-
-# FIXME: Replace the hurdle_match generator with the scheduler
-#FactoryGirl.create_list(:hurdle_match, 2)
-#FactoryGirl.create_list(:hurdle_time, 8)
+FactoryGirl.create :sport, :name => "hurdles", :length => 20
+FactoryGirl.create :venue, :sport => Sport.last, :name => "Hurdle Stadium"

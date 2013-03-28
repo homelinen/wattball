@@ -22,7 +22,7 @@ describe "User" do
           it { should_not be_able_to(:destroy, model) }
           it { should_not be_able_to(:edit, model) }
 
-          unless model == User
+          unless model == User or model == Ticket
             it { should_not be_able_to(:create, model) }
           end
       end
@@ -83,7 +83,7 @@ describe "User" do
       it {should_not be_able_to(:edit, User.all - [user])}
       it { should be_able_to(:create, Ticket) }
 
-      it_behaves_like "unprivilidged", [Ticket.to_s]
+      it_behaves_like "unprivilidged", [Ticket.to_s, WattballPlayer.to_s, HurdlePlayer.to_s]
     end
 
     context "when is a guest" do

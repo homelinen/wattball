@@ -42,7 +42,6 @@ module HurdleSchedule
 		#Find number of rounds & numbers of players in each.
 		#Create array of rounds, storing number of players in each round.
 		rounds = [players_with_no_time.size, players.size]
-		rounds = [0, players.size]
 		if players.size > 8
 			begin
 				unless players.size < 16
@@ -178,6 +177,7 @@ module HurdleSchedule
 		blankEvent.save
 	end
 	
+	
 	def makeBlankEvents(tour, rounds)
 		#rounds index = round, rounds[x] = numbers of players in that round.
 		#Eg. rounds = [10, 32, 16, 8]
@@ -204,7 +204,7 @@ module HurdleSchedule
 		
 		
 		rounds.each_with_index do |round, index|
-			(rounds[index] / 8).times do
+			((rounds[index] / 8.0).ceil).times do
 				time = getNextTime(times, tour, gTs, index+1)
 				times.append(makeBlankHeat(tour, index+1, time))
 				times.sort_by!{|t|t.start}

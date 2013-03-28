@@ -11,4 +11,12 @@ class Tournament < ActiveRecord::Base
   validates_presence_of :name, :startDate, :endDate, :max_competitors
 
   validates :max_competitors, :numericality => { :greater_than => 0 }
+
+  def competitors 
+    
+    count = teams.count unless teams.empty?
+    count = hurdle_players.count unless hurdle_players.empty?
+
+    count
+  end
 end

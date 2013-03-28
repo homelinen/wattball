@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   # NOTE: Does event need to know this?
   has_many :hurdle_times, :through => :hurdle_match
 
-  attr_accessible :date, :end, :start, :status, :official_id, :tournament_id, :round
+  attr_accessible :date, :end, :start, :status, :official_id, :tournament_id, :round, :official
 
   validates_presence_of :start, :status, :tournament, :venue
 
@@ -25,10 +25,10 @@ class Event < ActiveRecord::Base
   end
 
   def valid_start
-    if start.is_a?(DateTime)
-		errors.add(:start, 'must be in the future') if self.start < DateTime.now
-    else
-		#errors.add(:start, 'must be a valid date')
+    if start
+      if self.start < DateTime.now
+        errors.add(:start, 'must be in the future') 
+      end
     end
   end
   
