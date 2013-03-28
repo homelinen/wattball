@@ -49,7 +49,7 @@ class Team < ActiveRecord::Base
     total_diff = 0
 
     wattball_matches_as_team1.each do |match|
-      total_diff = match.goal_difference[0]
+      total_diff += match.goal_difference[0]
     end
 
     wattball_matches_as_team2.each do |match|

@@ -118,8 +118,8 @@ class WattballMatch < ActiveRecord::Base
   #
   # Returns an array of differences, [team1, team2]
   def goal_difference
-    p1 = calculate_score(1)
-    p2 = calculate_score(2)
+    p1 = calculate_score(team1)
+    p2 = calculate_score(team2)
 
     return 0 if p1.nil? or p2.nil?
 
