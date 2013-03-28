@@ -14,11 +14,13 @@ module RoundRobin
 		#tour = Tournament.joins(:sport).where("sports.name = 'Wattball'").first
 		
 		teams = tour.teams
-
+		return "No teams registered to play in this tournament." if teams.empty?
+		
 		start = tour.startDate
 		
 		#Get fields names
 		fields = tour.sport.venues
+		return "No venue. Please add a venue for the sport to schedule matches." if fields.empty?
 		
 		schedule = RRSchedule::Schedule.new(
 			:teams => teams,
@@ -86,6 +88,8 @@ module RoundRobin
 				
 			end
 		end
+		
+		return "Round-Robin type scheduling successful."
 
 	end
 	
