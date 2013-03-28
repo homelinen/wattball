@@ -17,8 +17,12 @@ class HurdlePlayer < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   def valid_dob
-    if self.dob > 17.years.ago.to_date
-      errors.add(:dob, "You must be 18 to enter this event.")
+    if dob
+      if dob > 18.years.ago.to_date
+        errors.add(:dob, "You must be 18 to enter this event.")
+      end
+    else
+      errors.add(:dob, "cannot be nil")
     end
   end
 

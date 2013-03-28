@@ -37,6 +37,8 @@ class Ability
     # All users have these rights
     if user
       can :create, Ticket
+      can :create, WattballPlayer
+      can :create, HurdlePlayer
       can :edit, user
     end
 
@@ -48,12 +50,17 @@ class Ability
 
     cannot :manage, Ticket if !user.registered?
 
+    # Other User overrides
+    if user.wattball_player or user.hurdle_player or user.team
+      cannot :create, WattballPlayer 
+      cannot :create, HurdlePlayer 
+    end
+
     # Some read overrides
     cannot :read, Staff unless user.admin?
     cannot :read, User, :admin => true unless user.admin?
 
     can :create, User
-    can :create, WattballPlayer
 
     can :manage, :all if user.admin?
   end

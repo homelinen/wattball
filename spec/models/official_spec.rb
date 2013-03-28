@@ -9,6 +9,4 @@ describe Official do
 
   it { @official.should validate_presence_of :phone }
   it { @official.should validate_presence_of :user }
-
-  it { @official.should validate_presence_of :calendar }
 end

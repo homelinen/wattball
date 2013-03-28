@@ -36,7 +36,8 @@ class Ticket < ActiveRecord::Base
   # Ensure at least one ticket has been purchased
   def valid_amount 
     if adults < 1 && concessions < 1
-      errors.add(:ticket_count, "must buy at least one ticket")
+      errors.add(:adults, "must buy at least one adult or concession ticket")
+      errors.add(:concessions, "must buy at least one concession or adult ticket")
     end
   end
 

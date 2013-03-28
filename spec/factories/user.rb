@@ -59,7 +59,9 @@ FactoryGirl.define do
 
   factory :team do
     user
-    tournament { Tournament.where(:sport_id => Sport.where(:name => "Wattball").first.id).first || FactoryGirl.create(:tournament) }
+    tournament { 
+      sport = Sport.where(:name => "Wattball").first || FactoryGirl.create(:sport)
+      Tournament.where(:sport_id => sport.id).first || FactoryGirl.create(:tournament) }
     teamName { Faker::Name.first_name + " FC"}
     org_tag {'H' + Dummy.random_numbers(6) }
   end

@@ -9,8 +9,9 @@ describe Event do
 
   it { @event.should validate_presence_of :start }
 
-  it { @event.should_not allow_value(Date.today - 2.days, :with_message => "Date must be in the future").for(:start) }
-  it { should allow_value(Date.today).for(:start) }
+
+  it { @event.should_not allow_value(DateTime.now - 1.hour, :with_message => "Date must be in the future").for(:start) }
+  it { should allow_value(DateTime.now + 1.hour).for(:start) }
 
   it { @event.should validate_presence_of :status }
   it { @event.should_not validate_presence_of :official }
