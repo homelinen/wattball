@@ -47,7 +47,7 @@ describe Team do
       )
     end
 
-    def score(amount, player, match)
+    def score(amount, match, player)
       FactoryGirl.create(:score,
                             :amount => amount, 
                             :wattball_match => match, 
@@ -66,21 +66,31 @@ describe Team do
 
     it "more complicated goal difference" do
       
-      scores_against = [4, 2]
-      scores_concede = [3, 2]
+      scores_against = [0, 4, 2]
+      scores_concede = [3, 2, 0]
 
       score(scores_concede[0], @wattball_match, @player2)
 
-      match = FactoryGirl.create(:wattball_match, :team1 => @team1)
-      score(scores_against[0], match, @player1)
+      match = FactoryGirl.create(:wattball_match, :team1 => @team1, :team2 =>
+                       FactoryGirl.create(:team)
+                       )
+
+      score(scores_against[1], match, @player1)
       score(scores_concede[1], match, FactoryGirl.create(:wattball_player, :team => Team.last))
 
-      score(scores_against[1], 
+      score(scores_against[2], 
             FactoryGirl.create(:wattball_match, :team1 => 
                        FactoryGirl.create(:team), :team2 => @team1),
-                       FactoryGirl.create(:wattball_player, :team => Team.last))
+                       FactoryGirl.create(:wattball_player, :team => Team.first))
 
-      @team1.goal_difference.should eq(scores_against.sum - scores_concede.sum)
+      expected = 0
+      scores_against.size.times do |i|
+        if scores_against[i] > scores_concede[i]
+          expected += scores_against[i] - scores_concede[i]
+        end
+      end
+
+      @team1.goal_difference.should eq(expected)
     end
   end
 end
