@@ -81,7 +81,7 @@ module HurdleSchedule
 		#Everyone races
 		#Uneven number of athletes
 		#Random lanes
-		
+		message = "Hurdle day 2 success."
 		#Get all players
 		#Shuffle to randomise lanes.
 		players = HurdlePlayer.where(:tournament_id => tour.id).shuffle
@@ -90,10 +90,11 @@ module HurdleSchedule
 		heats = players.in_groups((players.size/8.0).ceil, false)
 
 		for heat in heats
-			fillHeat(heat, round, tour)
+			m = fillHeat(heat, round, tour)
+			message = m if m != nil
 		end
 		
-		return "Hurdle day 2 success."
+		return 
 	end
 	
 	def dayN(tour, round)
@@ -175,6 +176,8 @@ module HurdleSchedule
 		
 		blankEvent.status = "scheduled"
 		blankEvent.save
+		
+		return nil
 	end
 	
 	
@@ -217,7 +220,7 @@ module HurdleSchedule
 		event = Event.new({:status => "pending", :tournament_id => tour.id, :round => round, :start => time})
 
         if Venue.count < 1
-          print "Must create a venue before making a schedule"
+          return "Must create a venue before making a schedule"
         end
 
 		ven = tour.sport.venues.first
@@ -384,7 +387,7 @@ module HurdleSchedule
 		
 	end
 	
-	module_function :generate, :roundConflict, :getUsedTimes, :getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime, :getNextRound
+	module_function :generate, :roundConflict, :getUsedTimes, :freeTicket,:getNextTime, :makeBlankEvents, :makeBlankHeat, :dayN, :day2, :day1, :getNextTime, :getNextRound, :fillHeat
 end
 	
 	
