@@ -73,6 +73,6 @@ class Team < ActiveRecord::Base
       match if match and (match.team1 == self or match.team2 == self)
     end
 
-    matches.compact!
+    matches.compact
   end
 end
